@@ -73,6 +73,25 @@ class TagName(Base):
         self.order = order
 
 
+class TagTagCategory(Base):
+    __tablename__ = "tag_tag_category"
+
+    tag_id = sa.Column(
+        "tag_id",
+        sa.Integer,
+        sa.ForeignKey("tag.id", ondelete="CASCADE"),
+        nullable=False,
+        primary_key=True,
+    )
+    category_id = sa.Column(
+        "category_id",
+        sa.Integer,
+        sa.ForeignKey("tag_category.id", ondelete="CASCADE"),
+        nullable=False,
+        primary_key=True,
+    )
+
+
 class Tag(Base):
     __tablename__ = "tag"
 
@@ -80,8 +99,7 @@ class Tag(Base):
     category_id = sa.Column(
         "category_id",
         sa.Integer,
-        sa.ForeignKey("tag_category.id"),
-        nullable=False,
+        nullable=True,
         index=True,
     )
     version = sa.Column("version", sa.Integer, default=1, nullable=False)
@@ -89,7 +107,20 @@ class Tag(Base):
     last_edit_time = sa.Column("last_edit_time", sa.DateTime)
     description = sa.Column("description", sa.UnicodeText, default=None)
 
-    category = sa.orm.relationship("TagCategory", lazy="joined")
+    categories = sa.orm.relationship(
+        "TagCategory",
+        secondary="tag_tag_category",
+        lazy="joined",
+        order_by="TagCategory.order",
+    )
+
+    @property
+    def category(self):
+        """Primary category (lowest order) for backward compatibility."""
+        if self.categories:
+            return self.categories[0]
+        return None
+
     names = sa.orm.relationship(
         "TagName",
         cascade="all,delete-orphan",

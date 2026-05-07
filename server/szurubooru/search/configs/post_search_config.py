@@ -132,9 +132,9 @@ def _category_filter(
         model.TagCategory.name == criterion.value
     )
 
-    # Step 2. find the tags with that category
-    q2 = db.session.query(model.Tag.tag_id).filter(
-        model.Tag.category_id.in_(q1)
+    # Step 2. find the tags with that category (via junction table)
+    q2 = db.session.query(model.TagTagCategory.tag_id).filter(
+        model.TagTagCategory.category_id.in_(q1)
     )
 
     # Step 3. find all posts that have at least one of those tags
@@ -197,6 +197,7 @@ class PostSearchConfig(BaseSearchConfig):
             sa.orm.defer(model.Post.last_comment_creation_time),
             sa.orm.defer(model.Post.last_comment_edit_time),
             sa.orm.defer(model.Post.note_count),
+            sa.orm.defer(model.Post.relation_count),
             sa.orm.defer(model.Post.tag_count),
             strategy(model.Post.tags).subqueryload(model.Tag.names),
             strategy(model.Post.tags).defer(model.Tag.post_count),

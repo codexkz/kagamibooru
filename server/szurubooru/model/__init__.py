@@ -14,6 +14,6 @@ from szurubooru.model.post import (
     PostTag,
 )
 from szurubooru.model.snapshot import Snapshot
-from szurubooru.model.tag import Tag, TagImplication, TagName, TagSuggestion
+from szurubooru.model.tag import Tag, TagImplication, TagName, TagSuggestion, TagTagCategory
 from szurubooru.model.tag_category import TagCategory
 from szurubooru.model.user import User, UserToken

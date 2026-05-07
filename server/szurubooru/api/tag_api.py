@@ -43,7 +43,6 @@ def create_tag(
     auth.verify_privilege(ctx.user, "tags:create")
 
     names = ctx.get_param_as_string_list("names")
-    category = ctx.get_param_as_string("category")
     description = ctx.get_param_as_string("description", default="")
     suggestions = ctx.get_param_as_string_list("suggestions", default=[])
     implications = ctx.get_param_as_string_list("implications", default=[])
@@ -51,7 +50,19 @@ def create_tag(
     _create_if_needed(suggestions, ctx.user)
     _create_if_needed(implications, ctx.user)
 
+    # Accept both "categories" (list) and "category" (string, backward compat)
+    if ctx.has_param("categories"):
+        category = ctx.get_param_as_string_list("categories")[0]
+    else:
+        category = ctx.get_param_as_string("category")
+
     tag = tags.create_tag(names, category, suggestions, implications)
+
+    # If categories list was provided, set all of them
+    if ctx.has_param("categories"):
+        tags.update_tag_categories(
+            tag, ctx.get_param_as_string_list("categories")
+        )
     tags.update_tag_description(tag, description)
     ctx.session.add(tag)
     ctx.session.flush()
@@ -75,7 +86,12 @@ def update_tag(ctx: rest.Context, params: Dict[str, str]) -> rest.Response:
     if ctx.has_param("names"):
         auth.verify_privilege(ctx.user, "tags:edit:names")
         tags.update_tag_names(tag, ctx.get_param_as_string_list("names"))
-    if ctx.has_param("category"):
+    if ctx.has_param("categories"):
+        auth.verify_privilege(ctx.user, "tags:edit:category")
+        tags.update_tag_categories(
+            tag, ctx.get_param_as_string_list("categories")
+        )
+    elif ctx.has_param("category"):
         auth.verify_privilege(ctx.user, "tags:edit:category")
         tags.update_tag_category_name(tag, ctx.get_param_as_string("category"))
     if ctx.has_param("description"):

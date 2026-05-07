@@ -1,8 +1,15 @@
 <div class='content-wrapper tag-summary'>
     <section class='details'>
         <section>
-            Category:
-            <span class='<%= ctx.makeCssName(ctx.tag.category, 'tag') %>'><%- ctx.tag.category %></span>
+            <% if (ctx.tag.categories && ctx.tag.categories.length > 0) { %>
+                Categories:
+                <% for (let cat of ctx.tag.categories) { %>
+                    <span class='<%= ctx.makeCssName(cat, 'tag') %>'><%- cat %></span>
+                <% } %>
+            <% } else if (ctx.tag.category) { %>
+                Category:
+                <span class='<%= ctx.makeCssName(ctx.tag.category, 'tag') %>'><%- ctx.tag.category %></span>
+            <% } %>
         </section>
 
         <section>

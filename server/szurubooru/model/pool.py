@@ -78,7 +78,7 @@ class Pool(Base):
     _posts = sa.orm.relationship(
         "PoolPost",
         cascade="all,delete-orphan",
-        lazy="joined",
+        lazy="select",
         back_populates="pool",
         order_by="PoolPost.order",
         collection_class=ordering_list("order"),

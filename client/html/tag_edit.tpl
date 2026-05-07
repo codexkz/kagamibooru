@@ -12,12 +12,16 @@
             </li>
             <li class='category'>
                 <% if (ctx.canEditCategory) { %>
-                    <%= ctx.makeSelect({
-                        text: 'Category',
-                        keyValues: ctx.categories,
-                        selectedKey: ctx.tag.category,
-                        required: true,
-                    }) %>
+                    <label>Categories</label>
+                    <select name='categories' multiple size='<%= Math.min(Object.keys(ctx.categories).length, 6) %>'>
+                        <% for (let key of Object.keys(ctx.categories)) { %>
+                            <option value='<%- key %>'
+                                <%= ctx.tag.categories.indexOf(key) >= 0 ? 'selected' : '' %>>
+                                <%- ctx.categories[key] %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <p class='hint'>Hold Ctrl/Cmd to select multiple</p>
                 <% } %>
             </li>
             <li class='implications'>

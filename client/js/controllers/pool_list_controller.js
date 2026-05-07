@@ -13,7 +13,6 @@ const EmptyView = require("../views/empty_view.js");
 const fields = [
     "id",
     "names",
-    "posts",
     "creationTime",
     "postCount",
     "category",

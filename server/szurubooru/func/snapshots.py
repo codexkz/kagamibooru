@@ -20,7 +20,8 @@ def get_tag_snapshot(tag: model.Tag) -> Dict[str, Any]:
     assert tag
     return {
         "names": [tag_name.name for tag_name in tag.names],
-        "category": tag.category.name,
+        "category": tag.category.name if tag.category else None,
+        "categories": [cat.name for cat in tag.categories],
         "suggestions": sorted(rel.first_name for rel in tag.suggestions),
         "implications": sorted(rel.first_name for rel in tag.implications),
     }

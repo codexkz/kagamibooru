@@ -117,10 +117,14 @@ def get_post_content_url(post: model.Post) -> str:
 
 def get_post_thumbnail_url(post: model.Post) -> str:
     assert post
+    return get_post_thumbnail_url_by_id(post.post_id)
+
+
+def get_post_thumbnail_url_by_id(post_id: int) -> str:
     return "%s/generated-thumbnails/%d_%s.jpg" % (
         config.config["data_url"].rstrip("/"),
-        post.post_id,
-        get_post_security_hash(post.post_id),
+        post_id,
+        get_post_security_hash(post_id),
     )
 
 
@@ -253,7 +257,8 @@ class PostSerializer(serialization.BaseSerializer):
         return [
             {
                 "names": [name.name for name in tag.names],
-                "category": tag.category.name,
+                "category": tag.category.name if tag.category else None,
+                "categories": [cat.name for cat in tag.categories],
                 "usages": tag.post_count,
             }
             for tag in tags.sort_tags(self.post.tags)

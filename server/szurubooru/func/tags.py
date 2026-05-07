@@ -69,9 +69,9 @@ def sort_tags(tags: List[model.Tag]) -> List[model.Tag]:
     return sorted(
         tags,
         key=lambda tag: (
-            tag.category.order,
-            default_category_name == tag.category.name,
-            tag.category.name,
+            tag.category.order if tag.category else 999,
+            default_category_name == (tag.category.name if tag.category else ""),
+            tag.category.name if tag.category else "",
             tag.names[0].name,
         ),
     )
@@ -80,7 +80,8 @@ def sort_tags(tags: List[model.Tag]) -> List[model.Tag]:
 def serialize_relation(tag):
     return {
         "names": [tag_name.name for tag_name in tag.names],
-        "category": tag.category.name,
+        "category": tag.category.name if tag.category else None,
+        "categories": [cat.name for cat in tag.categories],
         "usages": tag.post_count,
     }
 
@@ -93,6 +94,7 @@ class TagSerializer(serialization.BaseSerializer):
         return {
             "names": self.serialize_names,
             "category": self.serialize_category,
+            "categories": self.serialize_categories,
             "version": self.serialize_version,
             "description": self.serialize_description,
             "creationTime": self.serialize_creation_time,
@@ -106,7 +108,10 @@ class TagSerializer(serialization.BaseSerializer):
         return [tag_name.name for tag_name in self.tag.names]
 
     def serialize_category(self) -> Any:
-        return self.tag.category.name
+        return self.tag.category.name if self.tag.category else None
+
+    def serialize_categories(self) -> Any:
+        return [cat.name for cat in self.tag.categories]
 
     def serialize_version(self) -> Any:
         return self.tag.version
@@ -317,8 +322,21 @@ def create_tag(
 
 
 def update_tag_category_name(tag: model.Tag, category_name: str) -> None:
+    """Set tag to a single category (backward compatible)."""
     assert tag
-    tag.category = tag_categories.get_category_by_name(category_name)
+    category = tag_categories.get_category_by_name(category_name)
+    tag.categories = [category]
+
+
+def update_tag_categories(tag: model.Tag, category_names: List[str]) -> None:
+    """Set tag to multiple categories."""
+    assert tag
+    if not category_names:
+        raise InvalidTagCategoryError("At least one category must be specified.")
+    categories = []
+    for name in category_names:
+        categories.append(tag_categories.get_category_by_name(name))
+    tag.categories = categories
 
 
 def update_tag_names(tag: model.Tag, names: List[str]) -> None:

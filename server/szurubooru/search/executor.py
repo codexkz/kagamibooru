@@ -50,13 +50,13 @@ class Executor:
         prev_filter_query = (
             filter_query.filter(self.config.id_column > entity_id)
             .order_by(None)
-            .order_by(sa.func.abs(self.config.id_column - entity_id).asc())
+            .order_by(self.config.id_column.asc())
             .limit(1)
         )
         next_filter_query = (
             filter_query.filter(self.config.id_column < entity_id)
             .order_by(None)
-            .order_by(sa.func.abs(self.config.id_column - entity_id).asc())
+            .order_by(self.config.id_column.desc())
             .limit(1)
         )
         return (

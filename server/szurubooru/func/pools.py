@@ -135,12 +135,22 @@ class PoolSerializer(serialization.BaseSerializer):
         return self.pool.post_count
 
     def serialize_posts(self) -> Any:
+        # Optimized: single JOIN query instead of N+1 lazy loads
+        pool_posts = (
+            db.session.query(
+                model.PoolPost.post_id, model.Post.mime_type
+            )
+            .join(model.Post, model.Post.post_id == model.PoolPost.post_id)
+            .filter(model.PoolPost.pool_id == self.pool.pool_id)
+            .order_by(model.PoolPost.order)
+            .all()
+        )
         return [
-            post
-            for post in [
-                posts.serialize_micro_post(rel, None)
-                for rel in self.pool.posts
-            ]
+            {
+                "id": post_id,
+                "thumbnailUrl": posts.get_post_thumbnail_url_by_id(post_id),
+            }
+            for post_id, _ in pool_posts
         ]
 
 

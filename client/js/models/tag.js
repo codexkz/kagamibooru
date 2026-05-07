@@ -28,6 +28,10 @@ class Tag extends events.EventTarget {
         return this._category;
     }
 
+    get categories() {
+        return this._categories || [];
+    }
+
     get description() {
         return this._description;
     }
@@ -60,6 +64,10 @@ class Tag extends events.EventTarget {
         this._category = value;
     }
 
+    set categories(value) {
+        this._categories = value;
+    }
+
     set description(value) {
         this._description = value;
     }
@@ -83,7 +91,9 @@ class Tag extends events.EventTarget {
         if (misc.arraysDiffer(this._names, this._orig._names, true)) {
             detail.names = this._names;
         }
-        if (this._category !== this._orig._category) {
+        if (misc.arraysDiffer(this._categories, this._orig._categories, true)) {
+            detail.categories = this._categories;
+        } else if (this._category !== this._orig._category) {
             detail.category = this._category;
         }
         if (this._description !== this._orig._description) {
@@ -172,6 +182,7 @@ class Tag extends events.EventTarget {
             _origName: response.names ? response.names[0] : null,
             _names: response.names,
             _category: response.category,
+            _categories: response.categories || (response.category ? [response.category] : []),
             _description: response.description,
             _creationTime: response.creationTime,
             _lastEditTime: response.lastEditTime,

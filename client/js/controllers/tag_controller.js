@@ -98,7 +98,10 @@ class TagController {
         if (e.detail.names !== undefined && e.detail.names !== null) {
             e.detail.tag.names = e.detail.names;
         }
-        if (e.detail.category !== undefined && e.detail.category !== null) {
+        if (e.detail.categories !== undefined && e.detail.categories !== null) {
+            e.detail.tag.categories = e.detail.categories;
+            e.detail.tag.category = e.detail.categories[0] || null;
+        } else if (e.detail.category !== undefined && e.detail.category !== null) {
             e.detail.tag.category = e.detail.category;
         }
         if (e.detail.description !== undefined && e.detail.description !== null) {

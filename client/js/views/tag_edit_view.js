@@ -102,8 +102,8 @@ class TagEditView extends events.EventTarget {
                         ? misc.splitByWhitespace(this._namesFieldNode.value)
                         : undefined,
 
-                    category: this._categoryFieldNode
-                        ? this._categoryFieldNode.value
+                    categories: this._categoryFieldNode
+                        ? Array.from(this._categoryFieldNode.selectedOptions).map(o => o.value)
                         : undefined,
 
                     implications: this._implicationsFieldNode

@@ -30,6 +30,7 @@ RUN npm install
 COPY . ./
 
 ARG BUILD_INFO="docker-latest"
+ENV BUILD_INFO=${BUILD_INFO}
 ARG CLIENT_BUILD_ARGS=""
 RUN BASE_URL="__BASEURL__" node build.js --gzip ${CLIENT_BUILD_ARGS}
 
