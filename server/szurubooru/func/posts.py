@@ -964,7 +964,7 @@ def search_by_image(image_content: bytes) -> List[Tuple[float, model.Post]]:
     ORDER BY score DESC LIMIT 100;
     """
 
-    candidates = db.session.execute(dbquery, {"q": query_words})
+    candidates = db.session.execute(sa.text(dbquery), {"q": query_words})
     data = tuple(
         zip(
             *[

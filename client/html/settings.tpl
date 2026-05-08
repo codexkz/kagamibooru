@@ -92,6 +92,15 @@
             </li>
         </ul>
 
+            <li>
+                <label>Hidden tag categories</label>
+                <input type='text' name='hidden-categories'
+                       value='<%= (ctx.browsingSettings.hiddenCategories || []).join(" ") %>'
+                       placeholder='e.g. nsfw gore'>
+                <p class='hint'>Space-separated category names. Posts with tags in these categories will be hidden from search results. Add "nsfw" to hide NSFW content.</p>
+            </li>
+        </ul>
+
         <div class='messages'></div>
         <div class='buttons'>
             <input type='submit' value='Save settings'/>

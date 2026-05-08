@@ -49,6 +49,12 @@ class PostList extends AbstractList {
                 text = `-rating:${disabledSafety.join(",")} ${text}`;
             }
         }
+        const hiddenCategories = browsingSettings.hiddenCategories || [];
+        for (let cat of hiddenCategories) {
+            if (cat && text.indexOf("category:" + cat) === -1) {
+                text = `-category:${cat} ${text}`;
+            }
+        }
         return text.trim();
     }
 
