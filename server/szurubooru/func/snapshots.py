@@ -20,7 +20,7 @@ def get_tag_snapshot(tag: model.Tag) -> Dict[str, Any]:
     assert tag
     return {
         "names": [tag_name.name for tag_name in tag.names],
-        "category": tag.category.name if tag.category else None,
+        "category": tag.category.name,
         "categories": [cat.name for cat in tag.categories],
         "suggestions": sorted(rel.first_name for rel in tag.suggestions),
         "implications": sorted(rel.first_name for rel in tag.implications),
@@ -133,15 +133,7 @@ def create(entity: model.Base, auth_user: Optional[model.User]) -> None:
 def modify(entity: model.Base, auth_user: Optional[model.User]) -> None:
     assert entity
 
-    table = next(
-        (
-            cls
-            for cls in model.Base._decl_class_registry.values()
-            if hasattr(cls, "__table__")
-            and cls.__table__.fullname == entity.__table__.fullname
-        ),
-        None,
-    )
+    table = type(entity)
     assert table
 
     snapshot = _create(model.Snapshot.OPERATION_MODIFIED, entity, auth_user)

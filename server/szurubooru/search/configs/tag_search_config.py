@@ -14,50 +14,22 @@ from szurubooru.search.typing import SaColumn, SaQuery
 
 
 class TagSearchConfig(BaseSearchConfig):
-
-    @staticmethod
-    def _create_category_filter(
-        query: SaQuery,
-        criterion: Optional[criteria.BaseCriterion],
-        negated: bool,
-    ) -> SaQuery:
-        assert criterion
-        # Find tag IDs that have the given category via junction table
-        cat_id_subq = db.session.query(
-            model.TagCategory.tag_category_id
-        ).filter(model.TagCategory.name == criterion.value)
-        tag_id_subq = db.session.query(
-            model.TagTagCategory.tag_id
-        ).filter(model.TagTagCategory.category_id.in_(cat_id_subq))
-        expr = model.Tag.tag_id.in_(tag_id_subq)
-        if negated:
-            expr = ~expr
-        return query.filter(expr)
     def create_filter_query(self, _disable_eager_loads: bool) -> SaQuery:
         strategy = (
             sa.orm.lazyload if _disable_eager_loads else sa.orm.subqueryload
         )
         return (
             db.session.query(model.Tag)
-            .outerjoin(
-                model.TagTagCategory,
-                model.Tag.tag_id == model.TagTagCategory.tag_id,
-            )
-            .outerjoin(
-                model.TagCategory,
-                model.TagTagCategory.category_id == model.TagCategory.tag_category_id,
-            )
+            .join(model.TagCategory)
             .options(
                 sa.orm.defer(model.Tag.first_name),
                 sa.orm.defer(model.Tag.suggestion_count),
                 sa.orm.defer(model.Tag.implication_count),
                 sa.orm.defer(model.Tag.post_count),
                 strategy(model.Tag.names),
-                strategy(model.Tag.categories),
                 strategy(model.Tag.suggestions).joinedload(model.Tag.names),
                 strategy(model.Tag.implications).joinedload(model.Tag.names),
             )
-            .group_by(model.Tag.tag_id)
         )
 
     def create_count_query(self, _disable_eager_loads: bool) -> SaQuery:
@@ -78,6 +50,26 @@ class TagSearchConfig(BaseSearchConfig):
             search_util.create_str_filter,
         )
 
+    @staticmethod
+    def _category_filter(
+        query: SaQuery,
+        criterion: Optional[criteria.BaseCriterion],
+        negated: bool,
+    ) -> SaQuery:
+        """Filter tags by category — searches both primary (FK) and M2M."""
+        assert criterion
+        cat_id_subq = db.session.query(
+            model.TagCategory.tag_category_id
+        ).filter(model.TagCategory.name == criterion.value)
+        # Search junction table (covers all categories)
+        tag_id_subq = db.session.query(
+            model.TagTagCategory.tag_id
+        ).filter(model.TagTagCategory.category_id.in_(cat_id_subq))
+        expr = model.Tag.tag_id.in_(tag_id_subq)
+        if negated:
+            expr = ~expr
+        return query.filter(expr)
+
     @property
     def named_filters(self) -> Dict[str, Filter]:
         return util.unalias_dict(
@@ -93,7 +85,7 @@ class TagSearchConfig(BaseSearchConfig):
                 ),
                 (
                     ["category"],
-                    self._create_category_filter,
+                    self._category_filter,
                 ),
                 (
                     ["creation-date", "creation-time"],
@@ -132,7 +124,7 @@ class TagSearchConfig(BaseSearchConfig):
                     (sa.sql.expression.func.random(), self.SORT_NONE),
                 ),
                 (["name"], (model.Tag.first_name, self.SORT_ASC)),
-                (["category"], (sa.func.min(model.TagCategory.name), self.SORT_ASC)),
+                (["category"], (model.TagCategory.name, self.SORT_ASC)),
                 (
                     ["creation-date", "creation-time"],
                     (model.Tag.creation_time, self.SORT_DESC),

@@ -265,7 +265,7 @@ class Post(Base):
     # dynamic columns
     tag_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(PostTag.tag_id)]
+            sa.sql.expression.func.count(PostTag.tag_id)
         )
         .where(PostTag.post_id == post_id)
         .correlate_except(PostTag)
@@ -297,11 +297,9 @@ class Post(Base):
 
     score = sa.orm.column_property(
         sa.sql.expression.select(
-            [
-                sa.sql.expression.func.coalesce(
-                    sa.sql.expression.func.sum(PostScore.score), 0
-                )
-            ]
+            sa.sql.expression.func.coalesce(
+                sa.sql.expression.func.sum(PostScore.score), 0
+            )
         )
         .where(PostScore.post_id == post_id)
         .correlate_except(PostScore)
@@ -309,7 +307,7 @@ class Post(Base):
 
     favorite_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(PostFavorite.post_id)]
+            sa.sql.expression.func.count(PostFavorite.post_id)
         )
         .where(PostFavorite.post_id == post_id)
         .correlate_except(PostFavorite)
@@ -317,7 +315,7 @@ class Post(Base):
 
     last_favorite_time = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.max(PostFavorite.time)]
+            sa.sql.expression.func.max(PostFavorite.time)
         )
         .where(PostFavorite.post_id == post_id)
         .correlate_except(PostFavorite)
@@ -325,7 +323,7 @@ class Post(Base):
 
     feature_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(PostFeature.post_id)]
+            sa.sql.expression.func.count(PostFeature.post_id)
         )
         .where(PostFeature.post_id == post_id)
         .correlate_except(PostFeature)
@@ -333,7 +331,7 @@ class Post(Base):
 
     last_feature_time = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.max(PostFeature.time)]
+            sa.sql.expression.func.max(PostFeature.time)
         )
         .where(PostFeature.post_id == post_id)
         .correlate_except(PostFeature)
@@ -341,7 +339,7 @@ class Post(Base):
 
     comment_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(Comment.post_id)]
+            sa.sql.expression.func.count(Comment.post_id)
         )
         .where(Comment.post_id == post_id)
         .correlate_except(Comment)
@@ -349,7 +347,7 @@ class Post(Base):
 
     last_comment_creation_time = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.max(Comment.creation_time)]
+            sa.sql.expression.func.max(Comment.creation_time)
         )
         .where(Comment.post_id == post_id)
         .correlate_except(Comment)
@@ -357,7 +355,7 @@ class Post(Base):
 
     last_comment_edit_time = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.max(Comment.last_edit_time)]
+            sa.sql.expression.func.max(Comment.last_edit_time)
         )
         .where(Comment.post_id == post_id)
         .correlate_except(Comment)
@@ -365,7 +363,7 @@ class Post(Base):
 
     note_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(PostNote.post_id)]
+            sa.sql.expression.func.count(PostNote.post_id)
         )
         .where(PostNote.post_id == post_id)
         .correlate_except(PostNote)
@@ -373,7 +371,7 @@ class Post(Base):
 
     relation_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(PostRelation.child_id)]
+            sa.sql.expression.func.count(PostRelation.child_id)
         )
         .where(
             (PostRelation.parent_id == post_id)

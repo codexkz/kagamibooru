@@ -257,7 +257,7 @@ class PostSerializer(serialization.BaseSerializer):
         return [
             {
                 "names": [name.name for name in tag.names],
-                "category": tag.category.name if tag.category else None,
+                "category": tag.category.name,
                 "categories": [cat.name for cat in tag.categories],
                 "usages": tag.post_count,
             }
@@ -447,21 +447,21 @@ def update_post_source(post: model.Post, source: Optional[str]) -> None:
     post.source = source or None
 
 
-@sa.events.event.listens_for(model.Post, "after_insert")
+@sa.event.listens_for(model.Post, "after_insert")
 def _after_post_insert(
     _mapper: Any, _connection: Any, post: model.Post
 ) -> None:
     _sync_post_content(post)
 
 
-@sa.events.event.listens_for(model.Post, "after_update")
+@sa.event.listens_for(model.Post, "after_update")
 def _after_post_update(
     _mapper: Any, _connection: Any, post: model.Post
 ) -> None:
     _sync_post_content(post)
 
 
-@sa.events.event.listens_for(model.Post, "before_delete")
+@sa.event.listens_for(model.Post, "before_delete")
 def _before_post_delete(
     _mapper: Any, _connection: Any, post: model.Post
 ) -> None:

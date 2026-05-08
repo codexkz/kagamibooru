@@ -69,9 +69,9 @@ def sort_tags(tags: List[model.Tag]) -> List[model.Tag]:
     return sorted(
         tags,
         key=lambda tag: (
-            tag.category.order if tag.category else 999,
-            default_category_name == (tag.category.name if tag.category else ""),
-            tag.category.name if tag.category else "",
+            tag.category.order,
+            default_category_name == tag.category.name,
+            tag.category.name,
             tag.names[0].name,
         ),
     )
@@ -80,7 +80,7 @@ def sort_tags(tags: List[model.Tag]) -> List[model.Tag]:
 def serialize_relation(tag):
     return {
         "names": [tag_name.name for tag_name in tag.names],
-        "category": tag.category.name if tag.category else None,
+        "category": tag.category.name,
         "categories": [cat.name for cat in tag.categories],
         "usages": tag.post_count,
     }
@@ -108,7 +108,7 @@ class TagSerializer(serialization.BaseSerializer):
         return [tag_name.name for tag_name in self.tag.names]
 
     def serialize_category(self) -> Any:
-        return self.tag.category.name if self.tag.category else None
+        return self.tag.category.name
 
     def serialize_categories(self) -> Any:
         return [cat.name for cat in self.tag.categories]
@@ -322,20 +322,24 @@ def create_tag(
 
 
 def update_tag_category_name(tag: model.Tag, category_name: str) -> None:
-    """Set tag to a single category (backward compatible)."""
+    """Set tag to a single category (updates both FK and M2M)."""
     assert tag
     category = tag_categories.get_category_by_name(category_name)
+    tag.category = category
     tag.categories = [category]
 
 
 def update_tag_categories(tag: model.Tag, category_names: List[str]) -> None:
-    """Set tag to multiple categories."""
+    """Set tag to multiple categories (primary = lowest order)."""
     assert tag
     if not category_names:
         raise InvalidTagCategoryError("At least one category must be specified.")
     categories = []
     for name in category_names:
         categories.append(tag_categories.get_category_by_name(name))
+    # Sort by order, set primary (FK) to lowest order
+    categories.sort(key=lambda c: c.order)
+    tag.category = categories[0]
     tag.categories = categories
 
 

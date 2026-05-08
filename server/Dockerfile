@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.13
+ARG ALPINE_VERSION=3.20
 
 
 FROM alpine:$ALPINE_VERSION AS prereqs
@@ -24,7 +24,7 @@ RUN apk --no-cache add \
         py3-pynacl \
         py3-tz \
         py3-pyrfc3339
-RUN pip3 install --no-cache-dir --disable-pip-version-check \
+RUN pip3 install --no-cache-dir --disable-pip-version-check --break-system-packages \
         "alembic>=0.8.5" \
         "coloredlogs==5.0" \
         "pyheif==0.6.1" \

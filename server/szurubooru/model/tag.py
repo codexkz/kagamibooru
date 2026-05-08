@@ -99,7 +99,8 @@ class Tag(Base):
     category_id = sa.Column(
         "category_id",
         sa.Integer,
-        nullable=True,
+        sa.ForeignKey("tag_category.id"),
+        nullable=False,
         index=True,
     )
     version = sa.Column("version", sa.Integer, default=1, nullable=False)
@@ -107,19 +108,16 @@ class Tag(Base):
     last_edit_time = sa.Column("last_edit_time", sa.DateTime)
     description = sa.Column("description", sa.UnicodeText, default=None)
 
+    # Primary category (1:1, used for display color/sort — original behavior)
+    category = sa.orm.relationship("TagCategory", lazy="joined")
+
+    # All categories (M2M, supplementary — for multi-category support)
     categories = sa.orm.relationship(
         "TagCategory",
         secondary="tag_tag_category",
-        lazy="joined",
+        lazy="select",
         order_by="TagCategory.order",
     )
-
-    @property
-    def category(self):
-        """Primary category (lowest order) for backward compatibility."""
-        if self.categories:
-            return self.categories[0]
-        return None
 
     names = sa.orm.relationship(
         "TagName",
@@ -144,7 +142,7 @@ class Tag(Base):
 
     post_count = sa.orm.column_property(
         sa.sql.expression.select(
-            [sa.sql.expression.func.count(PostTag.post_id)]
+            sa.sql.expression.func.count(PostTag.post_id)
         )
         .where(PostTag.tag_id == tag_id)
         .correlate_except(PostTag)
@@ -152,11 +150,11 @@ class Tag(Base):
 
     first_name = sa.orm.column_property(
         (
-            sa.sql.expression.select([TagName.name])
+            sa.sql.expression.select(TagName.name)
             .where(TagName.tag_id == tag_id)
             .order_by(TagName.order)
             .limit(1)
-            .as_scalar()
+            .scalar_subquery()
         ),
         deferred=True,
     )
@@ -164,10 +162,10 @@ class Tag(Base):
     suggestion_count = sa.orm.column_property(
         (
             sa.sql.expression.select(
-                [sa.sql.expression.func.count(TagSuggestion.child_id)]
+                sa.sql.expression.func.count(TagSuggestion.child_id)
             )
             .where(TagSuggestion.parent_id == tag_id)
-            .as_scalar()
+            .scalar_subquery()
         ),
         deferred=True,
     )
@@ -175,10 +173,10 @@ class Tag(Base):
     implication_count = sa.orm.column_property(
         (
             sa.sql.expression.select(
-                [sa.sql.expression.func.count(TagImplication.child_id)]
+                sa.sql.expression.func.count(TagImplication.child_id)
             )
             .where(TagImplication.parent_id == tag_id)
-            .as_scalar()
+            .scalar_subquery()
         ),
         deferred=True,
     )

@@ -3,7 +3,7 @@ from typing import Optional
 import sqlalchemy as sa
 
 from szurubooru.model.base import Base
-from szurubooru.model.tag import TagTagCategory
+from szurubooru.model.tag import Tag
 
 
 class TagCategory(Base):
@@ -22,11 +22,9 @@ class TagCategory(Base):
         self.name = name
 
     tag_count = sa.orm.column_property(
-        sa.sql.expression.select(
-            [sa.sql.expression.func.count(TagTagCategory.tag_id)]
-        )
-        .where(TagTagCategory.category_id == tag_category_id)
-        .correlate_except(sa.table("tag_tag_category"))
+        sa.sql.expression.select(sa.sql.expression.func.count("Tag.tag_id"))
+        .where(Tag.category_id == tag_category_id)
+        .correlate_except(sa.table("Tag"))
     )
 
     __mapper_args__ = {

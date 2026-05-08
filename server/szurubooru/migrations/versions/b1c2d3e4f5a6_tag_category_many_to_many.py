@@ -15,7 +15,7 @@ depends_on = None
 
 
 def upgrade():
-    # Create junction table
+    # Create junction table (supplementary M2M, the original FK stays)
     op.create_table(
         "tag_tag_category",
         sa.Column(
@@ -45,27 +45,17 @@ def upgrade():
         unique=False,
     )
 
-    # Migrate existing data from tag.category_id into junction table
+    # Seed junction table from existing tag.category_id
     op.execute(
         """
         INSERT INTO tag_tag_category (tag_id, category_id)
         SELECT id, category_id FROM tag WHERE category_id IS NOT NULL
+        ON CONFLICT DO NOTHING
         """
     )
 
-    # Drop the old FK and make category_id nullable (keep column for safety)
-    op.drop_constraint("tag_category_id_fkey", "tag", type_="foreignkey")
-    op.alter_column("tag", "category_id", nullable=True)
-
 
 def downgrade():
-    # Restore FK
-    op.alter_column("tag", "category_id", nullable=False)
-    op.create_foreign_key(
-        "tag_category_id_fkey", "tag", "tag_category", ["category_id"], ["id"]
-    )
-
-    # Drop junction table
     op.drop_index(
         op.f("ix_tag_tag_category_category_id"), table_name="tag_tag_category"
     )
