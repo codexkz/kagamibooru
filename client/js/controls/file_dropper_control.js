@@ -17,7 +17,7 @@ class FileDropperControl extends events.EventTarget {
             lock: options.lock,
             id: "file-" + Math.random().toString(36).substring(7),
             urlPlaceholder:
-                options.urlPlaceholder || "Alternatively, paste an URL here.",
+                options.urlPlaceholder || require("../i18n.js").t("fileDropper.pasteUrl"),
         });
 
         this._dropperNode = source.querySelector(".file-dropper");

@@ -1,97 +1,97 @@
-<p><strong>Anonymous tokens</strong></p>
+<p><strong><%= ctx.t('help.search.anonymousTokens') %></strong></p>
 
-<p>Same as <code>name</code> token.</p>
+<p><%= ctx.t('help.search.sameAs').replace('{token}', '<code>name</code>') %></p>
 
-<p><strong>Named tokens</strong></p>
+<p><strong><%= ctx.t('help.search.namedTokens') %></strong></p>
 
 <table>
     <tbody>
         <tr>
             <td><code>name</code></td>
-            <td>having given name (accepts wildcards)</td>
+            <td><%= ctx.t('help.searchPools.name') %></td>
         </tr>
         <tr>
             <td><code>category</code></td>
-            <td>having given category (accepts wildcards)</td>
+            <td><%= ctx.t('help.searchPools.category') %></td>
         </tr>
         <tr>
             <td><code>creation-date</code></td>
-            <td>created at given date</td>
+            <td><%= ctx.t('help.searchPools.creationDate') %></td>
         </tr>
         <tr>
             <td><code>creation-time</code></td>
-            <td>alias of <code>creation-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-date</code>') %></td>
         </tr>
         <tr>
             <td><code>last-edit-date</code></td>
-            <td>edited at given date</td>
+            <td><%= ctx.t('help.searchPools.lastEditDate') %></td>
         </tr>
         <tr>
             <td><code>last-edit-time</code></td>
-            <td>alias of <code>last-edit-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-edit-date</code>') %></td>
         </tr>
         <tr>
             <td><code>edit-date</code></td>
-            <td>alias of <code>last-edit-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-edit-date</code>') %></td>
         </tr>
         <tr>
             <td><code>edit-time</code></td>
-            <td>alias of <code>last-edit-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-edit-date</code>') %></td>
         </tr>
         <tr>
             <td><code>post-count</code></td>
-            <td>alias of <code>usages</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>usages</code>') %></td>
         </tr>
     </tbody>
 </table>
 
-<p><strong>Sort style tokens</strong></p>
+<p><strong><%= ctx.t('help.search.sortTokens') %></strong></p>
 
 <table>
     <tbody>
         <tr>
             <td><code>random</code></td>
-            <td>as random as it can get</td>
+            <td><%= ctx.t('help.searchPools.sortRandom') %></td>
         </tr>
         <tr>
             <td><code>name</code></td>
-            <td>A to Z</td>
+            <td><%= ctx.t('help.searchPools.sortName') %></td>
         </tr>
         <tr>
             <td><code>category</code></td>
-            <td>category (A to Z)</td>
+            <td><%= ctx.t('help.searchPools.sortCategory') %></td>
         </tr>
         <tr>
             <td><code>creation-date</code></td>
-            <td>recently created first</td>
+            <td><%= ctx.t('help.searchPools.sortCreationDate') %></td>
         </tr>
         <tr>
             <td><code>creation-time</code></td>
-            <td>alias of <code>creation-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-date</code>') %></td>
         </tr>
         <tr>
             <td><code>last-edit-date</code></td>
-            <td>recently edited first</td>
+            <td><%= ctx.t('help.searchPools.sortLastEditDate') %></td>
         </tr>
         <tr>
             <td><code>last-edit-time</code></td>
-            <td>alias of <code>creation-time</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-time</code>') %></td>
         </tr>
         <tr>
             <td><code>edit-date</code></td>
-            <td>alias of <code>creation-time</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-time</code>') %></td>
         </tr>
         <tr>
             <td><code>edit-time</code></td>
-            <td>alias of <code>creation-time</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-time</code>') %></td>
         </tr>
         <tr>
             <td><code>post-count</code></td>
-            <td>number of posts</td>
+            <td><%= ctx.t('help.searchPools.sortPostCount') %></td>
         </tr>
     </tbody>
 </table>
 
-<p><strong>Special tokens</strong></p>
+<p><strong><%= ctx.t('help.search.specialTokens') %></strong></p>
 
-<p>None.</p>
+<p><%= ctx.t('help.search.none') %></p>

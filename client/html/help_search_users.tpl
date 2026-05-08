@@ -1,81 +1,81 @@
-<p><strong>Anonymous tokens</strong></p>
+<p><strong><%= ctx.t('help.search.anonymousTokens') %></strong></p>
 
-<p>Same as <code>name</code> token.</p>
+<p><%= ctx.t('help.search.sameAs').replace('{token}', '<code>name</code>') %></p>
 
-<p><strong>Named tokens</strong></p>
+<p><strong><%= ctx.t('help.search.namedTokens') %></strong></p>
 
 <table>
     <tbody>
         <tr>
             <td><code>name</code></td>
-            <td>having given name (accepts wildcards)</td>
+            <td><%= ctx.t('help.searchUsers.name') %></td>
         </tr>
         <tr>
             <td><code>creation-date</code></td>
-            <td>registered at given date</td>
+            <td><%= ctx.t('help.searchUsers.creationDate') %></td>
         </tr>
         <tr>
             <td><code>creation-time</code></td>
-            <td>alias of <code>creation-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-date</code>') %></td>
         </tr>
         <tr>
             <td><code>last-login-date</code>
-            <td>whose most recent login date matches given date</td>
+            <td><%= ctx.t('help.searchUsers.lastLoginDate') %></td>
         </tr>
         <tr>
             <td><code>last-login-time</code>
-            <td>alias of <code>last-login-date</code>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-login-date</code>') %></td>
         </tr>
         <tr>
             <td><code>login-date</code>
-            <td>alias of <code>last-login-date</code>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-login-date</code>') %></td>
         </tr>
         <tr>
             <td><code>login-time</code></td>
-            <td>alias of <code>last-login-date</code>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-login-date</code>') %></td>
         </tr>
     </tbody>
 </table>
 
-<p><strong>Sort style tokens</strong></p>
+<p><strong><%= ctx.t('help.search.sortTokens') %></strong></p>
 
 <table>
     <tbody>
         <tr>
             <td><code>random</code></td>
-            <td>as random as it can get</td>
+            <td><%= ctx.t('help.searchUsers.sortRandom') %></td>
         </tr>
         <tr>
             <td><code>name</code></td>
-            <td>A to Z</td>
+            <td><%= ctx.t('help.searchUsers.sortName') %></td>
         </tr>
         <tr>
             <td><code>creation-date</code></td>
-            <td>newest to oldest</td>
+            <td><%= ctx.t('help.searchUsers.sortCreationDate') %></td>
         </tr>
         <tr>
             <td><code>creation-time</code></td>
-            <td>alias of <code>creation-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>creation-date</code>') %></td>
         </tr>
         <tr>
             <td><code>last-login-date</code></td>
-            <td>recently active first</td>
+            <td><%= ctx.t('help.searchUsers.sortLastLoginDate') %></td>
         </tr>
         <tr>
             <td><code>last-login-time</code></td>
-            <td>alias of <code>last-login-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-login-date</code>') %></td>
         </tr>
         <tr>
             <td><code>login-date</code></td>
-            <td>alias of <code>last-login-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-login-date</code>') %></td>
         </tr>
         <tr>
             <td><code>login-time</code></td>
-            <td>alias of <code>last-login-date</code></td>
+            <td><%= ctx.t('help.search.aliasOf').replace('{token}', '<code>last-login-date</code>') %></td>
         </tr>
     </tbody>
 </table>
 
-<p><strong>Special tokens</strong></p>
+<p><strong><%= ctx.t('help.search.specialTokens') %></strong></p>
 
-<p>None.</p>
+<p><%= ctx.t('help.search.none') %></p>

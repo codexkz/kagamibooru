@@ -165,7 +165,7 @@ class PostUploadView extends events.EventTarget {
             this._contentInputNode,
             {
                 extraText:
-                    "Allowed extensions: .jpg, .png, .gif, .webm, .mp4, .swf, .avif, .heif, .heic",
+                    require("../i18n.js").t("fileDropper.allowedExtensions"),
                 allowUrls: true,
                 allowMultiple: true,
                 lock: false,

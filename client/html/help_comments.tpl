@@ -1,39 +1,39 @@
-<p>Comments support Markdown syntax, extended by some handy tags:</p>
+<p><%= ctx.t('help.comments.intro') %></p>
 
 <table>
     <tbody>
         <tr>
             <td><code>@426</code></td>
-            <td>links to post number 426</td>
+            <td><%= ctx.t('help.comments.linkPost') %></td>
         </tr>
         <tr>
             <td><code>#Dragon_Ball</code></td>
-            <td>links to tag &ldquo;Dragon_Ball&rdquo;</td>
+            <td><%= ctx.t('help.comments.linkTag') %></td>
         </tr>
         <tr>
             <td><code>+Pirate</code></td>
-            <td>links to user &ldquo;Pirate&rdquo;</td>
+            <td><%= ctx.t('help.comments.linkUser') %></td>
         </tr>
         <tr>
             <td><code>~~new~~</code></td>
-            <td>adds strike-through</td>
+            <td><%= ctx.t('help.comments.strikethrough') %></td>
         </tr>
         <tr>
             <td><code>[spoiler]Lelouch survives[/spoiler]</td>
-            <td>marks text as spoiler and hides it</td>
+            <td><%= ctx.t('help.comments.spoiler') %></td>
         </tr>
         <tr>
             <td><code>[sjis](´･ω･`)[/sjis]</td>
-            <td>adds SJIS art</td>
+            <td><%= ctx.t('help.comments.sjis') %></td>
         </tr>
         <tr>
             <td><code>[icon]https://youtube.com[/icon]</td>
-            <td>adds the site icon next to the link</td>
+            <td><%= ctx.t('help.comments.siteIcon') %></td>
         </tr>
     </tbody>
 </table>
 
-<p>You can also specify the size of embedded images like this:</p>
+<p><%= ctx.t('help.comments.imageSize') %></p>
 
 <ul>
 <li><code>![alt](href =WIDTHx "title")</code></li>
