@@ -11,7 +11,6 @@
     "nav.login": "ログイン",
     "nav.logout": "ログアウト",
     "nav.help": "ヘルプ",
-
     "home.searchPlaceholder": "タグを入力",
     "home.search": "検索",
     "home.or": "または",
@@ -19,14 +18,12 @@
     "home.featuredPost": "注目の投稿：",
     "home.postCount": "{count} 件の投稿",
     "home.history": "履歴",
-
     "login.title": "ログイン",
     "login.username": "ユーザー名",
     "login.password": "パスワード",
     "login.remember": "ログイン状態を保持",
     "login.submit": "ログイン",
     "login.forgotPassword": "パスワードをお忘れですか？",
-
     "passwordReset.title": "パスワードリセット",
     "passwordReset.label": "ユーザー名またはメールアドレス",
     "passwordReset.hint": "続行すると、パスワードリセット用のリンクを含むメールが送信されます。リンクをクリックすると、アカウントに新しいパスワードが生成されます。生成されたパスワードは別のものに変更することをお勧めします。",
@@ -34,7 +31,6 @@
     "passwordReset.noSupport": "自動パスワードリセットには対応していません。",
     "passwordReset.contactHint": "{email} にメールを送信して、手動での手続きを行ってください。",
     "passwordReset.newPassword": "新しいパスワード：{password}",
-
     "settings.title": "閲覧設定",
     "settings.description": "これらの設定はブラウザのローカルストレージに保存され、ユーザーアカウントとは紐付いていません。他のデバイスやブラウザには適用されません。",
     "settings.language": "言語",
@@ -58,7 +54,6 @@
     "settings.hiddenCategoriesHint": "スペース区切りのカテゴリ名。これらのカテゴリのタグを持つ投稿は検索結果に表示されません。",
     "settings.save": "設定を保存",
     "settings.saved": "設定を保存しました。",
-
     "register.title": "新規登録",
     "register.username": "ユーザー名",
     "register.password": "パスワード",
@@ -78,10 +73,8 @@
     "register.closed": "新規登録は締め切りました。",
     "register.success": "ようこそ！",
     "register.userAdded": "ユーザーを追加しました！",
-
     "posts.noData": "表示するデータがありません",
     "posts.privileges": "投稿を閲覧する権限がありません。",
-
     "postsHeader.searchQuery": "検索クエリ",
     "postsHeader.search": "検索",
     "postsHeader.syntaxHelp": "構文ヘルプ",
@@ -94,7 +87,6 @@
     "postsHeader.massDelete": "一括削除",
     "postsHeader.deleteSelected": "選択した投稿を削除",
     "postsHeader.stopDeleting": "削除を終了",
-
     "post.mainView": "メインビュー",
     "post.mergeWith": "統合先…",
     "post.prevPost": "前の投稿",
@@ -137,7 +129,6 @@
     "post.saved": "投稿を保存しました。",
     "post.merged": "投稿を統合しました。",
     "post.videoNotSupported": "お使いのブラウザは HTML5 動画に対応していません。",
-
     "postUpload.uploadAll": "すべてアップロード",
     "postUpload.skipDuplicate": "重複をスキップ",
     "postUpload.forceUpload": "類似を強制アップロード",
@@ -149,7 +140,6 @@
     "postUpload.addRelation": "関連を追加",
     "postUpload.uploadAnonymously": "匿名でアップロード",
     "postUpload.uploaded": "投稿をアップロードしました。",
-
     "postMerge.hint": "タグ、関連投稿、スコア、お気に入り、コメントが統合されます。その他のプロパティは手動で対応してください。",
     "postMerge.confirm": "これらの投稿を統合することを確認します。",
     "postMerge.submit": "投稿を統合",
@@ -157,17 +147,14 @@
     "postMerge.search": "検索",
     "postMerge.mergeToThis": "この投稿に統合",
     "postMerge.useThisFile": "このファイルを使用",
-
     "tag.saved": "タグを保存しました。",
     "tag.merged": "タグを統合しました。",
     "tag.deleted": "タグを削除しました。",
     "tag.privileges": "タグを閲覧する権限がありません。",
-
     "tagNav.summary": "概要",
     "tagNav.edit": "編集",
     "tagNav.mergeWith": "統合先…",
     "tagNav.delete": "削除",
-
     "tagSummary.categories": "カテゴリ：",
     "tagSummary.category": "カテゴリ：",
     "tagSummary.aliases": "別名：",
@@ -175,7 +162,6 @@
     "tagSummary.suggestions": "推奨タグ：",
     "tagSummary.noDescription": "このタグにはまだ説明がありません。",
     "tagSummary.usages": "件の使用",
-
     "tagEdit.names": "名前",
     "tagEdit.categories": "カテゴリ",
     "tagEdit.categoriesHint": "Ctrl/Cmd を押しながら複数選択",
@@ -183,27 +169,22 @@
     "tagEdit.suggestions": "推奨タグ",
     "tagEdit.description": "説明",
     "tagEdit.save": "変更を保存",
-
     "tagDelete.confirm": "このタグを削除することを確認します。",
     "tagDelete.submit": "タグを削除",
-
     "tagMerge.targetTag": "統合先のタグ",
     "tagMerge.hint": "投稿での使用、推奨タグ、含意タグが統合されます。カテゴリは手動で対応してください。",
     "tagMerge.alias": "このタグを統合先タグの別名にする。",
     "tagMerge.confirm": "このタグを統合することを確認します。",
     "tagMerge.submit": "タグを統合",
-
     "tagsHeader.searchQuery": "検索クエリ",
     "tagsHeader.search": "検索",
     "tagsHeader.syntaxHelp": "構文ヘルプ",
     "tagsHeader.categories": "タグカテゴリ",
-
     "tagsPage.tagNames": "タグ名",
     "tagsPage.implications": "含意タグ",
     "tagsPage.suggestions": "推奨タグ",
     "tagsPage.usages": "使用数",
     "tagsPage.createdOn": "作成日",
-
     "tagCategories.title": "タグカテゴリ",
     "tagCategories.name": "カテゴリ名",
     "tagCategories.color": "CSS カラー",
@@ -215,53 +196,43 @@
     "tagCategories.remove": "削除",
     "tagCategories.makeDefault": "デフォルトに設定",
     "tagCategories.saved": "変更を保存しました。",
-
     "pool.saved": "プールを保存しました。",
     "pool.merged": "プールを統合しました。",
     "pool.deleted": "プールを削除しました。",
     "pool.created": "プールを作成しました。",
     "pool.privileges": "プールを閲覧する権限がありません。",
-
     "poolNav.summary": "概要",
     "poolNav.edit": "編集",
     "poolNav.mergeWith": "統合先…",
     "poolNav.delete": "削除",
-
     "poolSummary.category": "カテゴリ：",
     "poolSummary.aliases": "別名：",
     "poolSummary.noDescription": "このプールにはまだ説明がありません。",
     "poolSummary.posts": "件の投稿",
-
     "poolEdit.names": "名前",
     "poolEdit.category": "カテゴリ",
     "poolEdit.description": "説明",
     "poolEdit.posts": "投稿",
     "poolEdit.save": "変更を保存",
-
     "poolDelete.confirm": "このプールを削除することを確認します。",
     "poolDelete.submit": "プールを削除",
-
     "poolMerge.targetPool": "統合先のプール",
     "poolMerge.hint": "2つのプールの投稿が結合されます。カテゴリは手動で対応してください。",
     "poolMerge.confirm": "このプールを統合することを確認します。",
     "poolMerge.submit": "プールを統合",
-
     "poolCreate.names": "名前",
     "poolCreate.category": "カテゴリ",
     "poolCreate.description": "説明",
     "poolCreate.posts": "投稿",
     "poolCreate.postsPlaceholder": "スペース区切りの投稿ID",
     "poolCreate.submit": "プールを作成",
-
     "poolsHeader.searchQuery": "検索クエリ",
     "poolsHeader.search": "検索",
     "poolsHeader.syntaxHelp": "構文ヘルプ",
     "poolsHeader.addNew": "新しいプールを追加",
-
     "poolsPage.poolNames": "プール名",
     "poolsPage.postCount": "投稿数",
     "poolsPage.createdOn": "作成日",
-
     "poolCategories.title": "プールカテゴリ",
     "poolCategories.name": "カテゴリ名",
     "poolCategories.color": "CSS カラー",
@@ -272,15 +243,12 @@
     "poolCategories.remove": "削除",
     "poolCategories.makeDefault": "デフォルトに設定",
     "poolCategories.saved": "変更を保存しました。",
-
     "auth.loggedIn": "ログインしました",
     "auth.loggedOut": "ログアウトしました",
-
     "userNav.summary": "概要",
     "userNav.settings": "設定",
     "userNav.tokens": "ログイントークン",
     "userNav.delete": "削除",
-
     "userSummary.registered": "登録日：",
     "userSummary.lastSeen": "最終ログイン：",
     "userSummary.rank": "ランク：",
@@ -291,7 +259,6 @@
     "userSummary.onlyVisible": "あなただけに表示されます",
     "userSummary.likedPosts": "いいねした投稿",
     "userSummary.dislikedPosts": "よくないねした投稿",
-
     "userEdit.username": "ユーザー名",
     "userEdit.password": "パスワード",
     "userEdit.passwordPlaceholder": "変更しない場合は空欄",
@@ -302,11 +269,9 @@
     "userEdit.manualAvatar": "手動アバター",
     "userEdit.save": "設定を保存",
     "userEdit.settingsUpdated": "設定を更新しました。",
-
     "userDelete.confirm": "このアカウントを削除することを確認します。",
     "userDelete.submit": "アカウントを削除",
     "userDelete.deleted": "アカウントを削除しました。",
-
     "userTokens.noTokens": "登録済みトークンはありません",
     "userTokens.token": "トークン：",
     "userTokens.note": "メモ：",
@@ -321,14 +286,11 @@
     "userTokens.createToken": "トークンを作成",
     "userTokens.noteLabel": "メモ",
     "userTokens.expiresLabel": "有効期限",
-
     "usersHeader.searchQuery": "検索クエリ",
     "usersHeader.search": "検索",
     "usersHeader.syntaxHelp": "構文ヘルプ",
-
     "usersPage.registered": "登録日：",
     "usersPage.lastSeen": "最終ログイン：",
-
     "comment.write": "入力",
     "comment.preview": "プレビュー",
     "comment.commented": "コメントしました",
@@ -336,37 +298,49 @@
     "comment.delete": "削除",
     "comment.save": "保存",
     "comment.cancel": "キャンセル",
-
     "score.upvote": "賛成",
     "score.like": "いいね",
     "score.downvote": "反対",
     "score.dislike": "よくないね",
-
     "fav.add": "お気に入りに追加",
-
     "fileDropper.dropFiles": "ここにファイルをドロップ！",
     "fileDropper.dropFile": "ここにファイルをドロップ！",
     "fileDropper.orClick": "またはこのボックスをクリック。",
     "fileDropper.confirm": "確認",
     "fileDropper.addUrl": "URL を追加",
-
     "notFound.title": "見つかりません",
     "notFound.invalidUrl": "{path} は有効な URL ではありません。",
     "notFound.backToMain": "メインページに戻る",
-
     "pager.prevPage": "前のページ",
     "pager.nextPage": "次のページ",
     "pager.pageOf": "{page} / {total} ページ",
-
     "tagInput.placeholder": "入力して追加...",
     "tagInput.add": "追加",
     "tagInput.suggested": "おすすめタグ",
-
     "rank.anonymous": "匿名",
     "rank.restricted": "制限付きユーザー",
     "rank.regular": "一般ユーザー",
     "rank.power": "パワーユーザー",
     "rank.moderator": "モデレーター",
     "rank.administrator": "管理者",
-    "rank.nobody": "なし"
+    "rank.nobody": "なし",
+    "notFound.notValidUrl": "{path} は有効な URL ではありません。",
+    "pager.previousPage": "前のページ",
+    "poolEdit.postsPlaceholder": "スペース区切りの投稿ID",
+    "tagInput.suggestedTags": "おすすめタグ",
+    "userEdit.userName": "ユーザー名",
+    "userNav.loginTokens": "ログイントークン",
+    "userSummary.onlyVisibleToYou": "あなただけに表示されます",
+    "userTokens.deleteAndLogout": "削除してログアウト",
+    "poolsHeader.addNewPool": "新しいプールを追加",
+    "poolsHeader.poolCategories": "プールカテゴリ",
+    "userTokens.deleteLogoutHint": "このトークンはこのクライアントの認証に使用されています。削除するとログアウトされます。",
+    "userTokens.deleteAndLogoutHint": "このトークンはこのクライアントの認証に使用されています。削除するとログアウトされます。",
+    "privileges.viewPosts": "投稿を表示する権限がありません。",
+    "privileges.viewTags": "タグを表示する権限がありません。",
+    "privileges.viewPools": "プールを表示する権限がありません。",
+    "privileges.viewUsers": "ユーザーを表示する権限がありません。",
+    "privileges.viewHistory": "履歴を表示する権限がありません。",
+    "privileges.uploadPosts": "投稿をアップロードする権限がありません。",
+    "privileges.createPools": "プールを作成する権限がありません。"
 }

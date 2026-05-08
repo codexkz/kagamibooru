@@ -1,6 +1,7 @@
 "use strict";
 
 const router = require("../router.js");
+const i18n = require("../i18n.js");
 const keyboard = require("../util/keyboard.js");
 const views = require("../util/views.js");
 
@@ -99,7 +100,7 @@ class ManualPageView {
                 }
 
                 if (!response.results.length) {
-                    this.showInfo("No data to show");
+                    this.showInfo(i18n.t("posts.noData"));
                 }
 
                 response.results.addEventListener("remove", (e) => {

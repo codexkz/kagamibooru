@@ -11,7 +11,6 @@
     "nav.login": "로그인",
     "nav.logout": "로그아웃",
     "nav.help": "도움말",
-
     "home.searchPlaceholder": "태그를 입력하세요",
     "home.search": "검색",
     "home.or": "또는",
@@ -19,14 +18,12 @@
     "home.featuredPost": "추천 게시물:",
     "home.postCount": "게시물 {count}건",
     "home.history": "기록",
-
     "login.title": "로그인",
     "login.username": "사용자 이름",
     "login.password": "비밀번호",
     "login.remember": "로그인 유지",
     "login.submit": "로그인",
     "login.forgotPassword": "비밀번호를 잊으셨나요?",
-
     "passwordReset.title": "비밀번호 재설정",
     "passwordReset.label": "사용자 이름 또는 이메일 주소",
     "passwordReset.hint": "진행하면 비밀번호 재설정 링크가 포함된 이메일이 발송됩니다. 링크를 클릭하면 새 비밀번호가 생성됩니다. 생성된 비밀번호는 다른 비밀번호로 변경하는 것을 권장합니다.",
@@ -34,7 +31,6 @@
     "passwordReset.noSupport": "자동 비밀번호 재설정을 지원하지 않습니다.",
     "passwordReset.contactHint": "{email}(으)로 이메일을 보내 수동 절차를 진행해 주세요.",
     "passwordReset.newPassword": "새 비밀번호: {password}",
-
     "settings.title": "탐색 설정",
     "settings.description": "이 설정은 브라우저의 로컬 저장소에 저장되며 사용자 계정과 연동되지 않으므로 다른 기기나 브라우저에는 적용되지 않습니다.",
     "settings.language": "언어",
@@ -58,7 +54,6 @@
     "settings.hiddenCategoriesHint": "공백으로 구분된 카테고리 이름. 이 카테고리에 속한 태그가 있는 게시물은 검색 결과에서 숨겨집니다.",
     "settings.save": "설정 저장",
     "settings.saved": "설정이 저장되었습니다.",
-
     "register.title": "회원가입",
     "register.username": "사용자 이름",
     "register.password": "비밀번호",
@@ -78,10 +73,8 @@
     "register.closed": "회원가입이 마감되었습니다.",
     "register.success": "가입을 환영합니다!",
     "register.userAdded": "사용자가 추가되었습니다!",
-
     "posts.noData": "표시할 데이터가 없습니다",
     "posts.privileges": "게시물을 볼 권한이 없습니다.",
-
     "postsHeader.searchQuery": "검색어",
     "postsHeader.search": "검색",
     "postsHeader.syntaxHelp": "구문 도움말",
@@ -94,7 +87,6 @@
     "postsHeader.massDelete": "일괄 삭제",
     "postsHeader.deleteSelected": "선택한 게시물 삭제",
     "postsHeader.stopDeleting": "삭제 중지",
-
     "post.mainView": "기본 보기",
     "post.mergeWith": "병합 대상…",
     "post.prevPost": "이전 게시물",
@@ -137,7 +129,6 @@
     "post.saved": "게시물이 저장되었습니다.",
     "post.merged": "게시물이 병합되었습니다.",
     "post.videoNotSupported": "브라우저가 HTML5 동영상을 지원하지 않습니다.",
-
     "postUpload.uploadAll": "전체 업로드",
     "postUpload.skipDuplicate": "중복 건너뛰기",
     "postUpload.forceUpload": "유사 게시물 강제 업로드",
@@ -149,7 +140,6 @@
     "postUpload.addRelation": "관계 추가",
     "postUpload.uploadAnonymously": "익명으로 업로드",
     "postUpload.uploaded": "게시물이 업로드되었습니다.",
-
     "postMerge.hint": "태그, 관련 게시물, 점수, 즐겨찾기, 댓글이 병합됩니다. 그 외 속성은 수동으로 처리해야 합니다.",
     "postMerge.confirm": "이 게시물들을 병합하겠습니다.",
     "postMerge.submit": "게시물 병합",
@@ -157,17 +147,14 @@
     "postMerge.search": "검색",
     "postMerge.mergeToThis": "이 게시물로 병합",
     "postMerge.useThisFile": "이 파일 사용",
-
     "tag.saved": "태그가 저장되었습니다.",
     "tag.merged": "태그가 병합되었습니다.",
     "tag.deleted": "태그가 삭제되었습니다.",
     "tag.privileges": "태그를 볼 권한이 없습니다.",
-
     "tagNav.summary": "요약",
     "tagNav.edit": "편집",
     "tagNav.mergeWith": "병합 대상…",
     "tagNav.delete": "삭제",
-
     "tagSummary.categories": "카테고리:",
     "tagSummary.category": "카테고리:",
     "tagSummary.aliases": "별칭:",
@@ -175,7 +162,6 @@
     "tagSummary.suggestions": "추천:",
     "tagSummary.noDescription": "이 태그에는 아직 설명이 없습니다.",
     "tagSummary.usages": "사용 횟수",
-
     "tagEdit.names": "이름",
     "tagEdit.categories": "카테고리",
     "tagEdit.categoriesHint": "Ctrl/Cmd을 누르고 여러 개 선택",
@@ -183,27 +169,22 @@
     "tagEdit.suggestions": "추천",
     "tagEdit.description": "설명",
     "tagEdit.save": "변경 사항 저장",
-
     "tagDelete.confirm": "이 태그를 삭제하겠습니다.",
     "tagDelete.submit": "태그 삭제",
-
     "tagMerge.targetTag": "대상 태그",
     "tagMerge.hint": "게시물의 사용, 추천 및 함축이 병합됩니다. 카테고리는 수동으로 처리해야 합니다.",
     "tagMerge.alias": "이 태그를 대상 태그의 별칭으로 만듭니다.",
     "tagMerge.confirm": "이 태그를 병합하겠습니다.",
     "tagMerge.submit": "태그 병합",
-
     "tagsHeader.searchQuery": "검색어",
     "tagsHeader.search": "검색",
     "tagsHeader.syntaxHelp": "구문 도움말",
     "tagsHeader.categories": "태그 카테고리",
-
     "tagsPage.tagNames": "태그 이름",
     "tagsPage.implications": "함축",
     "tagsPage.suggestions": "추천",
     "tagsPage.usages": "사용 횟수",
     "tagsPage.createdOn": "생성일",
-
     "tagCategories.title": "태그 카테고리",
     "tagCategories.name": "카테고리 이름",
     "tagCategories.color": "CSS 색상",
@@ -215,53 +196,43 @@
     "tagCategories.remove": "제거",
     "tagCategories.makeDefault": "기본값으로 설정",
     "tagCategories.saved": "변경 사항이 저장되었습니다.",
-
     "pool.saved": "풀이 저장되었습니다.",
     "pool.merged": "풀이 병합되었습니다.",
     "pool.deleted": "풀이 삭제되었습니다.",
     "pool.created": "풀이 생성되었습니다.",
     "pool.privileges": "풀을 볼 권한이 없습니다.",
-
     "poolNav.summary": "요약",
     "poolNav.edit": "편집",
     "poolNav.mergeWith": "병합 대상…",
     "poolNav.delete": "삭제",
-
     "poolSummary.category": "카테고리:",
     "poolSummary.aliases": "별칭:",
     "poolSummary.noDescription": "이 풀에는 아직 설명이 없습니다.",
     "poolSummary.posts": "게시물 수",
-
     "poolEdit.names": "이름",
     "poolEdit.category": "카테고리",
     "poolEdit.description": "설명",
     "poolEdit.posts": "게시물",
     "poolEdit.save": "변경 사항 저장",
-
     "poolDelete.confirm": "이 풀을 삭제하겠습니다.",
     "poolDelete.submit": "풀 삭제",
-
     "poolMerge.targetPool": "대상 풀",
     "poolMerge.hint": "두 풀의 게시물이 합쳐집니다. 카테고리는 수동으로 처리해야 합니다.",
     "poolMerge.confirm": "이 풀을 병합하겠습니다.",
     "poolMerge.submit": "풀 병합",
-
     "poolCreate.names": "이름",
     "poolCreate.category": "카테고리",
     "poolCreate.description": "설명",
     "poolCreate.posts": "게시물",
     "poolCreate.postsPlaceholder": "공백으로 구분된 게시물 ID",
     "poolCreate.submit": "풀 만들기",
-
     "poolsHeader.searchQuery": "검색어",
     "poolsHeader.search": "검색",
     "poolsHeader.syntaxHelp": "구문 도움말",
     "poolsHeader.addNew": "새 풀 추가",
-
     "poolsPage.poolNames": "풀 이름",
     "poolsPage.postCount": "게시물 수",
     "poolsPage.createdOn": "생성일",
-
     "poolCategories.title": "풀 카테고리",
     "poolCategories.name": "카테고리 이름",
     "poolCategories.color": "CSS 색상",
@@ -272,15 +243,12 @@
     "poolCategories.remove": "제거",
     "poolCategories.makeDefault": "기본값으로 설정",
     "poolCategories.saved": "변경 사항이 저장되었습니다.",
-
     "auth.loggedIn": "로그인됨",
     "auth.loggedOut": "로그아웃됨",
-
     "userNav.summary": "요약",
     "userNav.settings": "설정",
     "userNav.tokens": "로그인 토큰",
     "userNav.delete": "삭제",
-
     "userSummary.registered": "가입일:",
     "userSummary.lastSeen": "마지막 접속:",
     "userSummary.rank": "등급:",
@@ -291,7 +259,6 @@
     "userSummary.onlyVisible": "본인에게만 표시됩니다",
     "userSummary.likedPosts": "추천한 게시물",
     "userSummary.dislikedPosts": "비추천한 게시물",
-
     "userEdit.username": "사용자 이름",
     "userEdit.password": "비밀번호",
     "userEdit.passwordPlaceholder": "변경하지 않으려면 비워두세요",
@@ -302,11 +269,9 @@
     "userEdit.manualAvatar": "직접 설정",
     "userEdit.save": "설정 저장",
     "userEdit.settingsUpdated": "설정이 업데이트되었습니다.",
-
     "userDelete.confirm": "이 계정을 삭제하겠습니다.",
     "userDelete.submit": "계정 삭제",
     "userDelete.deleted": "계정이 삭제되었습니다.",
-
     "userTokens.noTokens": "등록된 토큰 없음",
     "userTokens.token": "토큰:",
     "userTokens.note": "메모:",
@@ -321,14 +286,11 @@
     "userTokens.createToken": "토큰 만들기",
     "userTokens.noteLabel": "메모",
     "userTokens.expiresLabel": "만료일",
-
     "usersHeader.searchQuery": "검색어",
     "usersHeader.search": "검색",
     "usersHeader.syntaxHelp": "구문 도움말",
-
     "usersPage.registered": "가입일:",
     "usersPage.lastSeen": "마지막 접속:",
-
     "comment.write": "작성",
     "comment.preview": "미리보기",
     "comment.commented": "댓글 작성됨",
@@ -336,37 +298,49 @@
     "comment.delete": "삭제",
     "comment.save": "저장",
     "comment.cancel": "취소",
-
     "score.upvote": "추천",
     "score.like": "좋아요",
     "score.downvote": "비추천",
     "score.dislike": "싫어요",
-
     "fav.add": "즐겨찾기에 추가",
-
     "fileDropper.dropFiles": "여기에 파일을 끌어놓으세요!",
     "fileDropper.dropFile": "여기에 파일을 끌어놓으세요!",
     "fileDropper.orClick": "또는 이 상자를 클릭하세요.",
     "fileDropper.confirm": "확인",
     "fileDropper.addUrl": "URL 추가",
-
     "notFound.title": "찾을 수 없음",
     "notFound.invalidUrl": "{path}은(는) 올바른 URL이 아닙니다.",
     "notFound.backToMain": "메인 페이지로 돌아가기",
-
     "pager.prevPage": "이전 페이지",
     "pager.nextPage": "다음 페이지",
     "pager.pageOf": "{total} 중 {page} 페이지",
-
     "tagInput.placeholder": "입력하여 추가...",
     "tagInput.add": "추가",
     "tagInput.suggested": "추천 태그",
-
     "rank.anonymous": "익명",
     "rank.restricted": "제한된 사용자",
     "rank.regular": "일반 사용자",
     "rank.power": "파워 사용자",
     "rank.moderator": "운영자",
     "rank.administrator": "관리자",
-    "rank.nobody": "없음"
+    "rank.nobody": "없음",
+    "notFound.notValidUrl": "{path}은(는) 올바른 URL이 아닙니다.",
+    "pager.previousPage": "이전 페이지",
+    "poolEdit.postsPlaceholder": "공백으로 구분된 게시물 ID",
+    "tagInput.suggestedTags": "추천 태그",
+    "userEdit.userName": "사용자 이름",
+    "userNav.loginTokens": "로그인 토큰",
+    "userSummary.onlyVisibleToYou": "본인에게만 표시됩니다",
+    "userTokens.deleteAndLogout": "삭제 및 로그아웃",
+    "poolsHeader.addNewPool": "새 풀 추가",
+    "poolsHeader.poolCategories": "풀 카테고리",
+    "userTokens.deleteLogoutHint": "이 토큰은 이 클라이언트 인증에 사용됩니다. 삭제하면 강제 로그아웃됩니다.",
+    "userTokens.deleteAndLogoutHint": "이 토큰은 이 클라이언트 인증에 사용됩니다. 삭제하면 강제 로그아웃됩니다.",
+    "privileges.viewPosts": "게시물을 볼 권한이 없습니다.",
+    "privileges.viewTags": "태그를 볼 권한이 없습니다.",
+    "privileges.viewPools": "풀을 볼 권한이 없습니다.",
+    "privileges.viewUsers": "사용자를 볼 권한이 없습니다.",
+    "privileges.viewHistory": "기록을 볼 권한이 없습니다.",
+    "privileges.uploadPosts": "게시물을 업로드할 권한이 없습니다.",
+    "privileges.createPools": "풀을 생성할 권한이 없습니다."
 }

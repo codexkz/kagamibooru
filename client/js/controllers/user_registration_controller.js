@@ -13,7 +13,7 @@ class UserRegistrationController {
     constructor() {
         if (!api.hasPrivilege("users:create:self")) {
             this._view = new EmptyView();
-            this._view.showError("Registration is closed.");
+            this._view.showError(i18n.t("register.closed"));
             return;
         }
 

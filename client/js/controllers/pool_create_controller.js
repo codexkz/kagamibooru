@@ -13,7 +13,7 @@ class PoolCreateController {
     constructor(ctx) {
         if (!api.hasPrivilege("pools:create")) {
             this._view = new EmptyView();
-            this._view.showError("You don't have privileges to create pools.");
+            this._view.showError(i18n.t("privileges.createPools"));
             return;
         }
 

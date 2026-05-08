@@ -11,7 +11,6 @@
     "nav.login": "Log in",
     "nav.logout": "Logout",
     "nav.help": "Help",
-
     "home.searchPlaceholder": "enter some tags",
     "home.search": "Search",
     "home.or": "or",
@@ -19,14 +18,12 @@
     "home.featuredPost": "Featured post:",
     "home.postCount": "{count} posts",
     "home.history": "History",
-
     "login.title": "Log in",
     "login.username": "User name",
     "login.password": "Password",
     "login.remember": "Remember me",
     "login.submit": "Log in",
     "login.forgotPassword": "Forgot the password?",
-
     "passwordReset.title": "Password reset",
     "passwordReset.label": "User name or e-mail address",
     "passwordReset.hint": "Proceeding will send an e-mail that contains a password reset link. Clicking it is going to generate a new password for your account. It is recommended to change that password to something else.",
@@ -34,7 +31,6 @@
     "passwordReset.noSupport": "We do not support automatic password resetting.",
     "passwordReset.contactHint": "Please send an e-mail to {email} to go through a manual procedure.",
     "passwordReset.newPassword": "New password: {password}",
-
     "settings.title": "Browsing settings",
     "settings.description": "These settings are saved to the browser's local storage and are not coupled to the user account, so they don't apply to other devices or browsers alike.",
     "settings.language": "Language",
@@ -58,7 +54,6 @@
     "settings.hiddenCategoriesHint": "Space-separated category names. Posts with tags in these categories will be hidden from search results.",
     "settings.save": "Save settings",
     "settings.saved": "Settings saved.",
-
     "register.title": "Registration",
     "register.username": "User name",
     "register.password": "Password",
@@ -78,10 +73,8 @@
     "register.closed": "Registration is closed.",
     "register.success": "Welcome aboard!",
     "register.userAdded": "User added!",
-
     "posts.noData": "No data to show",
     "posts.privileges": "You don't have privileges to view posts.",
-
     "postsHeader.searchQuery": "Search query",
     "postsHeader.search": "Search",
     "postsHeader.syntaxHelp": "Syntax help",
@@ -94,7 +87,6 @@
     "postsHeader.massDelete": "Mass delete",
     "postsHeader.deleteSelected": "Delete selected posts",
     "postsHeader.stopDeleting": "Stop deleting",
-
     "post.mainView": "Main view",
     "post.mergeWith": "Merge with…",
     "post.prevPost": "Previous post",
@@ -137,7 +129,6 @@
     "post.saved": "Post saved.",
     "post.merged": "Post merged.",
     "post.videoNotSupported": "Your browser doesn't support HTML5 videos.",
-
     "postUpload.uploadAll": "Upload all",
     "postUpload.skipDuplicate": "Skip duplicate",
     "postUpload.forceUpload": "Force upload similar",
@@ -149,7 +140,6 @@
     "postUpload.addRelation": "Add relation",
     "postUpload.uploadAnonymously": "Upload anonymously",
     "postUpload.uploaded": "Posts uploaded.",
-
     "postMerge.hint": "Tags, relations, scores, favorites and comments will be merged. All other properties need to be handled manually.",
     "postMerge.confirm": "I confirm that I want to merge these posts.",
     "postMerge.submit": "Merge posts",
@@ -157,17 +147,14 @@
     "postMerge.search": "Search",
     "postMerge.mergeToThis": "Merge to this post",
     "postMerge.useThisFile": "Use this file",
-
     "tag.saved": "Tag saved.",
     "tag.merged": "Tag merged.",
     "tag.deleted": "Tag deleted.",
     "tag.privileges": "You don't have privileges to view tags.",
-
     "tagNav.summary": "Summary",
     "tagNav.edit": "Edit",
     "tagNav.mergeWith": "Merge with…",
     "tagNav.delete": "Delete",
-
     "tagSummary.categories": "Categories:",
     "tagSummary.category": "Category:",
     "tagSummary.aliases": "Aliases:",
@@ -175,7 +162,6 @@
     "tagSummary.suggestions": "Suggestions:",
     "tagSummary.noDescription": "This tag has no description yet.",
     "tagSummary.usages": "usage(s)",
-
     "tagEdit.names": "Names",
     "tagEdit.categories": "Categories",
     "tagEdit.categoriesHint": "Hold Ctrl/Cmd to select multiple",
@@ -183,27 +169,22 @@
     "tagEdit.suggestions": "Suggestions",
     "tagEdit.description": "Description",
     "tagEdit.save": "Save changes",
-
     "tagDelete.confirm": "I confirm that I want to delete this tag.",
     "tagDelete.submit": "Delete tag",
-
     "tagMerge.targetTag": "Target tag",
     "tagMerge.hint": "Usages in posts, suggestions and implications will be merged. Category needs to be handled manually.",
     "tagMerge.alias": "Make this tag an alias of the target tag.",
     "tagMerge.confirm": "I confirm that I want to merge this tag.",
     "tagMerge.submit": "Merge tag",
-
     "tagsHeader.searchQuery": "Search query",
     "tagsHeader.search": "Search",
     "tagsHeader.syntaxHelp": "Syntax help",
     "tagsHeader.categories": "Tag categories",
-
     "tagsPage.tagNames": "Tag name(s)",
     "tagsPage.implications": "Implications",
     "tagsPage.suggestions": "Suggestions",
     "tagsPage.usages": "Usages",
     "tagsPage.createdOn": "Created on",
-
     "tagCategories.title": "Tag categories",
     "tagCategories.name": "Category name",
     "tagCategories.color": "CSS color",
@@ -215,53 +196,43 @@
     "tagCategories.remove": "Remove",
     "tagCategories.makeDefault": "Make default",
     "tagCategories.saved": "Changes saved.",
-
     "pool.saved": "Pool saved.",
     "pool.merged": "Pool merged.",
     "pool.deleted": "Pool deleted.",
     "pool.created": "Pool created.",
     "pool.privileges": "You don't have privileges to view pools.",
-
     "poolNav.summary": "Summary",
     "poolNav.edit": "Edit",
     "poolNav.mergeWith": "Merge with…",
     "poolNav.delete": "Delete",
-
     "poolSummary.category": "Category:",
     "poolSummary.aliases": "Aliases:",
     "poolSummary.noDescription": "This pool has no description yet.",
     "poolSummary.posts": "post(s)",
-
     "poolEdit.names": "Names",
     "poolEdit.category": "Category",
     "poolEdit.description": "Description",
     "poolEdit.posts": "Posts",
     "poolEdit.save": "Save changes",
-
     "poolDelete.confirm": "I confirm that I want to delete this pool.",
     "poolDelete.submit": "Delete pool",
-
     "poolMerge.targetPool": "Target pool",
     "poolMerge.hint": "Posts in the two pools will be combined. Category needs to be handled manually.",
     "poolMerge.confirm": "I confirm that I want to merge this pool.",
     "poolMerge.submit": "Merge pool",
-
     "poolCreate.names": "Names",
     "poolCreate.category": "Category",
     "poolCreate.description": "Description",
     "poolCreate.posts": "Posts",
     "poolCreate.postsPlaceholder": "space-separated post IDs",
     "poolCreate.submit": "Create pool",
-
     "poolsHeader.searchQuery": "Search query",
     "poolsHeader.search": "Search",
     "poolsHeader.syntaxHelp": "Syntax help",
     "poolsHeader.addNew": "Add new pool",
-
     "poolsPage.poolNames": "Pool name(s)",
     "poolsPage.postCount": "Post count",
     "poolsPage.createdOn": "Created on",
-
     "poolCategories.title": "Pool categories",
     "poolCategories.name": "Category name",
     "poolCategories.color": "CSS color",
@@ -272,15 +243,12 @@
     "poolCategories.remove": "Remove",
     "poolCategories.makeDefault": "Make default",
     "poolCategories.saved": "Changes saved.",
-
     "auth.loggedIn": "Logged in",
     "auth.loggedOut": "Logged out",
-
     "userNav.summary": "Summary",
     "userNav.settings": "Settings",
     "userNav.tokens": "Login tokens",
     "userNav.delete": "Delete",
-
     "userSummary.registered": "Registered:",
     "userSummary.lastSeen": "Last seen:",
     "userSummary.rank": "Rank:",
@@ -291,7 +259,6 @@
     "userSummary.onlyVisible": "Only visible to you",
     "userSummary.likedPosts": "liked posts",
     "userSummary.dislikedPosts": "disliked posts",
-
     "userEdit.username": "User name",
     "userEdit.password": "Password",
     "userEdit.passwordPlaceholder": "leave blank if not changing",
@@ -302,11 +269,9 @@
     "userEdit.manualAvatar": "Manual avatar",
     "userEdit.save": "Save settings",
     "userEdit.settingsUpdated": "Settings updated.",
-
     "userDelete.confirm": "I confirm that I want to delete this account.",
     "userDelete.submit": "Delete account",
     "userDelete.deleted": "Account deleted.",
-
     "userTokens.noTokens": "No Registered Tokens",
     "userTokens.token": "Token:",
     "userTokens.note": "Note:",
@@ -321,14 +286,11 @@
     "userTokens.createToken": "Create token",
     "userTokens.noteLabel": "Note",
     "userTokens.expiresLabel": "Expires",
-
     "usersHeader.searchQuery": "Search query",
     "usersHeader.search": "Search",
     "usersHeader.syntaxHelp": "Syntax help",
-
     "usersPage.registered": "Registered:",
     "usersPage.lastSeen": "Last seen:",
-
     "comment.write": "Write",
     "comment.preview": "Preview",
     "comment.commented": "commented",
@@ -336,37 +298,49 @@
     "comment.delete": "delete",
     "comment.save": "Save",
     "comment.cancel": "Cancel",
-
     "score.upvote": "upvote",
     "score.like": "like",
     "score.downvote": "downvote",
     "score.dislike": "dislike",
-
     "fav.add": "add to favorites",
-
     "fileDropper.dropFiles": "Drop files here!",
     "fileDropper.dropFile": "Drop file here!",
     "fileDropper.orClick": "Or just click on this box.",
     "fileDropper.confirm": "Confirm",
     "fileDropper.addUrl": "Add URL",
-
     "notFound.title": "Not found",
     "notFound.invalidUrl": "{path} is not a valid URL.",
     "notFound.backToMain": "Back to main page",
-
     "pager.prevPage": "Previous page",
     "pager.nextPage": "Next page",
     "pager.pageOf": "Page {page} of {total}",
-
     "tagInput.placeholder": "type to add...",
     "tagInput.add": "Add",
     "tagInput.suggested": "Suggested tags",
-
     "rank.anonymous": "Anonymous",
     "rank.restricted": "Restricted user",
     "rank.regular": "Regular user",
     "rank.power": "Power user",
     "rank.moderator": "Moderator",
     "rank.administrator": "Administrator",
-    "rank.nobody": "Nobody"
+    "rank.nobody": "Nobody",
+    "notFound.notValidUrl": "{path} is not a valid URL.",
+    "pager.previousPage": "Previous page",
+    "poolEdit.postsPlaceholder": "space-separated post IDs",
+    "tagInput.suggestedTags": "Suggested tags",
+    "userEdit.userName": "User name",
+    "userNav.loginTokens": "Login tokens",
+    "userSummary.onlyVisibleToYou": "Only visible to you",
+    "userTokens.deleteAndLogout": "Delete and logout",
+    "poolsHeader.addNewPool": "Add new pool",
+    "poolsHeader.poolCategories": "Pool categories",
+    "userTokens.deleteLogoutHint": "This token is used to authenticate this client, deleting it will force a logout.",
+    "userTokens.deleteAndLogoutHint": "This token is used to authenticate this client, deleting it will force a logout.",
+    "privileges.viewPosts": "You don't have privileges to view posts.",
+    "privileges.viewTags": "You don't have privileges to view tags.",
+    "privileges.viewPools": "You don't have privileges to view pools.",
+    "privileges.viewUsers": "You don't have privileges to view users.",
+    "privileges.viewHistory": "You don't have privileges to view history.",
+    "privileges.uploadPosts": "You don't have privileges to upload posts.",
+    "privileges.createPools": "You don't have privileges to create pools."
 }

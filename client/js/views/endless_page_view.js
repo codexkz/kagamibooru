@@ -1,6 +1,7 @@
 "use strict";
 
 const router = require("../router.js");
+const i18n = require("../i18n.js");
 const views = require("../util/views.js");
 
 const holderTemplate = views.getTemplate("endless-pager");
@@ -215,7 +216,7 @@ class EndlessPageView {
                 );
             }
         } else if (!response.results.length) {
-            this.showInfo("No data to show");
+            this.showInfo(i18n.t("posts.noData"));
         }
 
         this._initialPageLoad = false;

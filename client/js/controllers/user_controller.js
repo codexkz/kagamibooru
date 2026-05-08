@@ -20,7 +20,7 @@ class UserController {
             !api.isLoggedIn({ name: userName })
         ) {
             this._view = new EmptyView();
-            this._view.showError("You don't have privileges to view users.");
+            this._view.showError(i18n.t("privileges.viewUsers"));
             return;
         }
 

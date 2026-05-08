@@ -22,7 +22,7 @@ class PostUploadController {
 
         if (!api.hasPrivilege("posts:create")) {
             this._view = new EmptyView();
-            this._view.showError("You don't have privileges to upload posts.");
+            this._view.showError(i18n.t("privileges.uploadPosts"));
             return;
         }
 

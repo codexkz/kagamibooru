@@ -12,7 +12,7 @@ class SnapshotsController {
     constructor(ctx) {
         if (!api.hasPrivilege("snapshots:list")) {
             this._view = new EmptyView();
-            this._view.showError("You don't have privileges to view history.");
+            this._view.showError(i18n.t("privileges.viewHistory"));
             return;
         }
 
