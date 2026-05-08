@@ -4,37 +4,37 @@
             <thead>
                 <th class='names'>
                     <% if (ctx.parameters.query == 'sort:name' || !ctx.parameters.query) { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:name'}) %>'>Tag name(s)</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:name'}) %>'><%- ctx.t('tagsPage.tagNames') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:name'}) %>'>Tag name(s)</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:name'}) %>'><%- ctx.t('tagsPage.tagNames') %></a>
                     <% } %>
                 </th>
                 <th class='implications'>
                     <% if (ctx.parameters.query == 'sort:implication-count') { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:implication-count'}) %>'>Implications</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:implication-count'}) %>'><%- ctx.t('tagsPage.implications') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:implication-count'}) %>'>Implications</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:implication-count'}) %>'><%- ctx.t('tagsPage.implications') %></a>
                     <% } %>
                 </th>
                 <th class='suggestions'>
                     <% if (ctx.parameters.query == 'sort:suggestion-count') { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:suggestion-count'}) %>'>Suggestions</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:suggestion-count'}) %>'><%- ctx.t('tagsPage.suggestions') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:suggestion-count'}) %>'>Suggestions</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:suggestion-count'}) %>'><%- ctx.t('tagsPage.suggestions') %></a>
                     <% } %>
                 </th>
                 <th class='usages'>
                     <% if (ctx.parameters.query == 'sort:usages') { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:usages'}) %>'>Usages</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:usages'}) %>'><%- ctx.t('tagsPage.usages') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:usages'}) %>'>Usages</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:usages'}) %>'><%- ctx.t('tagsPage.usages') %></a>
                     <% } %>
                 </th>
                 <th class='creation-time'>
                     <% if (ctx.parameters.query == 'sort:creation-time') { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:creation-time'}) %>'>Created on</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: '-sort:creation-time'}) %>'><%- ctx.t('tagsPage.createdOn') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:creation-time'}) %>'>Created on</a>
+                        <a href='<%- ctx.formatClientLink('tags', {query: 'sort:creation-time'}) %>'><%- ctx.t('tagsPage.createdOn') %></a>
                     <% } %>
                 </th>
             </thead>

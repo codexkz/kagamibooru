@@ -1,10 +1,10 @@
 <div class='content-wrapper' id='settings'>
     <form>
-        <strong><%= ctx.t('settings.title', 'Browsing settings') %></strong>
-        <p><%= ctx.t('settings.description', 'These settings are saved to the browser\'s local storage and are not coupled to the user account, so they don\'t apply to other devices or browsers alike.') %></p>
+        <strong><%= ctx.t('settings.title') %></strong>
+        <p><%= ctx.t('settings.description') %></p>
         <ul class='input'>
             <li>
-                <label><%= ctx.t('settings.language', 'Language') %></label>
+                <label><%= ctx.t('settings.language') %></label>
                 <select name='language'>
                     <% for (let code of Object.keys(ctx.languages)) { %>
                         <option value='<%- code %>' <%= ctx.browsingSettings.language === code ? 'selected' : '' %>>
@@ -12,12 +12,11 @@
                         </option>
                     <% } %>
                 </select>
-                <p class='hint'>Changing this setting will require you to refresh the page for it to apply.</p>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: ctx.t('settings.keyboardShortcuts', 'Enable keyboard shortcuts') + " <a class='append icon' href='" + ctx.formatClientLink('help', 'keyboard') + "'><i class='fa fa-question-circle-o'></i></a>",
+                    text: ctx.t('settings.keyboardShortcuts') + " <a class='append icon' href='" + ctx.formatClientLink('help', 'keyboard') + "'><i class='fa fa-question-circle-o'></i></a>",
                     name: 'keyboard-shortcuts',
                     checked: ctx.browsingSettings.keyboardShortcuts,
                 }) %>
@@ -25,7 +24,7 @@
 
             <li>
                 <%= ctx.makeNumericInput({
-                    text: 'Number of posts per page',
+                    text: ctx.t('settings.postsPerPage'),
                     name: 'posts-per-page',
                     checked: ctx.browsingSettings.postCount,
                     value: ctx.browsingSettings.postsPerPage,
@@ -36,59 +35,59 @@
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Use dark theme',
+                    text: ctx.t('settings.darkTheme'),
                     name: 'dark-theme',
                     checked: ctx.browsingSettings.darkTheme,
                 }) %>
-                <p class='hint'>Changing this setting will require you to refresh the page for it to apply.</p>
+                <p class='hint'><%= ctx.t('settings.darkThemeHint') %></p>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Upscale small posts',
+                    text: ctx.t('settings.upscaleSmallPosts'),
                     name: 'upscale-small-posts',
                     checked: ctx.browsingSettings.upscaleSmallPosts}) %>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Enable endless scroll',
+                    text: ctx.t('settings.endlessScroll'),
                     name: 'endless-scroll',
                     checked: ctx.browsingSettings.endlessScroll,
                 }) %>
-                <p class='hint'>Rather than using a paged navigation, smoothly scrolls through the content.</p>
+                <p class='hint'><%= ctx.t('settings.endlessScrollHint') %></p>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Use post flow',
+                    text: ctx.t('settings.postFlow'),
                     name: 'post-flow',
                     checked: ctx.browsingSettings.postFlow,
                 }) %>
-                <p class='hint'>Use a content-aware flow for thumbnails on the post search page.</p>
+                <p class='hint'><%= ctx.t('settings.postFlowHint') %></p>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Enable transparency grid',
+                    text: ctx.t('settings.transparencyGrid'),
                     name: 'transparency-grid',
                     checked: ctx.browsingSettings.transparencyGrid,
                 }) %>
-                <p class='hint'>Renders a checkered pattern behind posts with transparent background.</p>
+                <p class='hint'><%= ctx.t('settings.transparencyGridHint') %></p>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Show tag suggestions',
+                    text: ctx.t('settings.tagSuggestions'),
                     name: 'tag-suggestions',
                     checked: ctx.browsingSettings.tagSuggestions,
                 }) %>
-                <p class='hint'>Shows a popup with suggested tags in edit forms.</p>
+                <p class='hint'><%= ctx.t('settings.tagSuggestionsHint') %></p>
             </li>
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Automatically play video posts',
+                    text: ctx.t('settings.autoplayVideos'),
                     name: 'autoplay-videos',
                     checked: ctx.browsingSettings.autoplayVideos,
                 }) %>
@@ -96,26 +95,25 @@
 
             <li>
                 <%= ctx.makeCheckbox({
-                    text: 'Display underscores as spaces',
+                    text: ctx.t('settings.underscoresAsSpaces'),
                     name: 'underscores-as-spaces',
                     checked: ctx.browsingSettings.tagUnderscoresAsSpaces,
                 }) %>
-                <p class='hint'>Display all underscores as if they were spaces. This is only a visual change, which means that you'll still have to use underscores when searching or editing tags.</p>
+                <p class='hint'><%= ctx.t('settings.underscoresAsSpacesHint') %></p>
             </li>
-        </ul>
 
             <li>
-                <label>Hidden tag categories</label>
+                <label><%= ctx.t('settings.hiddenCategories') %></label>
                 <input type='text' name='hidden-categories'
                        value='<%= (ctx.browsingSettings.hiddenCategories || []).join(" ") %>'
                        placeholder='e.g. nsfw gore'>
-                <p class='hint'>Space-separated category names. Posts with tags in these categories will be hidden from search results. Add "nsfw" to hide NSFW content.</p>
+                <p class='hint'><%= ctx.t('settings.hiddenCategoriesHint') %></p>
             </li>
         </ul>
 
         <div class='messages'></div>
         <div class='buttons'>
-            <input type='submit' value='Save settings'/>
+            <input type='submit' value='<%= ctx.t("settings.save") %>'/>
         </div>
     </form>
 </div>

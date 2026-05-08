@@ -19,8 +19,8 @@
                             </a>
                         <% } %>
                         <br/>
-                        Registered: <%= ctx.makeRelativeTime(user.creationTime) %><br/>
-                        Last seen: <%= ctx.makeRelativeTime(user.lastLoginTime) %>
+                        <%= ctx.t('usersPage.registered') %> <%= ctx.makeRelativeTime(user.creationTime) %><br/>
+                        <%= ctx.t('usersPage.lastSeen') %> <%= ctx.makeRelativeTime(user.lastLoginTime) %>
                     </div>
                 </div>
             </li><!--

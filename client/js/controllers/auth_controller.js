@@ -2,6 +2,7 @@
 
 const router = require("../router.js");
 const api = require("../api.js");
+const i18n = require("../i18n.js");
 const tags = require("../tags.js");
 const pools = require("../pools.js");
 const uri = require("../util/uri.js");
@@ -25,7 +26,7 @@ class LoginController {
         api.login(e.detail.name, e.detail.password, e.detail.remember).then(
             () => {
                 const ctx = router.show(uri.formatClientLink());
-                ctx.controller.showSuccess("Logged in");
+                ctx.controller.showSuccess(i18n.t("auth.loggedIn"));
                 // reload tag category color map, this is required when `tag_categories:list` has a permission other than anonymous
                 tags.refreshCategoryColorMap();
                 pools.refreshCategoryColorMap();
@@ -43,7 +44,7 @@ class LogoutController {
         api.forget();
         api.logout();
         const ctx = router.show(uri.formatClientLink());
-        ctx.controller.showSuccess("Logged out");
+        ctx.controller.showSuccess(i18n.t("auth.loggedOut"));
     }
 }
 

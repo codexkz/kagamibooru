@@ -4,7 +4,7 @@
             <li class='names'>
                 <% if (ctx.canEditNames) { %>
                     <%= ctx.makeTextInput({
-                        text: 'Names',
+                        text: ctx.t('poolEdit.names'),
                         value: ctx.pool.names.join(' '),
                         required: true,
                     }) %>
@@ -13,7 +13,7 @@
             <li class='category'>
                 <% if (ctx.canEditCategory) { %>
                     <%= ctx.makeSelect({
-                        text: 'Category',
+                        text: ctx.t('poolEdit.category'),
                         keyValues: ctx.categories,
                         selectedKey: ctx.pool.category,
                         required: true,
@@ -23,7 +23,7 @@
             <li class='description'>
                 <% if (ctx.canEditDescription) { %>
                     <%= ctx.makeTextarea({
-                        text: 'Description',
+                        text: ctx.t('poolEdit.description'),
                         value: ctx.pool.description,
                     }) %>
                 <% } %>
@@ -31,8 +31,8 @@
             <li class='posts'>
                 <% if (ctx.canEditPosts) { %>
                     <%= ctx.makeTextInput({
-                        text: 'Posts',
-                        placeholder: 'space-separated post IDs',
+                        text: ctx.t('poolEdit.posts'),
+                        placeholder: ctx.t('poolEdit.postsPlaceholder'),
                         value: ctx.pool.posts.map(post => post.id).join(' ')
                     }) %>
                 <% } %>
@@ -43,7 +43,7 @@
             <div class='messages'></div>
 
             <div class='buttons'>
-                <input type='submit' class='save' value='Save changes'>
+                <input type='submit' class='save' value='<%= ctx.t("poolEdit.save") %>'>
             </div>
         <% } %>
     </form>

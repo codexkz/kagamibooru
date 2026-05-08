@@ -7,6 +7,7 @@ const uri = require("../util/uri.js");
 const PoolCategoryList = require("../models/pool_category_list.js");
 const PoolCreateView = require("../views/pool_create_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class PoolCreateController {
     constructor(ctx) {
@@ -48,7 +49,7 @@ class PoolCreateController {
                 this._view.clearMessages();
                 misc.disableExitConfirmation();
                 const ctx = router.show(uri.formatClientLink("pools"));
-                ctx.controller.showSuccess("Pool created.");
+                ctx.controller.showSuccess(i18n.t("pool.created"));
             },
             (error) => {
                 this._view.showError(error.message);

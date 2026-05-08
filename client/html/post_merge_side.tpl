@@ -1,8 +1,8 @@
 <header>
-    <label for='merge-id-<%- ctx.name %>'>Post #</label>
+    <label for='merge-id-<%- ctx.name %>'><%= ctx.t('postMerge.postNumber') %></label>
     <% if (ctx.editable) { %>
         <input type='text' id='merge-id-<%-ctx.name %>' pattern='^[0-9]+$' value='<%- ctx.post ? ctx.post.id : '' %>'/>
-        <input type='button' value='Search'/>
+        <input type='button' value='<%= ctx.t("postMerge.search") %>'/>
     <% } else { %>
         <input type='text' id='merge-id-<%-ctx.name %>' pattern='^[0-9]+$' value='<%- ctx.post ? ctx.post.id : '' %>' readonly/>
     <% } %>
@@ -17,7 +17,7 @@
     <div class='target-post'>
         <%= ctx.makeRadio({
             required: true,
-            text: 'Merge to this post<br/><small>' +
+            text: ctx.t('postMerge.mergeToThis') + '<br/><small>' +
                 ctx.makeUserLink(ctx.post.user) +
                 ', ' +
                 ctx.makeRelativeTime(ctx.post.creationTime) +
@@ -29,7 +29,7 @@
     <div class='target-post-content'>
         <%= ctx.makeRadio({
             required: true,
-            text: 'Use this file<br/><small>' +
+            text: ctx.t('postMerge.useThisFile') + '<br/><small>' +
                 ctx.makeFileSize(ctx.post.fileSize) + ' ' +
                 {
                     'image/gif': 'GIF',

@@ -7,17 +7,16 @@
             </li>
 
             <li>
-                <p>Tags, relations, scores, favorites and comments will be
-                merged. All other properties need to be handled manually.</p>
+                <p><%= ctx.t('postMerge.hint') %></p>
 
-                <%= ctx.makeCheckbox({required: true, text: 'I confirm that I want to merge these posts.'}) %>
+                <%= ctx.makeCheckbox({required: true, text: ctx.t('postMerge.confirm')}) %>
             </li>
         </ul>
 
         <div class='messages'></div>
 
         <div class='buttons'>
-            <input type='submit' value='Merge posts'/>
+            <input type='submit' value='<%= ctx.t("postMerge.submit") %>'/>
         </div>
     </form>
 </div>

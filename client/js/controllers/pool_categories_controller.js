@@ -6,6 +6,7 @@ const PoolCategoryList = require("../models/pool_category_list.js");
 const topNavigation = require("../models/top_navigation.js");
 const PoolCategoriesView = require("../views/pool_categories_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class PoolCategoriesController {
     constructor() {
@@ -52,7 +53,7 @@ class PoolCategoriesController {
             () => {
                 pools.refreshCategoryColorMap();
                 this._view.enableForm();
-                this._view.showSuccess("Changes saved.");
+                this._view.showSuccess(i18n.t("poolCategories.saved"));
             },
             (error) => {
                 this._view.enableForm();

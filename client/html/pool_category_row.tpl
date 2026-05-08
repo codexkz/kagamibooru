@@ -29,15 +29,15 @@
     <% if (ctx.canDelete) { %>
         <td class='remove'>
             <% if (ctx.poolCategory.poolCount) { %>
-                <a class='inactive' title="Can't delete category in use">Remove</a>
+                <a class='inactive' title='<%= ctx.t("poolCategories.cantDelete") %>'><%= ctx.t('poolCategories.remove') %></a>
             <% } else { %>
-                <a href>Remove</a>
+                <a href><%= ctx.t('poolCategories.remove') %></a>
             <% } %>
         </td>
     <% } %>
     <% if (ctx.canSetDefault) { %>
         <td class='set-default'>
-            <a href>Make default</a>
+            <a href><%= ctx.t('poolCategories.makeDefault') %></a>
         </td>
     <% } %>
 </tr>

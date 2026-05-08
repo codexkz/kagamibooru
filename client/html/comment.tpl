@@ -15,8 +15,8 @@
         <header>
             <nav class='edit tabs'>
                 <ul>
-                    <li class='edit'><a href>Write</a></li>
-                    <li class='preview'><a href>Preview</a></li>
+                    <li class='edit'><a href><%= ctx.t('comment.write') %></a></li>
+                    <li class='preview'><a href><%= ctx.t('comment.preview') %></a></li>
                 </ul>
             </nav>
 
@@ -34,7 +34,7 @@
                 %></span></strong>
 
                 <span class='date'><%
-                    %>commented <%= ctx.makeRelativeTime(ctx.comment ? ctx.comment.creationTime : null) %><%
+                    %><%= ctx.t('comment.commented') %> <%= ctx.makeRelativeTime(ctx.comment ? ctx.comment.creationTime : null) %><%
                 %></span><%
 
                 %><wbr><%
@@ -45,13 +45,13 @@
                     %><span class='action-container'><%
                         %><% if (ctx.canEditComment) { %><%
                             %><a href class='edit'><%
-                                %><i class='fa fa-pencil'></i>&nbsp;edit<%
+                                %><i class='fa fa-pencil'></i>&nbsp;<%= ctx.t('comment.edit') %><%
                             %></a><%
                         %><% } %><%
 
                         %><% if (ctx.canDeleteComment) { %><%
                             %><a href class='delete'><%
-                                %><i class='fa fa-remove'></i>&nbsp;delete<%
+                                %><i class='fa fa-remove'></i>&nbsp;<%= ctx.t('comment.delete') %><%
                             %></a><%
                         %><% } %><%
                     %></span><%
@@ -75,9 +75,9 @@
             <nav class='edit'>
                 <div class='messages'></div>
 
-                <input type='submit' class='save-changes' value='Save'/>
+                <input type='submit' class='save-changes' value='<%= ctx.t("comment.save") %>'/>
                 <% if (!ctx.onlyEditing) { %>
-                    <input type='button' class='cancel-editing discourage' value='Cancel'/>
+                    <input type='button' class='cancel-editing discourage' value='<%= ctx.t("comment.cancel") %>'/>
                 <% } %>
             </div>
         </form>

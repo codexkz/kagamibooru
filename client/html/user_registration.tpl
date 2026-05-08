@@ -1,5 +1,5 @@
 <div class='content-wrapper' id='user-registration'>
-    <h1>Registration</h1>
+    <h1><%= ctx.t('register.title') %></h1>
     <form autocomplete='off'>
         <input class='anticomplete' type='text' name='fakeuser'/>
         <input class='anticomplete' type='password' name='fakepass'/>
@@ -7,50 +7,49 @@
         <ul class='input'>
             <li>
                 <%= ctx.makeTextInput({
-                    text: 'User name',
+                    text: ctx.t('register.username'),
                     name: 'name',
-                    placeholder: 'letters, digits, _, -',
+                    placeholder: ctx.t('register.namePlaceholder'),
                     required: true,
                     pattern: ctx.userNamePattern,
                 }) %>
             </li>
             <li>
                 <%= ctx.makePasswordInput({
-                    text: 'Password',
+                    text: ctx.t('register.password'),
                     name: 'password',
-                    placeholder: '5+ characters',
+                    placeholder: ctx.t('register.passwordPlaceholder'),
                     required: true,
                     pattern: ctx.passwordPattern,
                 }) %>
             </li>
             <li>
                 <%= ctx.makeEmailInput({
-                    text: 'Email',
+                    text: ctx.t('register.email'),
                     name: 'email',
-                    placeholder: 'optional',
+                    placeholder: ctx.t('register.emailPlaceholder'),
                 }) %>
                 <p class='hint'>
-                    Used for password reminder and to show a <a href='http://gravatar.com/'>Gravatar</a>.
-                    Leave blank for random Gravatar.
+                    <%= ctx.t('register.emailHint') %>
                 </p>
             </li>
         </ul>
 
         <div class='messages'></div>
         <div class='buttons'>
-            <input type='submit' value='Create an account'/>
+            <input type='submit' value='<%= ctx.t("register.submit") %>'/>
         </div>
     </form>
 
     <div class='info'>
-        <p>Registered users can:</p>
+        <p><%= ctx.t('register.benefits') %></p>
         <ul>
-            <li><i class='fa fa-upload'></i> upload new posts</li>
-            <li><i class='fa fa-heart'></i> mark them as favorite</li>
-            <li><i class='fa fa-commenting-o'></i> add comments</li>
-            <li><i class='fa fa-star-half-o'></i> vote up/down on posts and comments</li>
+            <li><i class='fa fa-upload'></i> <%= ctx.t('register.benefitUpload') %></li>
+            <li><i class='fa fa-heart'></i> <%= ctx.t('register.benefitFavorite') %></li>
+            <li><i class='fa fa-commenting-o'></i> <%= ctx.t('register.benefitComment') %></li>
+            <li><i class='fa fa-star-half-o'></i> <%= ctx.t('register.benefitVote') %></li>
         </ul>
         <hr/>
-        <p>By creating an account, you are agreeing to the <a href='<%- ctx.formatClientLink('help', 'tos') %>'>Terms of Service</a>.</p>
+        <p><%= ctx.t('register.tos').replace('{link}', "<a href='" + ctx.formatClientLink('help', 'tos') + "'>" + ctx.t('register.tosLink') + "</a>") %></p>
     </div>
 </div>

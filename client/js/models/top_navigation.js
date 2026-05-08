@@ -2,6 +2,7 @@
 
 const events = require("../events.js");
 const api = require("../api.js");
+const i18n = require("../i18n.js");
 
 class TopNavigationItem {
     constructor(accessKey, title, url, available, imageUrl) {
@@ -78,18 +79,18 @@ class TopNavigation extends events.EventTarget {
 
 function _makeTopNavigation() {
     const ret = new TopNavigation();
-    ret.add("home", new TopNavigationItem("H", "Home", ""));
-    ret.add("posts", new TopNavigationItem("P", "Posts", "posts"));
-    ret.add("upload", new TopNavigationItem("U", "Upload", "upload"));
-    ret.add("comments", new TopNavigationItem("C", "Comments", "comments"));
-    ret.add("tags", new TopNavigationItem("T", "Tags", "tags"));
-    ret.add("pools", new TopNavigationItem("O", "Pools", "pools"));
-    ret.add("users", new TopNavigationItem("S", "Users", "users"));
-    ret.add("account", new TopNavigationItem("A", "Account", "user/{me}"));
-    ret.add("register", new TopNavigationItem("R", "Register", "register"));
-    ret.add("login", new TopNavigationItem("L", "Log in", "login"));
-    ret.add("logout", new TopNavigationItem("O", "Logout", "logout"));
-    ret.add("help", new TopNavigationItem("E", "Help", "help"));
+    ret.add("home", new TopNavigationItem("H", i18n.t("nav.home"), ""));
+    ret.add("posts", new TopNavigationItem("P", i18n.t("nav.posts"), "posts"));
+    ret.add("upload", new TopNavigationItem("U", i18n.t("nav.upload"), "upload"));
+    ret.add("comments", new TopNavigationItem("C", i18n.t("nav.comments"), "comments"));
+    ret.add("tags", new TopNavigationItem("T", i18n.t("nav.tags"), "tags"));
+    ret.add("pools", new TopNavigationItem("O", i18n.t("nav.pools"), "pools"));
+    ret.add("users", new TopNavigationItem("S", i18n.t("nav.users"), "users"));
+    ret.add("account", new TopNavigationItem("A", i18n.t("nav.account"), "user/{me}"));
+    ret.add("register", new TopNavigationItem("R", i18n.t("nav.register"), "register"));
+    ret.add("login", new TopNavigationItem("L", i18n.t("nav.login"), "login"));
+    ret.add("logout", new TopNavigationItem("O", i18n.t("nav.logout"), "logout"));
+    ret.add("help", new TopNavigationItem("E", i18n.t("nav.help"), "help"));
     ret.add(
         "settings",
         new TopNavigationItem(null, "<i class='fa fa-cog'></i>", "settings")

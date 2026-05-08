@@ -7,6 +7,7 @@ const User = require("../models/user.js");
 const topNavigation = require("../models/top_navigation.js");
 const RegistrationView = require("../views/registration_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class UserRegistrationController {
     constructor() {
@@ -43,10 +44,10 @@ class UserRegistrationController {
                 () => {
                     if (isLoggedIn) {
                         const ctx = router.show(uri.formatClientLink("users"));
-                        ctx.controller.showSuccess("User added!");
+                        ctx.controller.showSuccess(i18n.t("register.userAdded"));
                     } else {
                         const ctx = router.show(uri.formatClientLink());
-                        ctx.controller.showSuccess("Welcome aboard!");
+                        ctx.controller.showSuccess(i18n.t("register.success"));
                     }
                 },
                 (error) => {

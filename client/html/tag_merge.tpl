@@ -2,23 +2,22 @@
     <form>
         <ul class='input'>
             <li class='target'>
-                <%= ctx.makeTextInput({name: 'target-tag', required: true, text: 'Target tag', pattern: ctx.tagNamePattern}) %>
+                <%= ctx.makeTextInput({name: 'target-tag', required: true, text: ctx.t('tagMerge.targetTag'), pattern: ctx.tagNamePattern}) %>
             </li>
 
             <li>
-                <p>Usages in posts, suggestions and implications will be
-                merged. Category needs to be handled manually.</p>
+                <p><%= ctx.t('tagMerge.hint') %></p>
 
-                <%= ctx.makeCheckbox({name: 'alias', text: 'Make this tag an alias of the target tag.'}) %>
+                <%= ctx.makeCheckbox({name: 'alias', text: ctx.t('tagMerge.alias')}) %>
 
-                <%= ctx.makeCheckbox({required: true, text: 'I confirm that I want to merge this tag.'}) %>
+                <%= ctx.makeCheckbox({required: true, text: ctx.t('tagMerge.confirm')}) %>
             </li>
         </ul>
 
         <div class='messages'></div>
 
         <div class='buttons'>
-            <input type='submit' value='Merge tag'/>
+            <input type='submit' value='<%= ctx.t("tagMerge.submit") %>'/>
         </div>
     </form>
 </div>

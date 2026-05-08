@@ -2,12 +2,12 @@
     <input type='file' id='<%- ctx.id %>'/>
     <label class='file-dropper' for='<%- ctx.id %>' role='button'>
         <% if (ctx.allowMultiple) { %>
-            Drop files here!
+            <%= ctx.t('fileDropper.dropFiles') %>
         <% } else { %>
-            Drop file here!
+            <%= ctx.t('fileDropper.dropFile') %>
         <% } %>
         <br/>
-        Or just click on this box.
+        <%= ctx.t('fileDropper.orClick') %>
         <% if (ctx.extraText) { %>
             <br/>
             <small><%= ctx.extraText %></small>
@@ -17,9 +17,9 @@
         <div class='url-holder'>
             <input type='text' name='url' placeholder='<%- ctx.urlPlaceholder %>'/>
             <% if (ctx.lock) { %>
-                <button>Confirm</button>
+                <button><%= ctx.t('fileDropper.confirm') %></button>
             <% } else { %>
-                <button>Add URL</button>
+                <button><%= ctx.t('fileDropper.addUrl') %></button>
             <% } %>
         </div>
     <% } %>

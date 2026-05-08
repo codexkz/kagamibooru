@@ -10,6 +10,6 @@
     <a class='add-favorite inactive'>
         <i class='fa fa-heart-o'></i>
 <% } %>
-    <span class='vim-nav-hint'>add to favorites</span>
+    <span class='vim-nav-hint'><%= ctx.t('fav.add') %></span>
 </a>
 <span class='value'><%- ctx.favoriteCount %></span>

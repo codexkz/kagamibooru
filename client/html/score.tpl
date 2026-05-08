@@ -5,8 +5,8 @@
         <% } else { %>
             <i class='fa fa-thumbs-o-up'></i>
         <% } %>
-        <span class='vim-nav-hint'>upvote</span>
-        <span class='vim-nav-hint'>like</span>
+        <span class='vim-nav-hint'><%= ctx.t('score.upvote') %></span>
+        <span class='vim-nav-hint'><%= ctx.t('score.like') %></span>
     </a>
 <% } else { %>
     <a class='upvote inactive'>
@@ -21,7 +21,7 @@
         <% } else { %>
             <i class='fa fa-thumbs-o-down'></i>
         <% } %>
-        <span class='vim-nav-hint'>downvote</span>
-        <span class='vim-nav-hint'>dislike</span>
+        <span class='vim-nav-hint'><%= ctx.t('score.downvote') %></span>
+        <span class='vim-nav-hint'><%= ctx.t('score.dislike') %></span>
     </a>
 <% } %>

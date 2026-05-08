@@ -4,7 +4,7 @@
             <li>
                 <%= ctx.makeCheckbox({
                     name: 'confirm-deletion',
-                    text: 'I confirm that I want to delete this account.',
+                    text: ctx.t('userDelete.confirm'),
                     required: true,
                 }) %>
             </li>
@@ -12,7 +12,7 @@
 
         <div class='messages'></div>
         <div class='buttons'>
-            <input type='submit' value='Delete account'/>
+            <input type='submit' value='<%= ctx.t("userDelete.submit") %>'/>
         </div>
     </form>
 </div>

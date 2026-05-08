@@ -1,13 +1,13 @@
 <div class='content-wrapper pool-categories'>
     <form>
-        <h1>Pool categories</h1>
+        <h1><%= ctx.t('poolCategories.title') %></h1>
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th class='name'>Category name</th>
-                        <th class='color'>CSS color</th>
-                        <th class='usages'>Usages</th>
+                        <th class='name'><%= ctx.t('poolCategories.name') %></th>
+                        <th class='color'><%= ctx.t('poolCategories.color') %></th>
+                        <th class='usages'><%= ctx.t('poolCategories.usages') %></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -16,14 +16,14 @@
         </div>
 
         <% if (ctx.canCreate) { %>
-            <p><a href class='add'>Add new category</a></p>
+            <p><a href class='add'><%= ctx.t('poolCategories.add') %></a></p>
         <% } %>
 
         <div class='messages'></div>
 
         <% if (ctx.canCreate || ctx.canEditName || ctx.canEditColor || ctx.canDelete) { %>
             <div class='buttons'>
-                <input type='submit' class='save' value='Save changes'>
+                <input type='submit' class='save' value='<%= ctx.t("poolCategories.save") %>'>
             </div>
         <% } %>
     </form>

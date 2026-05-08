@@ -24,7 +24,7 @@
                 type: ctx.post.mimeType,
                 src: ctx.post.contentUrl,
             }),
-            'Your browser doesn\'t support HTML5 videos.')
+            ctx.t('post.videoNotSupported'))
         %>
 
     <% } else { console.log(new Error('Unknown post type')); } %>

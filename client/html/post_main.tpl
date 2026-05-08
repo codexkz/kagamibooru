@@ -12,7 +12,7 @@
                     <a rel='prev' class='inactive'>
                 <% } %>
                     <i class='fa fa-chevron-left'></i>
-                    <span class='vim-nav-hint'>&lt; Previous post</span>
+                    <span class='vim-nav-hint'>&lt; <%= ctx.t('post.prevPost') %></span>
                 </a>
             </article>
             <article class='next-post'>
@@ -26,7 +26,7 @@
                     <a rel='next' class='inactive'>
                 <% } %>
                     <i class='fa fa-chevron-right'></i>
-                    <span class='vim-nav-hint'>Next post &gt;</span>
+                    <span class='vim-nav-hint'><%= ctx.t('post.nextPost') %> &gt;</span>
                 </a>
             </article>
             <% if (ctx.canEditPosts || ctx.canDeletePosts || ctx.canFeaturePosts) { %>
@@ -34,12 +34,12 @@
                 <% if (ctx.editMode) { %>
                     <a href='<%= ctx.getPostUrl(ctx.post.id, ctx.parameters) %>'>
                         <i class='fa fa-reply'></i>
-                        <span class='vim-nav-hint'>Back to view mode</span>
+                        <span class='vim-nav-hint'><%= ctx.t('post.backToView') %></span>
                     </a>
                 <% } else { %>
                     <a href='<%= ctx.getPostEditUrl(ctx.post.id, ctx.parameters) %>'>
                     <i class='fa fa-pencil'></i>
-                    <span class='vim-nav-hint'>Edit post</span>
+                    <span class='vim-nav-hint'><%= ctx.t('post.editPost') %></span>
                     </a>
                 <% } %>
             </article>
@@ -54,7 +54,7 @@
 
         <div class='after-mobile-controls'>
             <% if (ctx.canCreateComments) { %>
-                <h2>Add comment</h2>
+                <h2><%= ctx.t('post.addComment') %></h2>
                 <div class='comment-form-container'></div>
             <% } %>
 

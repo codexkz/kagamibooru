@@ -10,6 +10,7 @@ const Post = require("../models/post.js");
 const Tag = require("../models/tag.js");
 const PostUploadView = require("../views/post_upload_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 const genericErrorMessage =
     "One or more posts needs your attention; " +
@@ -107,7 +108,7 @@ class PostUploadController {
                     this._view.clearMessages();
                     misc.disableExitConfirmation();
                     const ctx = router.show(uri.formatClientLink("posts"));
-                    ctx.controller.showSuccess("Posts uploaded.");
+                    ctx.controller.showSuccess(i18n.t("postUpload.uploaded"));
                 },
                 (error) => {
                     this._view.showError(genericErrorMessage);

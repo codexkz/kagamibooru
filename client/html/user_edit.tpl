@@ -7,7 +7,7 @@
             <% if (ctx.canEditName) { %>
                 <li>
                     <%= ctx.makeTextInput({
-                        text: 'User name',
+                        text: ctx.t('userEdit.userName'),
                         name: 'name',
                         value: ctx.user.name,
                         pattern: ctx.userNamePattern,
@@ -18,9 +18,9 @@
             <% if (ctx.canEditPassword) { %>
                 <li>
                     <%= ctx.makePasswordInput({
-                        text: 'Password',
+                        text: ctx.t('userEdit.password'),
                         name: 'password',
-                        placeholder: 'leave blank if not changing',
+                        placeholder: ctx.t('userEdit.passwordPlaceholder'),
                         pattern: ctx.passwordPattern,
                     }) %>
                 </li>
@@ -29,7 +29,7 @@
             <% if (ctx.canEditEmail) { %>
                 <li>
                     <%= ctx.makeEmailInput({
-                        text: 'Email',
+                        text: ctx.t('userEdit.email'),
                         name: 'email',
                         value: ctx.user.email,
                     }) %>
@@ -39,7 +39,7 @@
             <% if (ctx.canEditRank) { %>
                 <li>
                     <%= ctx.makeSelect({
-                        text: 'Rank',
+                        text: ctx.t('userEdit.rank'),
                         name: 'rank',
                         keyValues: ctx.ranks,
                         selectedKey: ctx.user.rank,
@@ -49,18 +49,18 @@
 
             <% if (ctx.canEditAvatar) { %>
                 <li class='avatar'>
-                    <label>Avatar</label>
+                    <label><%= ctx.t('userEdit.avatar') %></label>
                     <div id='avatar-content'></div>
                     <div id='avatar-radio'>
                         <%= ctx.makeRadio({
-                            text: 'Gravatar',
+                            text: ctx.t('userEdit.gravatar'),
                             name: 'avatar-style',
                             value: 'gravatar',
                             selectedValue: ctx.user.avatarStyle,
                         }) %>
 
                         <%= ctx.makeRadio({
-                            text: 'Manual avatar',
+                            text: ctx.t('userEdit.manualAvatar'),
                             name: 'avatar-style',
                             value: 'manual',
                             selectedValue: ctx.user.avatarStyle,
@@ -73,7 +73,7 @@
         <div class='messages'></div>
 
         <div class='buttons'>
-            <input type='submit' value='Save settings'/>
+            <input type='submit' value='<%= ctx.t("userEdit.save") %>'/>
         </div>
     </form>
 </div>

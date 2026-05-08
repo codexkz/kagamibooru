@@ -58,7 +58,7 @@
                 <% if (ctx.canUploadAnonymously) { %>
                     <div class='anonymous'>
                         <%= ctx.makeCheckbox({
-                            text: 'Upload anonymously',
+                            text: ctx.t('postUpload.uploadAnonymously'),
                             name: 'anonymous',
                             checked: ctx.uploadable.anonymous,
                             readonly: ctx.uploadable.forceAnonymous,
@@ -78,14 +78,14 @@
                                 <%= ctx.makeThumbnail(lookalike.post.thumbnailUrl) %>
                             </a>
                             <div class='description'>
-                                Similar post: <%= ctx.makePostLink(lookalike.post.id, true) %>
+                                <%= ctx.t('postUpload.similarPost') %> <%= ctx.makePostLink(lookalike.post.id, true) %>
                                 <br/>
-                                <%- Math.round((1-lookalike.distance) * 100) %>% match
+                                <%- Math.round((1-lookalike.distance) * 100) %><%= ctx.t('postUpload.match') %>
                             </div>
                             <div class='controls'>
-                                <%= ctx.makeCheckbox({text: 'Copy tags', name: 'copy-tags'}) %>
+                                <%= ctx.makeCheckbox({text: ctx.t('postUpload.copyTags'), name: 'copy-tags'}) %>
                                 <br/>
-                                <%= ctx.makeCheckbox({text: 'Add relation', name: 'add-relation'}) %>
+                                <%= ctx.makeCheckbox({text: ctx.t('postUpload.addRelation'), name: 'add-relation'}) %>
                             </div>
                         </li>
                     <% } %>

@@ -11,6 +11,7 @@ const PostList = require("../models/post_list.js");
 const PostMainView = require("../views/post_main_view.js");
 const BasePostController = require("./base_post_controller.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class PostMainController extends BasePostController {
     constructor(ctx, editMode) {
@@ -148,7 +149,7 @@ class PostMainController extends BasePostController {
         this._view.sidebarControl.clearMessages();
         e.detail.post.feature().then(
             () => {
-                this._view.sidebarControl.showSuccess("Post featured.");
+                this._view.sidebarControl.showSuccess(i18n.t("post.featured"));
                 this._view.sidebarControl.enableForm();
             },
             (error) => {
@@ -169,7 +170,7 @@ class PostMainController extends BasePostController {
             () => {
                 misc.disableExitConfirmation();
                 const ctx = router.show(uri.formatClientLink("posts"));
-                ctx.controller.showSuccess("Post deleted.");
+                ctx.controller.showSuccess(i18n.t("post.deleted"));
             },
             (error) => {
                 this._view.sidebarControl.showError(error.message);
@@ -202,7 +203,7 @@ class PostMainController extends BasePostController {
         }
         post.save().then(
             () => {
-                this._view.sidebarControl.showSuccess("Post saved.");
+                this._view.sidebarControl.showSuccess(i18n.t("post.saved"));
                 this._view.sidebarControl.enableForm();
                 misc.disableExitConfirmation();
             },

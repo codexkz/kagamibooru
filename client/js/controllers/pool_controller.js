@@ -10,6 +10,7 @@ const PoolCategoryList = require("../models/pool_category_list.js");
 const topNavigation = require("../models/top_navigation.js");
 const PoolView = require("../views/pool_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class PoolController {
     constructor(ctx, section) {
@@ -110,7 +111,7 @@ class PoolController {
         }
         e.detail.pool.save().then(
             () => {
-                this._view.showSuccess("Pool saved.");
+                this._view.showSuccess(i18n.t("pool.saved"));
                 this._view.enableForm();
             },
             (error) => {
@@ -125,7 +126,7 @@ class PoolController {
         this._view.disableForm();
         e.detail.pool.merge(e.detail.targetPoolId, e.detail.addAlias).then(
             () => {
-                this._view.showSuccess("Pool merged.");
+                this._view.showSuccess(i18n.t("pool.merged"));
                 this._view.enableForm();
                 router.replace(
                     uri.formatClientLink(
@@ -150,7 +151,7 @@ class PoolController {
         e.detail.pool.delete().then(
             () => {
                 const ctx = router.show(uri.formatClientLink("pools"));
-                ctx.controller.showSuccess("Pool deleted.");
+                ctx.controller.showSuccess(i18n.t("pool.deleted"));
             },
             (error) => {
                 this._view.showError(error.message);

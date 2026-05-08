@@ -1,31 +1,31 @@
 <div class='edit-sidebar'>
     <form autocomplete='off'>
-        <input type='submit' value='Save' class='submit'/>
+        <input type='submit' value='<%= ctx.t("post.save") %>' class='submit'/>
 
         <div class='messages'></div>
 
         <% if (ctx.enableSafety && ctx.canEditPostSafety) { %>
             <section class='safety'>
-                <label>Safety</label>
+                <label><%= ctx.t('post.safety') %></label>
                 <div class='radio-wrapper'>
                     <%= ctx.makeRadio({
                         name: 'safety',
                         class: 'safety-safe',
                         value: 'safe',
                         selectedValue: ctx.post.safety,
-                        text: 'Safe'}) %>
+                        text: ctx.t('post.safe')}) %>
                     <%= ctx.makeRadio({
                         name: 'safety',
                         class: 'safety-sketchy',
                         value: 'sketchy',
                         selectedValue: ctx.post.safety,
-                        text: 'Sketchy'}) %>
+                        text: ctx.t('post.sketchy')}) %>
                     <%= ctx.makeRadio({
                         name: 'safety',
                         value: 'unsafe',
                         selectedValue: ctx.post.safety,
                         class: 'safety-unsafe',
-                        text: 'Unsafe'}) %>
+                        text: ctx.t('post.unsafe')}) %>
                 </div>
             </section>
         <% } %>
@@ -33,9 +33,9 @@
         <% if (ctx.canEditPostRelations) { %>
             <section class='relations'>
                 <%= ctx.makeTextInput({
-                    text: 'Relations',
+                    text: ctx.t('post.relations'),
                     name: 'relations',
-                    placeholder: 'space-separated post IDs',
+                    placeholder: ctx.t('post.relationsPlaceholder'),
                     pattern: '^[0-9 ]*$',
                     value: ctx.post.relations.map(rel => rel.id).join(' '),
                 }) %>
@@ -44,14 +44,14 @@
 
         <% if (ctx.canEditPostFlags && ctx.post.type === 'video') { %>
             <section class='flags'>
-                <label>Miscellaneous</label>
+                <label><%= ctx.t('post.miscellaneous') %></label>
                 <%= ctx.makeCheckbox({
-                    text: 'Loop video',
+                    text: ctx.t('post.loopVideo'),
                     name: 'loop',
                     checked: ctx.post.flags.includes('loop'),
                 }) %>
                 <%= ctx.makeCheckbox({
-                    text: 'Sound',
+                    text: ctx.t('post.sound'),
                     name: 'sound',
                     checked: ctx.post.flags.includes('sound'),
                 }) %>
@@ -61,7 +61,7 @@
         <% if (ctx.canEditPostSource) { %>
             <section class='post-source'>
                 <%= ctx.makeTextarea({
-                    text: 'Source',
+                    text: ctx.t('post.source'),
                     value: ctx.post.source,
                 }) %>
             </section>
@@ -81,30 +81,30 @@
 
         <% if (ctx.canEditPostNotes) { %>
             <section class='notes'>
-                <a href class='add'>Add a note</a>
-                <%= ctx.makeTextarea({disabled: true, text: 'Content (supports Markdown)', rows: '8'}) %>
-                <a href class='delete inactive'>Delete selected note</a>
+                <a href class='add'><%= ctx.t('post.addNote') %></a>
+                <%= ctx.makeTextarea({disabled: true, text: ctx.t('post.contentMarkdown'), rows: '8'}) %>
+                <a href class='delete inactive'><%= ctx.t('post.deleteNote') %></a>
                 <% if (ctx.hasClipboard) { %>
                     <br/>
-                    <a href class='copy'>Export notes to clipboard</a>
+                    <a href class='copy'><%= ctx.t('post.exportNotes') %></a>
                     <br/>
-                    <a href class='paste'>Import notes from clipboard</a>
+                    <a href class='paste'><%= ctx.t('post.importNotes') %></a>
                 <% } %>
             </section>
         <% } %>
 
         <% if (ctx.canEditPostContent) { %>
             <section class='post-content'>
-                <label>Content</label>
+                <label><%= ctx.t('post.contentLabel') %></label>
                 <div class='dropper-container'></div>
             </section>
         <% } %>
 
         <% if (ctx.canEditPostThumbnail) { %>
             <section class='post-thumbnail'>
-                <label>Thumbnail</label>
+                <label><%= ctx.t('post.thumbnail') %></label>
                 <div class='dropper-container'></div>
-                <a href>Discard custom thumbnail</a>
+                <a href><%= ctx.t('post.discardThumbnail') %></a>
             </section>
         <% } %>
 
@@ -112,13 +112,13 @@
             <section class='management'>
                 <ul>
                     <% if (ctx.canFeaturePosts) { %>
-                        <li><a href class='feature'>Feature this post on main page</a></li>
+                        <li><a href class='feature'><%= ctx.t('post.featurePost') %></a></li>
                     <% } %>
                     <% if (ctx.canMergePosts) { %>
-                        <li><a href class='merge'>Merge this post with another</a></li>
+                        <li><a href class='merge'><%= ctx.t('post.mergePost') %></a></li>
                     <% } %>
                     <% if (ctx.canDeletePosts) { %>
-                        <li><a href class='delete'>Delete this post</a></li>
+                        <li><a href class='delete'><%= ctx.t('post.deletePost') %></a></li>
                     <% } %>
                 </ul>
             </section>

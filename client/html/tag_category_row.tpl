@@ -36,15 +36,15 @@
     <% if (ctx.canDelete) { %>
         <td class='remove'>
             <% if (ctx.tagCategory.tagCount) { %>
-                <a class='inactive' title="Can't delete category in use">Remove</a>
+                <a class='inactive' title='<%= ctx.t("tagCategories.cantDelete") %>'><%= ctx.t('tagCategories.remove') %></a>
             <% } else { %>
-                <a href>Remove</a>
+                <a href><%= ctx.t('tagCategories.remove') %></a>
             <% } %>
         </td>
     <% } %>
     <% if (ctx.canSetDefault) { %>
         <td class='set-default'>
-            <a href>Make default</a>
+            <a href><%= ctx.t('tagCategories.makeDefault') %></a>
         </td>
     <% } %>
 </tr>

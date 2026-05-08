@@ -10,6 +10,7 @@ const UserToken = require("../models/user_token.js");
 const topNavigation = require("../models/top_navigation.js");
 const UserView = require("../views/user_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class UserController {
     constructor(ctx, section) {
@@ -209,7 +210,7 @@ class UserController {
             })
             .then(
                 () => {
-                    this._view.showSuccess("Settings updated.");
+                    this._view.showSuccess(i18n.t("userEdit.settingsUpdated"));
                     this._view.enableForm();
                 },
                 (error) => {
@@ -231,10 +232,10 @@ class UserController {
                 }
                 if (api.hasPrivilege("users:list")) {
                     const ctx = router.show(uri.formatClientLink("users"));
-                    ctx.controller.showSuccess("Account deleted.");
+                    ctx.controller.showSuccess(i18n.t("userDelete.deleted"));
                 } else {
                     const ctx = router.show(uri.formatClientLink());
-                    ctx.controller.showSuccess("Account deleted.");
+                    ctx.controller.showSuccess(i18n.t("userDelete.deleted"));
                 }
             },
             (error) => {

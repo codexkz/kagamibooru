@@ -3,11 +3,11 @@
         <div class='dropper-container'></div>
 
         <div class='control-strip'>
-            <input type='submit' value='Upload all' class='submit'/>
+            <input type='submit' value='<%= ctx.t("postUpload.uploadAll") %>' class='submit'/>
 
             <span class='skip-duplicates'>
                 <%= ctx.makeCheckbox({
-                    text: 'Skip duplicate',
+                    text: ctx.t('postUpload.skipDuplicate'),
                     name: 'skip-duplicates',
                     checked: false,
                 }) %>
@@ -15,7 +15,7 @@
 
             <span class='always-upload-similar'>
                 <%= ctx.makeCheckbox({
-                    text: 'Force upload similar',
+                    text: ctx.t('postUpload.forceUpload'),
                     name: 'always-upload-similar',
                     checked: false,
                 }) %>
@@ -23,13 +23,13 @@
 
             <span class='pause-remain-on-error'>
                 <%= ctx.makeCheckbox({
-                    text: 'Pause on error',
+                    text: ctx.t('postUpload.pauseOnError'),
                     name: 'pause-remain-on-error',
                     checked: true,
                 }) %>
             </span>
 
-            <input type='button' value='Cancel' class='cancel'/>
+            <input type='button' value='<%= ctx.t("postUpload.cancel") %>' class='cancel'/>
         </div>
 
         <div class='messages'></div>

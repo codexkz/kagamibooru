@@ -5,6 +5,7 @@ const api = require("../api.js");
 const uri = require("../util/uri.js");
 const topNavigation = require("../models/top_navigation.js");
 const PasswordResetView = require("../views/password_reset_view.js");
+const i18n = require("../i18n.js");
 
 class PasswordResetController {
     constructor() {
@@ -52,7 +53,7 @@ class PasswordResetFinishController {
             .then(
                 () => {
                     const ctx = router.show(uri.formatClientLink());
-                    ctx.controller.showSuccess("New password: " + password);
+                    ctx.controller.showSuccess(i18n.t("passwordReset.newPassword").replace("{password}", password));
                 },
                 (error) => {
                     const ctx = router.show(uri.formatClientLink());

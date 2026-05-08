@@ -4,23 +4,23 @@
             <thead>
                 <th class='names'>
                     <% if (ctx.parameters.query == 'sort:name' || !ctx.parameters.query) { %>
-                        <a href='<%- ctx.formatClientLink('pools', {query: '-sort:name'}) %>'>Pool name(s)</a>
+                        <a href='<%- ctx.formatClientLink('pools', {query: '-sort:name'}) %>'><%- ctx.t('poolsPage.poolNames') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('pools', {query: 'sort:name'}) %>'>Pool name(s)</a>
+                        <a href='<%- ctx.formatClientLink('pools', {query: 'sort:name'}) %>'><%- ctx.t('poolsPage.poolNames') %></a>
                     <% } %>
                 </th>
                 <th class='post-count'>
                      <% if (ctx.parameters.query == 'sort:post-count') { %>
-                        <a href='<%- ctx.formatClientLink('pools', {query: '-sort:post-count'}) %>'>Post count</a>
+                        <a href='<%- ctx.formatClientLink('pools', {query: '-sort:post-count'}) %>'><%- ctx.t('poolsPage.postCount') %></a>
                      <% } else { %>
-                        <a href='<%- ctx.formatClientLink('pools', {query: 'sort:post-count'}) %>'>Post count</a>
+                        <a href='<%- ctx.formatClientLink('pools', {query: 'sort:post-count'}) %>'><%- ctx.t('poolsPage.postCount') %></a>
                      <% } %>
                      </th>
                 <th class='creation-time'>
                     <% if (ctx.parameters.query == 'sort:creation-time') { %>
-                        <a href='<%- ctx.formatClientLink('pools', {query: '-sort:creation-time'}) %>'>Created on</a>
+                        <a href='<%- ctx.formatClientLink('pools', {query: '-sort:creation-time'}) %>'><%- ctx.t('poolsPage.createdOn') %></a>
                     <% } else { %>
-                        <a href='<%- ctx.formatClientLink('pools', {query: 'sort:creation-time'}) %>'>Created on</a>
+                        <a href='<%- ctx.formatClientLink('pools', {query: 'sort:creation-time'}) %>'><%- ctx.t('poolsPage.createdOn') %></a>
                     <% } %>
                 </th>
             </thead>

@@ -9,6 +9,7 @@ const PageController = require("../controllers/page_controller.js");
 const PoolsHeaderView = require("../views/pools_header_view.js");
 const PoolsPageView = require("../views/pools_page_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 const fields = [
     "id",
@@ -65,7 +66,7 @@ class PoolListController {
         e.detail.pool.save().then(
             () => {
                 this._installView(e.detail.pool, "edit");
-                this._view.showSuccess("Pool created.");
+                this._view.showSuccess(i18n.t("pool.created"));
                 router.replace(
                     uri.formatClientLink("pool", e.detail.pool.id, "edit"),
                     null,

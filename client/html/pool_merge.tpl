@@ -2,21 +2,20 @@
     <form>
         <ul class='input'>
             <li class='target'>
-                <%= ctx.makeTextInput({name: 'target-pool', required: true, text: 'Target pool', pattern: ctx.poolNamePattern}) %>
+                <%= ctx.makeTextInput({name: 'target-pool', required: true, text: ctx.t('poolMerge.targetPool'), pattern: ctx.poolNamePattern}) %>
             </li>
 
             <li>
-                <p>Posts in the two pools will be combined.
-                Category needs to be handled manually.</p>
+                <p><%= ctx.t('poolMerge.hint') %></p>
 
-                <%= ctx.makeCheckbox({required: true, text: 'I confirm that I want to merge this pool.'}) %>
+                <%= ctx.makeCheckbox({required: true, text: ctx.t('poolMerge.confirm')}) %>
             </li>
         </ul>
 
         <div class='messages'></div>
 
         <div class='buttons'>
-            <input type='submit' value='Merge pool'/>
+            <input type='submit' value='<%= ctx.t("poolMerge.submit") %>'/>
         </div>
     </form>
 </div>

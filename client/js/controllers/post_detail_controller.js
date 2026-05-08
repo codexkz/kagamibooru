@@ -10,6 +10,7 @@ const PostList = require("../models/post_list.js");
 const PostDetailView = require("../views/post_detail_view.js");
 const BasePostController = require("./base_post_controller.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class PostDetailController extends BasePostController {
     constructor(ctx, section) {
@@ -79,7 +80,7 @@ class PostDetailController extends BasePostController {
             .then(
                 () => {
                     this._installView(e.detail.post, "merge");
-                    this._view.showSuccess("Post merged.");
+                    this._view.showSuccess(i18n.t("post.merged"));
                     router.replace(
                         uri.formatClientLink(
                             "post",

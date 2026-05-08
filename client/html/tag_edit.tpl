@@ -4,7 +4,7 @@
             <li class='names'>
                 <% if (ctx.canEditNames) { %>
                     <%= ctx.makeTextInput({
-                        text: 'Names',
+                        text: ctx.t('tagEdit.names'),
                         value: ctx.tag.names.join(' '),
                         required: true,
                     }) %>
@@ -12,7 +12,7 @@
             </li>
             <li class='category'>
                 <% if (ctx.canEditCategory) { %>
-                    <label>Categories</label>
+                    <label><%= ctx.t('tagEdit.categories') %></label>
                     <select name='categories' multiple size='<%= Math.min(Object.keys(ctx.categories).length, 6) %>'>
                         <% for (let key of Object.keys(ctx.categories)) { %>
                             <option value='<%- key %>'
@@ -21,23 +21,23 @@
                             </option>
                         <% } %>
                     </select>
-                    <p class='hint'>Hold Ctrl/Cmd to select multiple</p>
+                    <p class='hint'><%= ctx.t('tagEdit.categoriesHint') %></p>
                 <% } %>
             </li>
             <li class='implications'>
                 <% if (ctx.canEditImplications) { %>
-                    <%= ctx.makeTextInput({text: 'Implications'}) %>
+                    <%= ctx.makeTextInput({text: ctx.t('tagEdit.implications')}) %>
                 <% } %>
             </li>
             <li class='suggestions'>
                 <% if (ctx.canEditSuggestions) { %>
-                    <%= ctx.makeTextInput({text: 'Suggestions'}) %>
+                    <%= ctx.makeTextInput({text: ctx.t('tagEdit.suggestions')}) %>
                 <% } %>
             </li>
             <li class='description'>
                 <% if (ctx.canEditDescription) { %>
                     <%= ctx.makeTextarea({
-                        text: 'Description',
+                        text: ctx.t('tagEdit.description'),
                         value: ctx.tag.description,
                     }) %>
                 <% } %>
@@ -48,7 +48,7 @@
             <div class='messages'></div>
 
             <div class='buttons'>
-                <input type='submit' class='save' value='Save changes'>
+                <input type='submit' class='save' value='<%= ctx.t("tagEdit.save") %>'>
             </div>
         <% } %>
     </form>

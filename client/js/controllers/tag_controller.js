@@ -9,6 +9,7 @@ const TagCategoryList = require("../models/tag_category_list.js");
 const topNavigation = require("../models/top_navigation.js");
 const TagView = require("../views/tag_view.js");
 const EmptyView = require("../views/empty_view.js");
+const i18n = require("../i18n.js");
 
 class TagController {
     constructor(ctx, section) {
@@ -109,7 +110,7 @@ class TagController {
         }
         e.detail.tag.save().then(
             () => {
-                this._view.showSuccess("Tag saved.");
+                this._view.showSuccess(i18n.t("tag.saved"));
                 this._view.enableForm();
             },
             (error) => {
@@ -124,7 +125,7 @@ class TagController {
         this._view.disableForm();
         e.detail.tag.merge(e.detail.targetTagName, e.detail.addAlias).then(
             () => {
-                this._view.showSuccess("Tag merged.");
+                this._view.showSuccess(i18n.t("tag.merged"));
                 this._view.enableForm();
                 router.replace(
                     uri.formatClientLink(
@@ -149,7 +150,7 @@ class TagController {
         e.detail.tag.delete().then(
             () => {
                 const ctx = router.show(uri.formatClientLink("tags"));
-                ctx.controller.showSuccess("Tag deleted.");
+                ctx.controller.showSuccess(i18n.t("tag.deleted"));
             },
             (error) => {
                 this._view.showError(error.message);
