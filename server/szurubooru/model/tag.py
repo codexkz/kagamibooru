@@ -110,6 +110,7 @@ class Tag(Base):
 
     # Primary category (1:1, used for display color/sort — original behavior)
     category = sa.orm.relationship("TagCategory", lazy="joined")
+    posts = sa.orm.relationship("Post", back_populates="tags", secondary="post_tag")
 
     # All categories (M2M, supplementary — for multi-category support)
     categories = sa.orm.relationship(

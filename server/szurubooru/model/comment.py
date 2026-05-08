@@ -26,10 +26,7 @@ class CommentScore(Base):
     score = sa.Column("score", sa.Integer, nullable=False)
 
     comment = sa.orm.relationship("Comment")
-    user = sa.orm.relationship(
-        "User",
-        backref=sa.orm.backref("comment_scores", cascade="all, delete-orphan"),
-    )
+    user = sa.orm.relationship("User", back_populates="comment_scores")
 
 
 class Comment(Base):
@@ -55,8 +52,8 @@ class Comment(Base):
     last_edit_time = sa.Column("last_edit_time", sa.DateTime)
     text = sa.Column("text", sa.UnicodeText, default=None)
 
-    user = sa.orm.relationship("User")
-    post = sa.orm.relationship("Post")
+    user = sa.orm.relationship("User", back_populates="comments")
+    post = sa.orm.relationship("Post", back_populates="comments")
     scores = sa.orm.relationship(
         "CommentScore", cascade="all, delete-orphan", lazy="joined"
     )

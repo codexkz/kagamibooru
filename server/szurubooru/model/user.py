@@ -35,7 +35,11 @@ class User(Base):
         "avatar_style", sa.Unicode(32), nullable=False, default=AVATAR_GRAVATAR
     )
 
-    comments = sa.orm.relationship("Comment")
+    comments = sa.orm.relationship("Comment", back_populates="user")
+    post_features = sa.orm.relationship("PostFeature", back_populates="user", cascade="all, delete-orphan")
+    post_scores = sa.orm.relationship("PostScore", back_populates="user", cascade="all, delete-orphan")
+    post_favorites = sa.orm.relationship("PostFavorite", back_populates="user", cascade="all, delete-orphan")
+    comment_scores = sa.orm.relationship("CommentScore", back_populates="user", cascade="all, delete-orphan")
 
     @property
     def post_count(self) -> int:

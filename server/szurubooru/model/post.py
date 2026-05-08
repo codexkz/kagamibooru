@@ -30,11 +30,8 @@ class PostFeature(Base):
     )
     time = sa.Column("time", sa.DateTime, nullable=False)
 
-    post = sa.orm.relationship("Post")  # type: Post
-    user = sa.orm.relationship(
-        "User",
-        backref=sa.orm.backref("post_features", cascade="all, delete-orphan"),
-    )
+    post = sa.orm.relationship("Post", back_populates="features")
+    user = sa.orm.relationship("User", back_populates="post_features")
 
 
 class PostScore(Base):
@@ -59,11 +56,8 @@ class PostScore(Base):
     time = sa.Column("time", sa.DateTime, nullable=False)
     score = sa.Column("score", sa.Integer, nullable=False)
 
-    post = sa.orm.relationship("Post")
-    user = sa.orm.relationship(
-        "User",
-        backref=sa.orm.backref("post_scores", cascade="all, delete-orphan"),
-    )
+    post = sa.orm.relationship("Post", back_populates="scores")
+    user = sa.orm.relationship("User", back_populates="post_scores")
 
 
 class PostFavorite(Base):
@@ -87,11 +81,8 @@ class PostFavorite(Base):
     )
     time = sa.Column("time", sa.DateTime, nullable=False)
 
-    post = sa.orm.relationship("Post")
-    user = sa.orm.relationship(
-        "User",
-        backref=sa.orm.backref("post_favorites", cascade="all, delete-orphan"),
-    )
+    post = sa.orm.relationship("Post", back_populates="favorited_by")
+    user = sa.orm.relationship("User", back_populates="post_favorites")
 
 
 class PostNote(Base):
@@ -108,7 +99,7 @@ class PostNote(Base):
     polygon = sa.Column("polygon", sa.PickleType, nullable=False)
     text = sa.Column("text", sa.UnicodeText, nullable=False)
 
-    post = sa.orm.relationship("Post")
+    post = sa.orm.relationship("Post", back_populates="notes")
 
 
 class PostRelation(Base):
@@ -225,7 +216,7 @@ class Post(Base):
 
     # foreign tables
     user = sa.orm.relationship("User")
-    tags = sa.orm.relationship("Tag", backref="posts", secondary="post_tag")
+    tags = sa.orm.relationship("Tag", back_populates="posts", secondary="post_tag")
     signature = sa.orm.relationship(
         "PostSignature",
         uselist=False,
@@ -238,21 +229,26 @@ class Post(Base):
         primaryjoin=post_id == PostRelation.parent_id,
         secondaryjoin=post_id == PostRelation.child_id,
         lazy="joined",
-        backref="related_by",
     )
     features = sa.orm.relationship(
-        "PostFeature", cascade="all, delete-orphan", lazy="joined"
+        "PostFeature", cascade="all, delete-orphan", lazy="joined",
+        back_populates="post",
     )
     scores = sa.orm.relationship(
-        "PostScore", cascade="all, delete-orphan", lazy="joined"
+        "PostScore", cascade="all, delete-orphan", lazy="joined",
+        back_populates="post",
     )
     favorited_by = sa.orm.relationship(
-        "PostFavorite", cascade="all, delete-orphan", lazy="joined"
+        "PostFavorite", cascade="all, delete-orphan", lazy="joined",
+        back_populates="post",
     )
     notes = sa.orm.relationship(
-        "PostNote", cascade="all, delete-orphan", lazy="joined"
+        "PostNote", cascade="all, delete-orphan", lazy="joined",
+        back_populates="post",
     )
-    comments = sa.orm.relationship("Comment", cascade="all, delete-orphan")
+    comments = sa.orm.relationship(
+        "Comment", cascade="all, delete-orphan", back_populates="post",
+    )
     _pools = sa.orm.relationship(
         "PoolPost",
         cascade="all,delete-orphan",
