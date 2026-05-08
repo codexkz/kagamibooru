@@ -2,6 +2,7 @@
 
 require("../util/polyfill.js");
 const api = require("../api.js");
+const i18n = require("../i18n.js");
 const templates = require("../templates.js");
 const domParser = new DOMParser();
 const misc = require("./misc.js");
@@ -457,6 +458,7 @@ function getTemplate(templatePath) {
             makeCssName: misc.makeCssName,
             makeNumericInput: makeNumericInput,
             formatClientLink: uri.formatClientLink,
+            t: i18n.t,
         });
         return htmlToDom(templateFactory(ctx));
     };

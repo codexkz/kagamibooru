@@ -12,7 +12,7 @@ class SettingsView extends events.EventTarget {
         this._hostNode = document.getElementById("content-holder");
         views.replaceContent(
             this._hostNode,
-            template({ browsingSettings: ctx.settings })
+            template({ browsingSettings: ctx.settings, languages: ctx.languages })
         );
         views.syncScrollPosition();
 
@@ -44,6 +44,7 @@ class SettingsView extends events.EventTarget {
                     postsPerPage: this._find("posts-per-page").value,
                     tagUnderscoresAsSpaces: this._find("underscores-as-spaces")
                         .checked,
+                    language: this._find("language").value,
                     darkTheme: this._find("dark-theme").checked,
                     postFlow: this._find("post-flow").checked,
                     hiddenCategories: this._find("hidden-categories").value

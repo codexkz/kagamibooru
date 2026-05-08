@@ -17,6 +17,7 @@ const defaultSettings = {
     autoplayVideos: false,
     postsPerPage: 42,
     tagUnderscoresAsSpaces: false,
+    language: "ja",
     darkTheme: false,
     postFlow: false,
     hiddenCategories: ["nsfw"],

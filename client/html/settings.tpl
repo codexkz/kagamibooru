@@ -1,11 +1,23 @@
 <div class='content-wrapper' id='settings'>
     <form>
-        <strong>Browsing settings</strong>
-        <p>These settings are saved to the browser's local storage and are not coupled to the user account, so they don't apply to other devices or browsers alike.</p>
+        <strong><%= ctx.t('settings.title', 'Browsing settings') %></strong>
+        <p><%= ctx.t('settings.description', 'These settings are saved to the browser\'s local storage and are not coupled to the user account, so they don\'t apply to other devices or browsers alike.') %></p>
         <ul class='input'>
             <li>
+                <label><%= ctx.t('settings.language', 'Language') %></label>
+                <select name='language'>
+                    <% for (let code of Object.keys(ctx.languages)) { %>
+                        <option value='<%- code %>' <%= ctx.browsingSettings.language === code ? 'selected' : '' %>>
+                            <%- ctx.languages[code] %>
+                        </option>
+                    <% } %>
+                </select>
+                <p class='hint'>Changing this setting will require you to refresh the page for it to apply.</p>
+            </li>
+
+            <li>
                 <%= ctx.makeCheckbox({
-                    text: "Enable keyboard shortcuts <a class='append icon' href='" + ctx.formatClientLink('help', 'keyboard') + "'><i class='fa fa-question-circle-o'></i></a>",
+                    text: ctx.t('settings.keyboardShortcuts', 'Enable keyboard shortcuts') + " <a class='append icon' href='" + ctx.formatClientLink('help', 'keyboard') + "'><i class='fa fa-question-circle-o'></i></a>",
                     name: 'keyboard-shortcuts',
                     checked: ctx.browsingSettings.keyboardShortcuts,
                 }) %>
