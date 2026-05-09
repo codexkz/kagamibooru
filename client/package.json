@@ -1,10 +1,10 @@
 {
-  "name": "szurubooru",
+  "name": "kagamibooru",
   "private": true,
   "scripts": {
     "build": "node build.js",
     "watch": "node build.js --watch",
-    "build-container": "docker build -t szurubooru/client:dev ."
+    "build-container": "docker build -t kagamibooru/client:dev ."
   },
   "dependencies": {
     "dompurify": "^2.0.17",

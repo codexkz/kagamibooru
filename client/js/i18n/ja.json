@@ -350,7 +350,7 @@
     "help.searchSyntax": "検索構文",
     "help.comments": "コメント",
     "help.tos": "利用規約",
-    "help.about.intro": "Szurubooru は Danbooru、Gelbooru、Moebooru などのサービスに触発された画像ボードエンジンです。",
+    "help.about.intro": "Kagamibooru は Danbooru、Gelbooru、Moebooru などのサービスに触発された画像ボードエンジンです。",
     "help.about.registrationTitle": "新規登録",
     "help.about.registrationText": "アカウント作成時に入力するメールアドレスは、Gravatar の取得とパスワードリマインダーにのみ使用されます。メールアドレスを見ることができるのはあなただけです（データベース管理者を除く…いずれにせよ迷惑メールは送りません）。",
     "help.about.deleteAccount": "なお、アカウントはいつでも削除できます。アップロードした投稿は、怒った管理者が削除しない限り残ります。",

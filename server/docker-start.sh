@@ -4,5 +4,5 @@ cd /opt/app
 
 alembic upgrade head
 
-echo "Starting szurubooru API on port ${PORT} - Running on ${THREADS} threads"
-exec waitress-serve-3 --listen "*:${PORT}" --threads ${THREADS} szurubooru.facade:app
+echo "Starting kagamibooru API on port ${PORT} - Running on ${THREADS} threads"
+exec waitress-serve-3 --listen "*:${PORT}" --threads ${THREADS} kagamibooru.facade:app

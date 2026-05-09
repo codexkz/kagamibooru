@@ -1,10 +1,10 @@
 # kagamibooru
 
-Kagamibooru is a fork of [szurubooru](https://github.com/rr-/szurubooru), an image board engine inspired by Danbooru, Gelbooru and Moebooru. This fork is optimized for personal/small-community use with several major enhancements.
+Kagamibooru is a fork of [kagamibooru](https://github.com/rr-/kagamibooru), an image board engine inspired by Danbooru, Gelbooru and Moebooru. This fork is optimized for personal/small-community use with several major enhancements.
 
 Named after Kagami Hiiragi from Lucky Star.
 
-## Differences from upstream szurubooru
+## Differences from upstream kagamibooru
 
 ### SQLAlchemy 2.0 Upgrade
 - Full migration to SA 2.0 API (`Session.get()`, `scalar_subquery()`, `back_populates`, `sa.text()`)
@@ -48,7 +48,7 @@ Named after Kagami Hiiragi from Lucky Star.
 - Dark theme sync across all pages
 - API docs with Scalar UI
 
-## Original Features (from szurubooru)
+## Original Features (from kagamibooru)
 
 - Post content: images (JPG, PNG, GIF, animated GIF, AVIF, HEIF), videos (MP4, WEBM), Flash
 - Web video retrieval via yt-dlp
@@ -65,13 +65,13 @@ Named after Kagami Hiiragi from Lucky Star.
 ## Installation
 
 Docker-based deployment. See `docker-compose.yml` for the full stack:
-- `server` — Szurubooru API (Python/waitress)
+- `server` — Kagamibooru API (Python/waitress)
 - `client` — Web UI (nginx + browserify bundle)
 - `sql` — PostgreSQL 16
-- `szurubooru-job` — Scheduler (FastAPI + APScheduler)
+- `kagamibooru-job` — Scheduler (FastAPI + APScheduler)
 - `wd-tagger` — AI auto-tagging service
-- `szurubooru-gateway` — nginx reverse proxy (port 6680)
-- `szurubooru-api-docs` — Scalar API reference
+- `kagamibooru-gateway` — nginx reverse proxy (port 6680)
+- `kagamibooru-api-docs` — Scalar API reference
 
 ## License
 

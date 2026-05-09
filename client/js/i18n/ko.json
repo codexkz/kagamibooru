@@ -350,7 +350,7 @@
     "help.searchSyntax": "검색 구문",
     "help.comments": "댓글",
     "help.tos": "이용약관",
-    "help.about.intro": "Szurubooru는 Danbooru, Gelbooru, Moebooru 등의 서비스에서 영감을 받은 이미지 보드 엔진입니다.",
+    "help.about.intro": "Kagamibooru는 Danbooru, Gelbooru, Moebooru 등의 서비스에서 영감을 받은 이미지 보드 엔진입니다.",
     "help.about.registrationTitle": "회원가입",
     "help.about.registrationText": "계정 생성 시 입력한 이메일은 Gravatar 표시 및 비밀번호 찾기에만 사용됩니다. 본인만 확인할 수 있습니다 (데이터베이스 관리자는 제외... 어쨌든 스팸을 보내지는 않겠습니다).",
     "help.about.deleteAccount": "참고로, 계정은 언제든지 삭제할 수 있습니다. 업로드한 게시물은 관리자가 삭제하지 않는 한 유지됩니다.",

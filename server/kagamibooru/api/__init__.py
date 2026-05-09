@@ -1,0 +1,12 @@
+import kagamibooru.api.comment_api
+import kagamibooru.api.info_api
+import kagamibooru.api.password_reset_api
+import kagamibooru.api.pool_api
+import kagamibooru.api.pool_category_api
+import kagamibooru.api.post_api
+import kagamibooru.api.snapshot_api
+import kagamibooru.api.tag_api
+import kagamibooru.api.tag_category_api
+import kagamibooru.api.upload_api
+import kagamibooru.api.user_api
+import kagamibooru.api.user_token_api

@@ -34,7 +34,7 @@ RUN pip3 install --no-cache-dir --disable-pip-version-check --break-system-packa
 RUN apk --no-cache del py3-pip
 
 COPY ./ /opt/app/
-RUN rm -rf /opt/app/szurubooru/tests
+RUN rm -rf /opt/app/kagamibooru/tests
 
 
 FROM --platform=$BUILDPLATFORM prereqs AS testing
@@ -54,12 +54,12 @@ RUN apk --no-cache add \
  && adduser -SDH -h /opt/app -g '' -G app app \
  && chown app:app /opt/app
 
-COPY --chown=app:app ./szurubooru/tests /opt/app/szurubooru/tests/
+COPY --chown=app:app ./kagamibooru/tests /opt/app/kagamibooru/tests/
 
 ENV TEST_ENVIRONMENT="true"
 USER app
 ENTRYPOINT ["pytest", "--tb=short"]
-CMD ["szurubooru/"]
+CMD ["kagamibooru/"]
 
 
 FROM prereqs AS development
@@ -96,7 +96,7 @@ VOLUME ["/data/"]
 FROM prereqs AS release
 
 COPY ./ /opt/app/
-RUN rm -rf /opt/app/szurubooru/tests
+RUN rm -rf /opt/app/kagamibooru/tests
 
 WORKDIR /opt/app
 
@@ -130,9 +130,9 @@ ARG SOURCE_COMMIT
 LABEL \
     maintainer="" \
     org.opencontainers.image.title="${DOCKER_REPO}" \
-    org.opencontainers.image.url="https://github.com/rr-/szurubooru" \
-    org.opencontainers.image.documentation="https://github.com/rr-/szurubooru/blob/${SOURCE_COMMIT}/doc/INSTALL.md" \
+    org.opencontainers.image.url="https://github.com/rr-/kagamibooru" \
+    org.opencontainers.image.documentation="https://github.com/rr-/kagamibooru/blob/${SOURCE_COMMIT}/doc/INSTALL.md" \
     org.opencontainers.image.created="${BUILD_DATE}" \
-    org.opencontainers.image.source="https://github.com/rr-/szurubooru" \
+    org.opencontainers.image.source="https://github.com/rr-/kagamibooru" \
     org.opencontainers.image.revision="${SOURCE_COMMIT}" \
     org.opencontainers.image.licenses="GPL-3.0"

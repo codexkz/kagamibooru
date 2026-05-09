@@ -3,10 +3,10 @@ and the Docker Compose CLI (version 1.27.0 or greater) already installed.
 
 ### Prepare things
 
-1. Download the `szurubooru` source:
+1. Download the `kagamibooru` source:
 
     ```console
-    user@host:~$ git clone https://github.com/rr-/szurubooru.git szuru
+    user@host:~$ git clone https://github.com/rr-/kagamibooru.git szuru
     user@host:~$ cd szuru
     ```
 2. Configure the application:
@@ -70,11 +70,11 @@ and the Docker Compose CLI (version 1.27.0 or greater) already installed.
     ```diff yaml
     ...
     server:
-    - image: szurubooru/server:latest
+    - image: kagamibooru/server:latest
     + build: server
     ...
     client:
-    - image: szurubooru/client:latest
+    - image: kagamibooru/client:latest
     + build: client
     ...
     ```
@@ -161,7 +161,7 @@ with `--no-cache`.*
 
 4. **Preparing for production**
 
-    If you plan on using szurubooru in a production setting, you may opt to
+    If you plan on using kagamibooru in a production setting, you may opt to
     use a reverse proxy for added security and caching capabilities. Start
     by having the client docker listen only on localhost by changing `PORT`
     in your `.env` file to `127.0.0.1:8080` instead of simply `:8080`. Then

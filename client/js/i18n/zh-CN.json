@@ -350,7 +350,7 @@
     "help.searchSyntax": "搜索语法",
     "help.comments": "评论",
     "help.tos": "服务条款",
-    "help.about.intro": "Szurubooru 是一个图片板引擎，灵感来自 Danbooru、Gelbooru 和 Moebooru 等服务。",
+    "help.about.intro": "Kagamibooru 是一个图片板引擎，灵感来自 Danbooru、Gelbooru 和 Moebooru 等服务。",
     "help.about.registrationTitle": "注册",
     "help.about.registrationText": "注册时输入的电子邮箱仅用于获取 Gravatar 头像和密码找回。只有您自己可以看到它（当然，数据库管理员也能看到……不过我们不会发垃圾邮件的）。",
     "help.about.deleteAccount": "哦，您可以随时删除账号。您上传的帖子会保留，除非某位管理员将其移除。",

@@ -2,13 +2,13 @@
 
 # NOTE: This script is still a work in progress
 
-# This script is meant to automate the deployment of Szurubooru via Docker/Docker-Compose,
-# and to automatically take the necessary steps to allow Szurubooru to run on ARM devices
+# This script is meant to automate the deployment of Kagamibooru via Docker/Docker-Compose,
+# and to automatically take the necessary steps to allow Kagamibooru to run on ARM devices
 # such as the Raspberry Pi.
 
 ###########################################[Notes]###########################################
 # * Written and tested on Raspberry Pi 4 running Raspbian 10 (armv7), heavily based on a fork
-#   by kaijuagenda for the Pi 3: https://github.com/kaijuagenda/szurubooru-rpi3
+#   by kaijuagenda for the Pi 3: https://github.com/kaijuagenda/kagamibooru-rpi3
 #
 # * Modifies docker-compose.yml rather than relying on a static alternative file to hopefully
 #   avoid the need for parallel maintenance of two files.
@@ -19,8 +19,8 @@ ERROR="[\e[31mERROR\e[0m]"
 OK="[\e[32mOK\e[0m]"
 NOTICE="[\e[33mNOTICE\e[0m]"
 
-echo 'Welcome to Szurubooru.  This install script will ask you to set a few basic'\
-     'config values, then get szurubooru up and running.'
+echo 'Welcome to Kagamibooru.  This install script will ask you to set a few basic'\
+     'config values, then get kagamibooru up and running.'
 
 echo "Checking a few things to ensure successful deployment..."
 
@@ -34,7 +34,7 @@ else echo -e "${OK} Docker and Docker-Compose Installation verified"
 fi
 
 # Check to ensure the current user can access the Docker daemon
-# https://github.com/rr-/szurubooru/pull/366#discussion_r541795141
+# https://github.com/rr-/kagamibooru/pull/366#discussion_r541795141
 if [[ "$(docker ps &> /dev/null | echo $?)" > 0 ]]; then
     echo -e "${ERROR} Unable to verify Docker daemon access!  Please ensure the current user is"
     echo "        authorized for Docker access."
@@ -47,22 +47,22 @@ fi
 
 ########################################################################################
 # Check CPU architectue and, if ARM (such as Raspberry Pi), modify docker-compose.yml
-# https://github.com/rr-/szurubooru/wiki/ARM-and-Raspberry-Pi-Support-for-Docker-builds
-# https://github.com/rr-/szurubooru/blob/master/docker-compose.yml
+# https://github.com/rr-/kagamibooru/wiki/ARM-and-Raspberry-Pi-Support-for-Docker-builds
+# https://github.com/rr-/kagamibooru/blob/master/docker-compose.yml
 ########################################################################################
 
 if [[ "$(uname -m)" == 'a'* ]]; then
     echo -e "${NOTICE} ARM architecture detected.  Modfying docker-compose.yml for local build."
     # Modify docker-compose file to build locally instead of pulling from dockerhub
-    sed -zi "s|image: szurubooru/server:latest|build:\n      context: ./server|; \
-             s|image: szurubooru/client:latest|build:\n      context: ./client|" ./docker-compose.yml
+    sed -zi "s|image: kagamibooru/server:latest|build:\n      context: ./server|; \
+             s|image: kagamibooru/client:latest|build:\n      context: ./client|" ./docker-compose.yml
 fi
 
 
 function server_config () {
     ################################################################################################################
     # Copy ./server/config.yaml.dist to ./server/config.yaml, then prompt the user to set the basic config settings
-    # https://github.com/rr-/szurubooru/blob/master/doc/INSTALL.md
+    # https://github.com/rr-/kagamibooru/blob/master/doc/INSTALL.md
     ################################################################################################################
 
     cp server/config.yaml.dist server/config.yaml
@@ -76,10 +76,10 @@ function server_config () {
 
     # Other useful (but less important) settings
     echo "Enter the desired name for your server. (Shown in the website title and on the front page)"
-    read -e -p "> " -i "szurubooru" SERVERNAME
-    echo "Enter the full url to the homepage of this szurubooru site, with no trailing slash."
+    read -e -p "> " -i "kagamibooru" SERVERNAME
+    echo "Enter the full url to the homepage of this kagamibooru site, with no trailing slash."
     read -e -p "> " URL
-    sed -i "s|name: szurubooru|name: $SERVERNAME|;s|domain: |domain: $URL|" ./server/config.yaml
+    sed -i "s|name: kagamibooru|name: $SERVERNAME|;s|domain: |domain: $URL|" ./server/config.yaml
 
     # SMTP (email) settings
     echo -e "\n===[SMTP (Email) Settings]==="
@@ -110,7 +110,7 @@ function server_config () {
 function set_env () {
     ############################################################################################################
     # Copy ./doc/example.env to ./.env, then prompt the user to set the basic config settings
-    # https://github.com/rr-/szurubooru/blob/master/doc/INSTALL.md
+    # https://github.com/rr-/kagamibooru/blob/master/doc/INSTALL.md
     ############################################################################################################
     cp doc/example.env .env
     echo -e "\n===[Environmental Variables]==="
@@ -123,16 +123,16 @@ function set_env () {
     echo "Enter the build info you'd like to display on the home screen."; read -e -p "> " -i "latest" BUILD_INFO
     echo "Enter the port # to expose the HTTP service to."
     echo "Set to 127.0.0.1:8080 if you wish to reverse proxy the docker's port."; read -e -p "> " -i "8080" PORT
-    echo "Enter the URL base to run szurubooru under"; read -e -p "> " -i "/" BASE_URL
-    echo "Enter the directory in which you wish to store image data."; read -e -p "> " -i "/var/local/szurubooru/data" MOUNT_DATA
-    echo "Enter the directory in which you wish to store database files."; read -e -p "> " -i "/var/local/szurubooru/sql" MOUNT_SQL
+    echo "Enter the URL base to run kagamibooru under"; read -e -p "> " -i "/" BASE_URL
+    echo "Enter the directory in which you wish to store image data."; read -e -p "> " -i "/var/local/kagamibooru/data" MOUNT_DATA
+    echo "Enter the directory in which you wish to store database files."; read -e -p "> " -i "/var/local/kagamibooru/sql" MOUNT_SQL
     sed -i "s|POSTGRES_USER=szuru|POSTGRES_USER=$DB_USER|; \
             s|POSTGRES_PASSWORD=changeme|POSTGRES_PASSWORD=$DB_PASS|; \
             s|BUILD_INFO=latest|BUILD_INFO=$BUILD_INFO|; \
             s|PORT=8080|PORT=$PORT|; \
             s|BASE_URL=/|BASE_URL=$URL|; \
-            s|MOUNT_DATA=/var/local/szurubooru/data|MOUNT_DATA=$MOUNT_DATA|; \
-            s|MOUNT_SQL=/var/local/szurubooru/sql|MOUNT_SQL=$MOUNT_SQL|" .env
+            s|MOUNT_DATA=/var/local/kagamibooru/data|MOUNT_DATA=$MOUNT_DATA|; \
+            s|MOUNT_SQL=/var/local/kagamibooru/sql|MOUNT_SQL=$MOUNT_SQL|" .env
 }
 
 echo "Creating and setting up server configuration (server/config.yaml)..."
@@ -160,5 +160,5 @@ mount=$(grep "MOUNT_DATA" .env | sed 's/MOUNT_DATA=//')
 echo "Performing a quick ownership change of $mount to make sure images can be submitted..."
 chown -R $puid:$guid "$mount"
 
-echo "All done!  You should now be able to access Szurubooru using the port number you set."
+echo "All done!  You should now be able to access Kagamibooru using the port number you set."
 exit 0
