@@ -102,13 +102,6 @@
                 <p class='hint'><%= ctx.t('settings.underscoresAsSpacesHint') %></p>
             </li>
 
-            <li>
-                <label><%= ctx.t('settings.hiddenCategories') %></label>
-                <input type='text' name='hidden-categories'
-                       value='<%= (ctx.browsingSettings.hiddenCategories || []).join(" ") %>'
-                       placeholder='e.g. nsfw gore'>
-                <p class='hint'><%= ctx.t('settings.hiddenCategoriesHint') %></p>
-            </li>
         </ul>
 
         <div class='messages'></div>

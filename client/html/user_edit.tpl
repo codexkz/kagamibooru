@@ -68,6 +68,16 @@
                     </div>
                 </li>
             <% } %>
+
+            <% if (ctx.isLoggedIn) { %>
+                <li>
+                    <label><%= ctx.t('settings.hiddenCategories') %></label>
+                    <input type='text' name='hidden-categories'
+                           value='<%= (ctx.user.hiddenCategories || []).join(" ") %>'
+                           placeholder='e.g. nsfw'>
+                    <p class='hint'><%= ctx.t('settings.hiddenCategoriesHint') %></p>
+                </li>
+            <% } %>
         </ul>
 
         <div class='messages'></div>

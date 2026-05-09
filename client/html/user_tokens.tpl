@@ -6,6 +6,9 @@
         <div class='token-flex-row'>
             <div class='token-flex-column token-flex-labels'>
                 <div class='token-flex-row'><%= ctx.t('userTokens.token') %></div>
+                <% if (token.type === 'api') { %>
+                <div class='token-flex-row'>API Key:</div>
+                <% } %>
                 <div class='token-flex-row'><%= ctx.t('userTokens.note') %></div>
                 <div class='token-flex-row'><%= ctx.t('userTokens.created') %></div>
                 <div class='token-flex-row'><%= ctx.t('userTokens.expires') %></div>
@@ -13,6 +16,9 @@
             </div>
             <div class='token-flex-column full-width'>
                 <div class='token-flex-row'><%= token.token %></div>
+                <% if (token.type === 'api') { %>
+                <div class='token-flex-row' style='font-family:monospace; font-size:0.85em; word-break:break-all;'><%= btoa(ctx.user.name + ':' + token.token) %></div>
+                <% } %>
                 <div class='token-flex-row'>
                     <% if (token.note !== null) { %>
                         <%= token.note %>

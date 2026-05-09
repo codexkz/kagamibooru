@@ -32,7 +32,15 @@ def _get_user(ctx: rest.Context, bump_login: bool) -> Optional[model.User]:
     auth_token = None
 
     try:
-        auth_type, credentials = ctx.get_header("Authorization").split(" ", 1)
+        header_value = ctx.get_header("Authorization")
+        parts = header_value.split(" ", 1)
+        if len(parts) == 2 and parts[0].lower() in ("basic", "token"):
+            auth_type, credentials = parts
+        else:
+            # No prefix — treat as raw base64 Token auth
+            auth_type = "token"
+            credentials = header_value.strip()
+
         if auth_type.lower() == "basic":
             username, password = (
                 base64.decodebytes(credentials.encode("ascii"))

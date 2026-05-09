@@ -92,6 +92,11 @@ class UserEditView extends events.EventTarget {
                         : undefined,
 
                     avatarContent: this._avatarContent,
+
+                    hiddenCategories: this._hiddenCategoriesInputNode
+                        ? this._hiddenCategoriesInputNode.value
+                            .split(/\s+/).filter(x => x)
+                        : undefined,
                 },
             })
         );
@@ -123,6 +128,10 @@ class UserEditView extends events.EventTarget {
 
     get _avatarStyleInputNode() {
         return this._formNode.querySelector("[name=avatar-style]:checked");
+    }
+
+    get _hiddenCategoriesInputNode() {
+        return this._formNode.querySelector("[name=hidden-categories]");
     }
 }
 

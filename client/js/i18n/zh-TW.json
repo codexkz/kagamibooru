@@ -247,7 +247,7 @@
     "auth.loggedOut": "已登出",
     "userNav.summary": "摘要",
     "userNav.settings": "設定",
-    "userNav.tokens": "登入權杖",
+    "userNav.tokens": "權杖",
     "userNav.delete": "刪除",
     "userSummary.registered": "註冊日期：",
     "userSummary.lastSeen": "最後上線：",

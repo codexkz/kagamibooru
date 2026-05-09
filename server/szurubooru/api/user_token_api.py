@@ -33,10 +33,22 @@ def create_user_token(
     infix = "self" if ctx.user.user_id == user.user_id else "any"
     auth.verify_privilege(ctx.user, "user_tokens:create:%s" % infix)
     enabled = ctx.get_param_as_bool("enabled", True)
-    user_token = user_tokens.create_user_token(user, enabled)
+    token_type = ctx.get_param_as_string("type") if ctx.has_param("type") else "api"
+    if token_type not in ("web", "api"):
+        token_type = "api"
+
+    # Web tokens: keep only one per user
+    if token_type == "web":
+        existing = user_tokens.get_user_tokens(user)
+        for old in existing:
+            if old.token_type == "web":
+                ctx.session.delete(old)
+
+    user_token = user_tokens.create_user_token(user, enabled, token_type)
     if ctx.has_param("note"):
-        note = ctx.get_param_as_string("note")
-        user_tokens.update_user_token_note(user_token, note)
+        user_tokens.update_user_token_note(
+            user_token, ctx.get_param_as_string("note")
+        )
     if ctx.has_param("expirationTime"):
         expiration_time = ctx.get_param_as_string("expirationTime")
         user_tokens.update_user_token_expiration_time(

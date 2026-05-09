@@ -47,8 +47,6 @@ class SettingsView extends events.EventTarget {
                     language: this._find("language").value,
                     darkTheme: this._find("dark-theme").checked,
                     postFlow: this._find("post-flow").checked,
-                    hiddenCategories: this._find("hidden-categories").value
-                        .split(/\s+/).filter(x => x),
                 },
             })
         );

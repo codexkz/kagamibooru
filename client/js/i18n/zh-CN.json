@@ -247,7 +247,7 @@
     "auth.loggedOut": "已退出",
     "userNav.summary": "概要",
     "userNav.settings": "设置",
-    "userNav.tokens": "登录令牌",
+    "userNav.tokens": "令牌",
     "userNav.delete": "删除",
     "userSummary.registered": "注册时间：",
     "userSummary.lastSeen": "最后上线：",

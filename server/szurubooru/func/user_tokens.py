@@ -27,6 +27,7 @@ class UserTokenSerializer(serialization.BaseSerializer):
         return {
             "user": self.serialize_user,
             "token": self.serialize_token,
+            "type": self.serialize_type,
             "note": self.serialize_note,
             "enabled": self.serialize_enabled,
             "expirationTime": self.serialize_expiration_time,
@@ -50,6 +51,9 @@ class UserTokenSerializer(serialization.BaseSerializer):
 
     def serialize_token(self) -> Any:
         return self.user_token.token
+
+    def serialize_type(self) -> Any:
+        return self.user_token.token_type
 
     def serialize_note(self) -> Any:
         return self.user_token.note
@@ -92,11 +96,14 @@ def get_user_tokens(user: model.User) -> List[model.UserToken]:
     )
 
 
-def create_user_token(user: model.User, enabled: bool) -> model.UserToken:
+def create_user_token(
+    user: model.User, enabled: bool, token_type: str = "api"
+) -> model.UserToken:
     assert user
     user_token = model.UserToken()
     user_token.user = user
     user_token.token = auth.generate_authorization_token()
+    user_token.token_type = token_type
     user_token.enabled = enabled
     user_token.creation_time = datetime.utcnow()
     user_token.last_usage_time = datetime.utcnow()

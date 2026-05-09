@@ -87,6 +87,11 @@ def update_user(ctx: rest.Context, params: Dict[str, str]) -> rest.Response:
             ctx.get_param_as_string("avatarStyle"),
             ctx.get_file("avatar", default=b""),
         )
+    if ctx.has_param("hiddenCategories"):
+        if ctx.user.user_id == user.user_id:
+            users.update_user_hidden_categories(
+                user, ctx.get_param_as_list("hiddenCategories")
+            )
     ctx.session.commit()
     return _serialize(ctx, user)
 

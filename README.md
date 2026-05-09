@@ -1,49 +1,77 @@
-# szurubooru
+# kagamibooru
 
-Szurubooru is an image board engine inspired by services such as Danbooru,
-Gelbooru and Moebooru dedicated for small and medium communities. Its name [has
-its roots in Polish language and has onomatopeic meaning of scraping or
-scrubbing](https://sjp.pwn.pl/sjp/;2527372). It is pronounced as *shoorubooru*.
+Kagamibooru is a fork of [szurubooru](https://github.com/rr-/szurubooru), an image board engine inspired by Danbooru, Gelbooru and Moebooru. This fork is optimized for personal/small-community use with several major enhancements.
 
-## Features
+Named after Kagami Hiiragi from Lucky Star.
 
-- Post content: images (JPG, PNG, GIF, animated GIF), videos (MP4, WEBM), Flash animations
-- Ability to retrieve web video content using [yt-dlp](https://github.com/yt-dlp/yt-dlp)
-- Post comments
-- Post notes / annotations, including arbitrary polygons
-- Rich JSON REST API ([see documentation](doc/API.md))
-- Token based authentication for clients
-- Rich search system
-- Rich privilege system
-- Autocomplete in search and while editing tags
-- Tag categories
-- Tag suggestions
-- Tag implications (adding a tag automatically adds another)
-- Tag aliases
+## Differences from upstream szurubooru
+
+### SQLAlchemy 2.0 Upgrade
+- Full migration to SA 2.0 API (`Session.get()`, `scalar_subquery()`, `back_populates`, `sa.text()`)
+- Batch INSERT compatibility fix for mixed-type columns (snapshot `resource_name`)
+
+### Performance Optimizations
+- Pool query performance indexes
+- File sharding storage (hex-based subdirectories for posts and thumbnails)
+- Tag category M2M (many-to-many) support — tags can belong to multiple categories
+
+### i18n (Internationalization)
+- 5 languages: Japanese (default), Traditional Chinese, Simplified Chinese, English, Korean
+- Full coverage: 515+ translation keys across all UI pages
+- Server-side and client-side translation via `ctx.t()` / Jinja2 `t()`
+
+### Scheduler (Job System)
+- Integrated download scheduler with cron-based job scheduling
+- **Bidirectional pagination** — auto-tracks `forward_id` / `backward_id` for incremental downloading
+- Built-in downloaders: gallery-dl, yt-dlp, ba-wikiru
+- Custom downloader support with code editor (security-validated, version-controlled)
+- Tag pipeline: source-tags, WD Tagger (AI auto-tagging), PTR lookup
+- Webhook system for auto-tagging on upload
+- Full i18n support
+
+### Hidden Tag Categories (Per-User)
+- Users can hide posts by tag category (e.g., nsfw)
+- Server-side enforcement in `finalize_query` — cannot be bypassed
+- NSFW tag list auto-seeded on startup (~60 common tags)
+
+### Token System
+- Token `type` field: `web` (auto-login) / `api` (user-created)
+- Web tokens auto-cleanup — only one per user
+- API tokens display base64-encoded API Key for easy copy
+- Auth supports raw base64 without `Token` prefix
+
+### Thumbnail Fix
+- Fixed `to_jpeg()` ffmpeg overlay bug (`-map 0:v:0` selected white background instead of overlay result)
+
+### Other
+- Gateway with nginx injection for Scheduler/Downloaders/API nav links
+- Dark theme sync across all pages
+- API docs with Scalar UI
+
+## Original Features (from szurubooru)
+
+- Post content: images (JPG, PNG, GIF, animated GIF, AVIF, HEIF), videos (MP4, WEBM), Flash
+- Web video retrieval via yt-dlp
+- Post comments, notes/annotations with arbitrary polygons
+- Rich JSON REST API
+- Token-based authentication
+- Rich search and privilege system
+- Tag categories, suggestions, implications, aliases
 - Pools and pool categories
-- Duplicate detection
+- Duplicate detection (exact + similar)
 - Post rating and favoriting; comment rating
-- Polished UI
-- Browser configurable endless paging
-- Browser configurable backdrop grid for transparent images
+- Endless paging, transparency grid, post flow layout
 
 ## Installation
 
-It is recommended that you use Docker for deployment.
-[See installation instructions.](doc/INSTALL.md)
-
-More installation resources, as well as related projects can be found on the
-[GitHub project Wiki](https://github.com/rr-/szurubooru/wiki)
-
-## Screenshots
-
-Post list:
-
-![20160908_180032_fsk](https://cloud.githubusercontent.com/assets/1045476/18356730/3f1123d6-75ee-11e6-85dd-88a7615243a0.png)
-
-Post view:
-
-![20160908_180429_lmp](https://cloud.githubusercontent.com/assets/1045476/18356731/3f1566ee-75ee-11e6-9594-e86ca7347b0f.png)
+Docker-based deployment. See `docker-compose.yml` for the full stack:
+- `server` — Szurubooru API (Python/waitress)
+- `client` — Web UI (nginx + browserify bundle)
+- `sql` — PostgreSQL 16
+- `szurubooru-job` — Scheduler (FastAPI + APScheduler)
+- `wd-tagger` — AI auto-tagging service
+- `szurubooru-gateway` — nginx reverse proxy (port 6680)
+- `szurubooru-api-docs` — Scalar API reference
 
 ## License
 

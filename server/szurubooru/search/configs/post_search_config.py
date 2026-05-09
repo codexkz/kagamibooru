@@ -2,7 +2,7 @@ from typing import Any, Dict, Optional, Tuple
 
 import sqlalchemy as sa
 
-from szurubooru import db, errors, model
+from szurubooru import config, db, errors, model
 from szurubooru.func import util
 from szurubooru.search import criteria, tokens
 from szurubooru.search.configs import util as search_util
@@ -209,6 +209,26 @@ class PostSearchConfig(BaseSearchConfig):
         return db.session.query(model.Post)
 
     def finalize_query(self, query: SaQuery) -> SaQuery:
+        # Auto-exclude posts with tags in hidden categories (per-user, fallback to global config)
+        hidden = []
+        if self.user and hasattr(self.user, "hidden_categories"):
+            hidden = self.user.hidden_categories or []
+        if not hidden:
+            hidden = config.config.get("hidden_categories", [])
+        if hidden:
+            hidden_cat_ids = (
+                db.session.query(model.TagCategory.tag_category_id)
+                .filter(model.TagCategory.name.in_(hidden))
+            )
+            hidden_tag_ids = (
+                db.session.query(model.TagTagCategory.tag_id)
+                .filter(model.TagTagCategory.category_id.in_(hidden_cat_ids))
+            )
+            hidden_post_ids = (
+                db.session.query(model.PostTag.post_id)
+                .filter(model.PostTag.tag_id.in_(hidden_tag_ids))
+            )
+            query = query.filter(~model.Post.post_id.in_(hidden_post_ids))
         return query.order_by(model.Post.post_id.desc())
 
     @property

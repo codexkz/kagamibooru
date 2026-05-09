@@ -247,7 +247,7 @@
     "auth.loggedOut": "ログアウトしました",
     "userNav.summary": "概要",
     "userNav.settings": "設定",
-    "userNav.tokens": "ログイントークン",
+    "userNav.tokens": "トークン",
     "userNav.delete": "削除",
     "userSummary.registered": "登録日：",
     "userSummary.lastSeen": "最終ログイン：",

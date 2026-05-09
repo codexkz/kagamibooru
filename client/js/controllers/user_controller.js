@@ -197,6 +197,10 @@ class UserController {
             }
         }
 
+        if (e.detail.hiddenCategories !== undefined) {
+            e.detail.user.hiddenCategories = e.detail.hiddenCategories;
+        }
+
         e.detail.user
             .save()
             .then(() => {

@@ -95,6 +95,14 @@ class User extends events.EventTarget {
         this._password = value;
     }
 
+    get hiddenCategories() {
+        return this._hiddenCategories;
+    }
+
+    set hiddenCategories(value) {
+        this._hiddenCategories = value;
+    }
+
     static fromResponse(response) {
         const ret = new User();
         ret._updateFromResponse(response);
@@ -130,6 +138,9 @@ class User extends events.EventTarget {
         }
         if (this._password) {
             detail.password = this._password;
+        }
+        if (JSON.stringify(this._hiddenCategories) !== JSON.stringify(this._orig._hiddenCategories)) {
+            detail.hiddenCategories = this._hiddenCategories;
         }
 
         let promise = this._orig._name
@@ -185,6 +196,7 @@ class User extends events.EventTarget {
             _uploadedPostCount: response.uploadedPostCount,
             _likedPostCount: response.likedPostCount,
             _dislikedPostCount: response.dislikedPostCount,
+            _hiddenCategories: response.hiddenCategories || [],
         };
 
         Object.assign(this, map);

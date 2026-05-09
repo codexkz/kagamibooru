@@ -117,6 +117,7 @@ class UserSerializer(serialization.BaseSerializer):
             "likedPostCount": self.serialize_liked_post_count,
             "dislikedPostCount": self.serialize_disliked_post_count,
             "email": self.serialize_email,
+            "hiddenCategories": self.serialize_hidden_categories,
         }
 
     def serialize_name(self) -> Any:
@@ -157,6 +158,11 @@ class UserSerializer(serialization.BaseSerializer):
 
     def serialize_email(self) -> Any:
         return get_email(self.user, self.auth_user, self.force_show_email)
+
+    def serialize_hidden_categories(self) -> Any:
+        if self.user.user_id != self.auth_user.user_id:
+            return None
+        return self.user.hidden_categories or []
 
 
 def serialize_user(
@@ -320,6 +326,18 @@ def update_user_avatar(
             "Avatar style %r is invalid. Valid avatar styles: %r."
             % (avatar_style, ["gravatar", "manual"])
         )
+
+
+def update_user_hidden_categories(
+    user: model.User, categories: list
+) -> None:
+    assert user
+    if not isinstance(categories, list):
+        raise errors.ValidationError("Hidden categories must be a list.")
+    # Sanitize: only allow strings, strip whitespace
+    user.hidden_categories = [
+        str(c).strip() for c in categories if str(c).strip()
+    ]
 
 
 def bump_user_login_time(user: model.User) -> None:

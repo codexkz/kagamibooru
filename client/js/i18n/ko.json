@@ -247,7 +247,7 @@
     "auth.loggedOut": "로그아웃됨",
     "userNav.summary": "요약",
     "userNav.settings": "설정",
-    "userNav.tokens": "로그인 토큰",
+    "userNav.tokens": "토큰",
     "userNav.delete": "삭제",
     "userSummary.registered": "가입일:",
     "userSummary.lastSeen": "마지막 접속:",
