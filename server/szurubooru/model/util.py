@@ -23,7 +23,7 @@ def get_resource_info(entity: Base) -> Tuple[Any, Any, Union[str, int]]:
     assert primary_key is not None
     assert len(primary_key) == 1
 
-    resource_name = serializers[resource_type](entity)  # type: Union[str, int]
+    resource_name = str(serializers[resource_type](entity))  # type: Union[str, int]
     assert resource_name
 
     resource_pkey = primary_key[0]  # type: Any
