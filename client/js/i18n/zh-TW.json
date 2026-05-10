@@ -513,5 +513,9 @@
     "help.searchUsers.sortRandom": "盡可能隨機",
     "help.searchUsers.sortName": "A 到 Z",
     "help.searchUsers.sortCreationDate": "最新到最舊",
-    "help.searchUsers.sortLastLoginDate": "最近活躍優先"
+    "help.searchUsers.sortLastLoginDate": "最近活躍優先",
+    "userTokens.type": "類型:",
+    "userTokens.device": "裝置:",
+    "userTokens.apiKey": "API 金鑰:",
+    "userNav.apiTokens": "API 權杖"
 }

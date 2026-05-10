@@ -133,10 +133,20 @@ class UserToken extends events.EventTarget {
             });
     }
 
+    get type() {
+        return this._type;
+    }
+
+    get userAgent() {
+        return this._userAgent;
+    }
+
     _updateFromResponse(response) {
         const map = {
             _token: response.token,
+            _type: response.type,
             _note: response.note,
+            _userAgent: response.userAgent,
             _enabled: response.enabled,
             _expirationTime: response.expirationTime,
             _version: response.version,

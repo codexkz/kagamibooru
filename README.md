@@ -1,6 +1,6 @@
 # kagamibooru
 
-Kagamibooru is a fork of [kagamibooru](https://github.com/rr-/kagamibooru), an image board engine inspired by Danbooru, Gelbooru and Moebooru. This fork is optimized for personal/small-community use with several major enhancements.
+Kagamibooru is a fork of [szurubooru](https://github.com/rr-/szurubooru), an image board engine inspired by Danbooru, Gelbooru and Moebooru. This fork is optimized for personal/small-community use with several major enhancements.
 
 Named after Kagami Hiiragi from Lucky Star.
 
@@ -48,7 +48,7 @@ Named after Kagami Hiiragi from Lucky Star.
 - Dark theme sync across all pages
 - API docs with Scalar UI
 
-## Original Features (from kagamibooru)
+## Original Features (from szurubooru)
 
 - Post content: images (JPG, PNG, GIF, animated GIF, AVIF, HEIF), videos (MP4, WEBM), Flash
 - Web video retrieval via yt-dlp

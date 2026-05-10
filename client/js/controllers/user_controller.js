@@ -28,7 +28,7 @@ class UserController {
         this._errorMessages = [];
 
         let userTokenPromise = Promise.resolve([]);
-        if (section === "list-tokens") {
+        if (section === "list-tokens" || section === "api-tokens") {
             userTokenPromise = UserToken.get(userName).then(
                 (userTokens) => {
                     return userTokens.map((token) => {
@@ -262,7 +262,7 @@ class UserController {
                     uri.formatClientLink(
                         "user",
                         e.detail.user.name,
-                        "list-tokens"
+                        "api-tokens"
                     )
                 );
                 ctx.controller.showSuccess(
@@ -341,6 +341,9 @@ module.exports = (router) => {
     });
     router.enter(["user", ":name", "list-tokens"], (ctx, next) => {
         ctx.controller = new UserController(ctx, "list-tokens");
+    });
+    router.enter(["user", ":name", "api-tokens"], (ctx, next) => {
+        ctx.controller = new UserController(ctx, "api-tokens");
     });
     router.enter(["user", ":name", "delete"], (ctx, next) => {
         ctx.controller = new UserController(ctx, "delete");

@@ -29,6 +29,7 @@ class UserTokenSerializer(serialization.BaseSerializer):
             "token": self.serialize_token,
             "type": self.serialize_type,
             "note": self.serialize_note,
+            "userAgent": self.serialize_user_agent,
             "enabled": self.serialize_enabled,
             "expirationTime": self.serialize_expiration_time,
             "creationTime": self.serialize_creation_time,
@@ -57,6 +58,9 @@ class UserTokenSerializer(serialization.BaseSerializer):
 
     def serialize_note(self) -> Any:
         return self.user_token.note
+
+    def serialize_user_agent(self) -> Any:
+        return self.user_token.user_agent
 
     def serialize_enabled(self) -> Any:
         return self.user_token.enabled

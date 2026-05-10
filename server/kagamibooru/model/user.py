@@ -124,6 +124,7 @@ class UserToken(Base):
     token = sa.Column("token", sa.Unicode(36), nullable=False)
     token_type = sa.Column("type", sa.Unicode(16), nullable=False, server_default="api")
     note = sa.Column("note", sa.Unicode(128), nullable=True)
+    user_agent = sa.Column("user_agent", sa.Unicode(512), nullable=True)
     enabled = sa.Column("enabled", sa.Boolean, nullable=False, default=True)
     expiration_time = sa.Column("expiration_time", sa.DateTime, nullable=True)
     creation_time = sa.Column("creation_time", sa.DateTime, nullable=False)

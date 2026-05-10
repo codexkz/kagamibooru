@@ -49,13 +49,14 @@ class UserView extends events.EventTarget {
                 this._view = new UserEditView(ctx);
                 events.proxyEvent(this._view, this, "submit");
             }
-        } else if (ctx.section === "list-tokens") {
+        } else if (ctx.section === "list-tokens" || ctx.section === "api-tokens") {
             if (!this._ctx.canListTokens) {
                 this._view = new EmptyView();
                 this._view.showError(
                     "You don't have privileges to view user tokens."
                 );
             } else {
+                ctx.tokenFilter = ctx.section === "api-tokens" ? "api" : "web";
                 this._view = new UserTokensView(ctx);
                 events.proxyEvent(this._view, this, "delete", "delete-token");
                 events.proxyEvent(this._view, this, "submit", "create-token");

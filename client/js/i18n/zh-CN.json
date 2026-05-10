@@ -513,5 +513,9 @@
     "help.searchUsers.sortRandom": "尽可能随机",
     "help.searchUsers.sortName": "A 到 Z",
     "help.searchUsers.sortCreationDate": "从新到旧",
-    "help.searchUsers.sortLastLoginDate": "最近活跃优先"
+    "help.searchUsers.sortLastLoginDate": "最近活跃优先",
+    "userTokens.type": "类型:",
+    "userTokens.device": "设备:",
+    "userTokens.apiKey": "API 密钥:",
+    "userNav.apiTokens": "API 令牌"
 }

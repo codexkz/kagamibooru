@@ -10,6 +10,11 @@ class UserTokenView extends events.EventTarget {
         super();
 
         this._user = ctx.user;
+        this._tokenFilter = ctx.tokenFilter || null;
+        // Filter tokens by type if specified
+        if (this._tokenFilter) {
+            ctx.tokens = ctx.tokens.filter(t => t.type === this._tokenFilter);
+        }
         this._tokens = ctx.tokens;
         this._hostNode = ctx.hostNode;
         this._tokenFormNodes = [];

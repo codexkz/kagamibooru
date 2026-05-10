@@ -513,5 +513,9 @@
     "help.searchUsers.sortRandom": "as random as it can get",
     "help.searchUsers.sortName": "A to Z",
     "help.searchUsers.sortCreationDate": "newest to oldest",
-    "help.searchUsers.sortLastLoginDate": "recently active first"
+    "help.searchUsers.sortLastLoginDate": "recently active first",
+    "userTokens.type": "Type:",
+    "userTokens.device": "Device:",
+    "userTokens.apiKey": "API Key:",
+    "userNav.apiTokens": "API Tokens"
 }

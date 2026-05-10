@@ -513,5 +513,9 @@
     "help.searchUsers.sortRandom": "최대한 무작위로",
     "help.searchUsers.sortName": "A부터 Z순",
     "help.searchUsers.sortCreationDate": "최신순",
-    "help.searchUsers.sortLastLoginDate": "최근 활동한 순"
+    "help.searchUsers.sortLastLoginDate": "최근 활동한 순",
+    "userTokens.type": "유형:",
+    "userTokens.device": "기기:",
+    "userTokens.apiKey": "API 키:",
+    "userNav.apiTokens": "API 토큰"
 }

@@ -37,18 +37,15 @@ def create_user_token(
     if token_type not in ("web", "api"):
         token_type = "api"
 
-    # Web tokens: keep only one per user
-    if token_type == "web":
-        existing = user_tokens.get_user_tokens(user)
-        for old in existing:
-            if old.token_type == "web":
-                ctx.session.delete(old)
-
     user_token = user_tokens.create_user_token(user, enabled, token_type)
     if ctx.has_param("note"):
         user_tokens.update_user_token_note(
             user_token, ctx.get_param_as_string("note")
         )
+    # Record user agent
+    user_agent = ctx.get_header("User-Agent") if ctx.has_header("User-Agent") else None
+    if user_agent:
+        user_token.user_agent = user_agent
     if ctx.has_param("expirationTime"):
         expiration_time = ctx.get_param_as_string("expirationTime")
         user_tokens.update_user_token_expiration_time(

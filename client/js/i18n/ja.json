@@ -513,5 +513,9 @@
     "help.searchUsers.sortRandom": "ランダム",
     "help.searchUsers.sortName": "A から Z",
     "help.searchUsers.sortCreationDate": "新しい順",
-    "help.searchUsers.sortLastLoginDate": "最近アクティブだった順"
+    "help.searchUsers.sortLastLoginDate": "最近アクティブだった順",
+    "userTokens.type": "種類:",
+    "userTokens.device": "デバイス:",
+    "userTokens.apiKey": "APIキー:",
+    "userNav.apiTokens": "API トークン"
 }
