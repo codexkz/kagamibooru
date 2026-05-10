@@ -18,7 +18,7 @@ const defaultSettings = {
     postsPerPage: 42,
     tagUnderscoresAsSpaces: false,
     language: "ja",
-    darkTheme: false,
+    darkTheme: true,
     postFlow: false,
     hiddenCategories: ["nsfw"],
 };

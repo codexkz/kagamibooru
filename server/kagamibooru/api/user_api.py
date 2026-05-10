@@ -31,10 +31,8 @@ def get_users(
 def create_user(
     ctx: rest.Context, _params: Dict[str, str] = {}
 ) -> rest.Response:
-    if ctx.user.user_id is None:
-        auth.verify_privilege(ctx.user, "users:create:self")
-    else:
-        auth.verify_privilege(ctx.user, "users:create:any")
+    # Registration disabled — only admins can create users
+    auth.verify_privilege(ctx.user, "users:create:any")
 
     name = ctx.get_param_as_string("name")
     password = ctx.get_param_as_string("password")

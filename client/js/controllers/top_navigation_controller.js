@@ -53,15 +53,14 @@ class TopNavigationController {
         if (!api.hasPrivilege("pools:list")) {
             topNavigation.hide("pools");
         }
+        if (!api.hasPrivilege("users:create:any")) {
+            topNavigation.hide("admin-users");
+        }
+        topNavigation.hide("register");
         if (api.isLoggedIn()) {
-            if (!api.hasPrivilege("users:create:any")) {
-                topNavigation.hide("register");
-            }
             topNavigation.hide("login");
         } else {
-            if (!api.hasPrivilege("users:create:self")) {
-                topNavigation.hide("register");
-            }
+            topNavigation.hide("admin-users");
             topNavigation.hide("account");
             topNavigation.hide("logout");
         }

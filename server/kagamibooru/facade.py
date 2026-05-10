@@ -134,6 +134,26 @@ _live_migrations = (
 )
 
 
+def _ensure_admin_user() -> None:
+    """Create default admin user if no administrator exists."""
+    from kagamibooru import model
+    from kagamibooru.func import users
+
+    admin_exists = (
+        db.session.query(model.User)
+        .filter(model.User.rank == model.User.RANK_ADMINISTRATOR)
+        .first()
+    )
+    if not admin_exists:
+        logging.getLogger("kagamibooru").info(
+            "No admin user found, creating default admin:admin"
+        )
+        user = users.create_user("admin", "admin", "")
+        user.rank = model.User.RANK_ADMINISTRATOR
+        db.session.add(user)
+        db.session.commit()
+
+
 def create_app() -> Callable[[Any, Any], Any]:
     """Create a WSGI compatible App object."""
     validate_config()
@@ -142,6 +162,8 @@ def create_app() -> Callable[[Any, Any], Any]:
         logging.getLogger("kagamibooru").setLevel(logging.INFO)
     if config.config["show_sql"]:
         logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+
+    _ensure_admin_user()
 
     threading.Thread(target=purge_old_uploads_daemon, daemon=True).start()
 

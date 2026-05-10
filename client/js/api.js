@@ -168,6 +168,7 @@ class Api extends events.EventTarget {
         let userTokenRequest = {
             enabled: true,
             type: "web",
+            note: "Web Login Token",
         };
         if (typeof options.expires !== "undefined") {
             userTokenRequest.expirationTime = new Date()

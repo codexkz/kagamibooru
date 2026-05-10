@@ -87,6 +87,7 @@ function _makeTopNavigation() {
     ret.add("pools", new TopNavigationItem("O", i18n.t("nav.pools"), "pools"));
     ret.add("users", new TopNavigationItem("S", i18n.t("nav.users"), "users"));
     ret.add("account", new TopNavigationItem("A", i18n.t("nav.account"), "user/{me}"));
+    ret.add("admin-users", new TopNavigationItem("R", i18n.t("nav.adminUsers"), "admin/users"));
     ret.add("register", new TopNavigationItem("R", i18n.t("nav.register"), "register"));
     ret.add("login", new TopNavigationItem("L", i18n.t("nav.login"), "login"));
     ret.add("logout", new TopNavigationItem("O", i18n.t("nav.logout"), "logout"));

@@ -83,6 +83,9 @@ Promise.resolve()
             controllers.push(
                 require("./controllers/user_registration_controller.js")
             );
+            controllers.push(
+                require("./controllers/admin_users_controller.js")
+            );
 
             // 404 controller needs to be registered last
             controllers.push(require("./controllers/not_found_controller.js"));

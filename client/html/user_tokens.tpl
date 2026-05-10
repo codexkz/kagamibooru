@@ -38,7 +38,7 @@
                     <% } else { %>
                         <%= ctx.t('userTokens.noNote') %>
                     <% } %>
-                    <a class='token-change-note' data-token-id='<%= index %>' href='#'>(<%= ctx.t('userTokens.change') %>)</a>
+                    <a class='token-change-note' data-token-id='<%= index %>' href='#'><%= ctx.t('userTokens.change') %></a>
                 </td>
             </tr>
             <tr>
