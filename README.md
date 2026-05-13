@@ -4,7 +4,7 @@ Kagamibooru is a fork of [szurubooru](https://github.com/rr-/szurubooru), an ima
 
 Named after Kagami Hiiragi from Lucky Star.
 
-## Differences from upstream kagamibooru
+## Differences from upstream szurubooru
 
 ### SQLAlchemy 2.0 Upgrade
 - Full migration to SA 2.0 API (`Session.get()`, `scalar_subquery()`, `back_populates`, `sa.text()`)
