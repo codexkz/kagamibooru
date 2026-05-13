@@ -170,6 +170,10 @@ def _ensure_service_user() -> None:
         log.info("Creating service account '%s'", svc_name)
         user = users.create_user(svc_name, svc_pass, "")
         user.rank = model.User.RANK_ADMINISTRATOR
+        avatar_path = "/opt/app/bot-avatar.png"
+        if os.path.exists(avatar_path):
+            with open(avatar_path, "rb") as f:
+                users.update_user_avatar(user, "manual", f.read())
         db.session.add(user)
         db.session.commit()
 
