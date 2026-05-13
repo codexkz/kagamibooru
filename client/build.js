@@ -113,7 +113,7 @@ function bundleHtml() {
             });
         templateText = minifyHtml(templateText);
         templateText = templateText.replace(
-            /%%%TEMPLATE(\d+)/g,
+            /%%%TEMPLATE(\d+)/gi,
             (match, number) => { return placeholders[number]; });
 
         const functionText = underscore.template(
