@@ -4,7 +4,7 @@ Kagamibooru is a fork of [szurubooru](https://github.com/rr-/szurubooru), an ima
 
 Named after Kagami Hiiragi from Lucky Star.
 
-## Differences from upstream szurubooru
+## Differences from szurubooru
 
 ### SQLAlchemy 2.0 Upgrade
 - Full migration to SA 2.0 API (`Session.get()`, `scalar_subquery()`, `back_populates`, `sa.text()`)
@@ -19,15 +19,6 @@ Named after Kagami Hiiragi from Lucky Star.
 - 5 languages: Japanese (default), Traditional Chinese, Simplified Chinese, English, Korean
 - Full coverage: 515+ translation keys across all UI pages
 - Server-side and client-side translation via `ctx.t()` / Jinja2 `t()`
-
-### Scheduler (Job System)
-- Integrated download scheduler with cron-based job scheduling
-- **Bidirectional pagination** — auto-tracks `forward_id` / `backward_id` for incremental downloading
-- Built-in downloaders: gallery-dl, yt-dlp, ba-wikiru
-- Custom downloader support with code editor (security-validated, version-controlled)
-- Tag pipeline: source-tags, WD Tagger (AI auto-tagging), PTR lookup
-- Webhook system for auto-tagging on upload
-- Full i18n support
 
 ### Hidden Tag Categories (Per-User)
 - Users can hide posts by tag category (e.g., nsfw)
@@ -44,9 +35,8 @@ Named after Kagami Hiiragi from Lucky Star.
 - Fixed `to_jpeg()` ffmpeg overlay bug (`-map 0:v:0` selected white background instead of overlay result)
 
 ### Other
-- Gateway with nginx injection for Scheduler/Downloaders/API nav links
-- Dark theme sync across all pages
-- API docs with Scalar UI
+- Dark theme enabled by default
+- Webhook support for external integrations
 
 ## Original Features (from szurubooru)
 
@@ -64,17 +54,11 @@ Named after Kagami Hiiragi from Lucky Star.
 
 ## Installation
 
-Docker-based deployment. See `docker-compose.yml` for the full stack:
+Docker-based deployment. See `docker-compose.yml`:
 - `server` — Kagamibooru API (Python/waitress)
 - `client` — Web UI (nginx + browserify bundle)
 - `sql` — PostgreSQL 16
-- `kagamibooru-job` — Scheduler (FastAPI + APScheduler)
-- `wd-tagger` — AI auto-tagging service
-- `kagamibooru-gateway` — nginx reverse proxy (port 6680)
-- `kagamibooru-api-docs` — Scalar API reference
 
 ## License
 
-[GPLv3](LICENSE.md). Based on
-[szurubooru](https://github.com/rr-/szurubooru) by
-[rr-](https://github.com/rr-).
+[GPLv3](LICENSE.md). Based on [szurubooru](https://github.com/rr-/szurubooru) by [rr-](https://github.com/rr-).
