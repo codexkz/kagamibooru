@@ -75,4 +75,6 @@ Docker-based deployment. See `docker-compose.yml` for the full stack:
 
 ## License
 
-[GPLv3](LICENSE.md).
+[GPLv3](LICENSE.md). Based on
+[szurubooru](https://github.com/rr-/szurubooru) by
+[rr-](https://github.com/rr-).
