@@ -14,6 +14,11 @@ RUN apk --no-cache add \
         libavif \
         libavif-dev \
         ffmpeg \
+        cairo \
+        cairo-dev \
+        pango \
+        pango-dev \
+        gdk-pixbuf \
         # from requirements.txt: \
         py3-yaml \
         py3-psycopg2 \
@@ -31,7 +36,8 @@ RUN pip3 install --no-cache-dir --disable-pip-version-check --break-system-packa
         "heif-image-plugin>=0.3.2" \
         "requests>=2.20.0" \
         yt-dlp \
-        "pillow-avif-plugin~=1.1.0"
+        "pillow-avif-plugin~=1.1.0" \
+        cairosvg
 RUN apk --no-cache del py3-pip
 
 COPY ./ /opt/app/

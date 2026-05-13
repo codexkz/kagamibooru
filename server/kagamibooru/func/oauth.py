@@ -125,7 +125,12 @@ def find_or_create_user(sub: str, username: str, picture: str = "") -> model.Use
         try:
             avatar_resp = requests.get(picture, timeout=10)
             avatar_resp.raise_for_status()
-            users.update_user_avatar(user, "manual", avatar_resp.content)
+            content = avatar_resp.content
+            content_type = avatar_resp.headers.get("content-type", "")
+            if "svg" in content_type or content[:5] == b"<?xml" or content[:4] == b"<svg":
+                import cairosvg
+                content = cairosvg.svg2png(bytestring=content, output_width=300, output_height=300)
+            users.update_user_avatar(user, "manual", content)
         except Exception as e:
             log.warning("Failed to fetch OAuth avatar: %s", e)
 

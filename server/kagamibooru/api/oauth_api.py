@@ -27,6 +27,10 @@ def oauth_callback(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Resp
     if not oauth.is_enabled():
         raise errors.HttpNotFound("OAuthError", "OAuth is not enabled.")
 
+    error = ctx.get_param_as_string("error", default="")
+    if error:
+        raise errors.HttpRedirect("/")
+
     code = ctx.get_param_as_string("code", default="")
     state = ctx.get_param_as_string("state", default="")
 
@@ -40,6 +44,7 @@ def oauth_callback(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Resp
     try:
         access_token = oauth.exchange_code(code)
         sub, username, picture = oauth.get_userinfo(access_token)
+        log.info("OAuth userinfo: sub=%s, username=%s, picture=%s", sub, username, picture)
     except Exception as e:
         log.error("OAuth token/userinfo exchange failed: %s", e)
         raise errors.HttpBadRequest("OAuthError", f"OAuth authentication failed: {e}")
