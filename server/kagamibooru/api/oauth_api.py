@@ -39,7 +39,7 @@ def oauth_callback(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Resp
 
     try:
         access_token = oauth.exchange_code(code)
-        sub, username = oauth.get_userinfo(access_token)
+        sub, username, picture = oauth.get_userinfo(access_token)
     except Exception as e:
         log.error("OAuth token/userinfo exchange failed: %s", e)
         raise errors.HttpBadRequest("OAuthError", f"OAuth authentication failed: {e}")
@@ -56,7 +56,7 @@ def oauth_callback(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Resp
         raise errors.HttpRedirect("/")
 
     # Login or auto-register
-    user = oauth.find_or_create_user(sub, username)
+    user = oauth.find_or_create_user(sub, username, picture)
     session.commit()
 
     # Create web token for the user

@@ -67,8 +67,8 @@ def exchange_code(code: str) -> str:
     return data["access_token"]
 
 
-def get_userinfo(access_token: str) -> Tuple[str, str]:
-    """Fetch userinfo. Returns (sub, username)."""
+def get_userinfo(access_token: str) -> Tuple[str, str, str]:
+    """Fetch userinfo. Returns (sub, username, picture_url)."""
     cfg = get_oauth_config()
     resp = requests.get(
         cfg["userinfo_url"],
@@ -82,7 +82,8 @@ def get_userinfo(access_token: str) -> Tuple[str, str]:
     data = resp.json()
     sub = str(data["sub"])
     username = data.get("preferred_username", data.get("username", f"user_{sub[:8]}"))
-    return sub, username
+    picture = data.get("picture", "")
+    return sub, username, picture
 
 
 def find_user_by_oauth(provider: str, oauth_sub: str) -> Optional[model.User]:
@@ -97,7 +98,7 @@ def find_user_by_oauth(provider: str, oauth_sub: str) -> Optional[model.User]:
     return None
 
 
-def find_or_create_user(sub: str, username: str) -> model.User:
+def find_or_create_user(sub: str, username: str, picture: str = "") -> model.User:
     """Find existing user by OAuth sub, or create a new one."""
     cfg = get_oauth_config()
     provider = cfg.get("provider_name", "oauth")
@@ -118,6 +119,15 @@ def find_or_create_user(sub: str, username: str) -> model.User:
     user = users.create_user(final_name, random_pass, "")
     db.session.add(user)
     db.session.flush()
+
+    # Set avatar from OAuth provider
+    if picture:
+        try:
+            avatar_resp = requests.get(picture, timeout=10)
+            avatar_resp.raise_for_status()
+            users.update_user_avatar(user, "manual", avatar_resp.content)
+        except Exception as e:
+            log.warning("Failed to fetch OAuth avatar: %s", e)
 
     # Link OAuth
     link = model.UserOAuth()
