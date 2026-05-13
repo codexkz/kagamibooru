@@ -3,7 +3,7 @@
 
     <% if (ctx.oauthEnabled) { %>
     <div class='oauth-login' style='text-align:center; margin-bottom:1.5em;'>
-        <a href='/oauth/login' style='display:inline-block; padding:0.7em 2em; background:#24aadd; color:#fff; text-decoration:none; border-radius:3px; font-size:1.1em;'><%= ctx.t('login.oauthLogin').replace('{provider}', ctx.oauthProviderName) %></a>
+        <a href='/oauth/login' rel='external' style='display:inline-flex; align-items:center; gap:0.5em; padding:0.7em 2em; background:#24aadd; color:#fff; text-decoration:none; border-radius:3px; font-size:1.1em;'><% if (ctx.oauthProviderIcon) { %><img src='<%= ctx.oauthProviderIcon %>' alt='' style='width:1.2em; height:1.2em; border-radius:2px;'><% } %><%= ctx.t('login.oauthLogin').replace('{provider}', ctx.oauthProviderName) %></a>
     </div>
     <details style='margin-top:1.5em;'>
         <summary style='cursor:pointer; text-align:center; color:#888;'><%= ctx.t('login.passwordLogin') %></summary>

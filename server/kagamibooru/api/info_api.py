@@ -56,6 +56,7 @@ def get_info(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Response:
         ret["config"]["oauth"] = {
             "enabled": True,
             "providerName": oauth_cfg.get("provider_name", "OAuth"),
+            "providerIcon": oauth_cfg.get("provider_icon", ""),
         }
 
     if auth.has_privilege(ctx.user, "posts:view:featured"):

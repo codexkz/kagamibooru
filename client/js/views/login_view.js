@@ -20,6 +20,7 @@ class LoginView extends events.EventTarget {
                 canSendMails: api.canSendMails(),
                 oauthEnabled: oauthConfig.enabled,
                 oauthProviderName: oauthConfig.providerName || "OAuth",
+                oauthProviderIcon: oauthConfig.providerIcon || "",
             })
         );
         views.syncScrollPosition();
