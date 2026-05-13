@@ -24,6 +24,8 @@
     "login.password": "Password",
     "login.remember": "Remember me",
     "login.submit": "Log in",
+    "login.oauthLogin": "Login with {provider}",
+    "login.passwordLogin": "Login with username and password",
     "login.forgotPassword": "Forgot the password?",
     "passwordReset.title": "Password reset",
     "passwordReset.label": "User name or e-mail address",

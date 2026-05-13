@@ -60,6 +60,15 @@ class HttpInternalServerError(BaseHttpError):
     reason = "Internal Server Error"
 
 
+class HttpRedirect(RuntimeError):
+    """Special exception to trigger a 302 redirect (not a JSON error)."""
+
+    def __init__(self, location: str, cookies: dict = None) -> None:
+        super().__init__()
+        self.location = location
+        self.cookies = cookies or {}
+
+
 def handle(
     exception_type: Type[Exception], handler: Callable[[Exception], None]
 ) -> None:

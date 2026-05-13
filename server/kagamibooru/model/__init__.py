@@ -16,4 +16,4 @@ from kagamibooru.model.post import (
 from kagamibooru.model.snapshot import Snapshot
 from kagamibooru.model.tag import Tag, TagImplication, TagName, TagSuggestion, TagTagCategory
 from kagamibooru.model.tag_category import TagCategory
-from kagamibooru.model.user import User, UserToken
+from kagamibooru.model.user import User, UserOAuth, UserToken

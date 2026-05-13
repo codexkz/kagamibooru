@@ -1,5 +1,14 @@
-<div class='content-wrapper' id='login'>
+<div class='content-wrapper' id='login' style='min-width:24em;'>
     <h1><%= ctx.t('login.title') %></h1>
+
+    <% if (ctx.oauthEnabled) { %>
+    <div class='oauth-login' style='text-align:center; margin-bottom:1.5em;'>
+        <a href='/oauth/login' style='display:inline-block; padding:0.7em 2em; background:#24aadd; color:#fff; text-decoration:none; border-radius:3px; font-size:1.1em;'><%= ctx.t('login.oauthLogin').replace('{provider}', ctx.oauthProviderName) %></a>
+    </div>
+    <details style='margin-top:1.5em;'>
+        <summary style='cursor:pointer; text-align:center; color:#888;'><%= ctx.t('login.passwordLogin') %></summary>
+    <% } %>
+
     <form>
         <ul class='input'>
             <li>
@@ -33,4 +42,8 @@
             <a class='append' href='<%- ctx.formatClientLink('password-reset') %>'><%= ctx.t('login.forgotPassword') %></a>
         </div>
     </form>
+
+    <% if (ctx.oauthEnabled) { %>
+    </details>
+    <% } %>
 </div>

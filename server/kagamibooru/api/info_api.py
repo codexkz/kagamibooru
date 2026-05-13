@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from typing import Dict, Optional
 
 from kagamibooru import config, rest
-from kagamibooru.func import auth, posts, users, util
+from kagamibooru.func import auth, oauth, posts, users, util
 
 _cache_time = None  # type: Optional[datetime]
 _cache_result = None  # type: Optional[int]
@@ -51,6 +51,13 @@ def get_info(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Response:
             ),
         },
     }
+    if oauth.is_enabled():
+        oauth_cfg = oauth.get_oauth_config()
+        ret["config"]["oauth"] = {
+            "enabled": True,
+            "providerName": oauth_cfg.get("provider_name", "OAuth"),
+        }
+
     if auth.has_privilege(ctx.user, "posts:view:featured"):
         ret["featuredPost"] = (
             posts.serialize_post(post_feature.post, ctx.user)

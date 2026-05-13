@@ -11,12 +11,15 @@ class LoginView extends events.EventTarget {
         super();
         this._hostNode = document.getElementById("content-holder");
 
+        const oauthConfig = api.getOAuthConfig();
         views.replaceContent(
             this._hostNode,
             template({
                 userNamePattern: api.getUserNameRegex(),
                 passwordPattern: api.getPasswordRegex(),
                 canSendMails: api.canSendMails(),
+                oauthEnabled: oauthConfig.enabled,
+                oauthProviderName: oauthConfig.providerName || "OAuth",
             })
         );
         views.syncScrollPosition();

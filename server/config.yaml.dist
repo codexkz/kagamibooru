@@ -169,6 +169,17 @@ privileges:
     'uploads:create':               regular
     'uploads:use_downloader':       power
 
+## OAuth 2.0 Client (login via external OAuth provider)
+oauth:
+    enabled: false
+    provider_name: "OAuth"
+    client_id: ""
+    client_secret: ""
+    authorize_url: ""
+    token_url: ""
+    userinfo_url: ""
+    scopes: "openid profile"
+
 ## ONLY SET THESE IF DEPLOYING OUTSIDE OF DOCKER
 #debug: 0 # generate server logs?
 #show_sql: 0 # show sql in server logs?

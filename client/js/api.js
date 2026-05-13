@@ -108,6 +108,12 @@ class Api extends events.EventTarget {
         return !!remoteConfig.enableSafety;
     }
 
+    getOAuthConfig() {
+        const oauth = remoteConfig.oauth;
+        if (!oauth) return { enabled: false };
+        return oauth;
+    }
+
     hasPrivilege(lookup) {
         let minViableRank = null;
         for (let p of Object.keys(remoteConfig.privileges)) {

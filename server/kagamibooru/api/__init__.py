@@ -10,3 +10,4 @@ import kagamibooru.api.tag_category_api
 import kagamibooru.api.upload_api
 import kagamibooru.api.user_api
 import kagamibooru.api.user_token_api
+import kagamibooru.api.oauth_api

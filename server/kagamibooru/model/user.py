@@ -133,3 +133,25 @@ class UserToken(Base):
     version = sa.Column("version", sa.Integer, default=1, nullable=False)
 
     user = sa.orm.relationship("User")
+
+
+class UserOAuth(Base):
+    __tablename__ = "user_oauth"
+
+    user_oauth_id = sa.Column("id", sa.Integer, primary_key=True)
+    user_id = sa.Column(
+        "user_id",
+        sa.Integer,
+        sa.ForeignKey("user.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    provider = sa.Column("provider", sa.Unicode(64), nullable=False)
+    oauth_sub = sa.Column("oauth_sub", sa.Unicode(256), nullable=False)
+    creation_time = sa.Column("creation_time", sa.DateTime, nullable=False)
+
+    user = sa.orm.relationship("User")
+
+    __table_args__ = (
+        sa.UniqueConstraint("provider", "oauth_sub", name="uq_user_oauth_provider_sub"),
+    )

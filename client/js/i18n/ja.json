@@ -24,6 +24,8 @@
     "login.password": "パスワード",
     "login.remember": "ログイン状態を保持",
     "login.submit": "ログイン",
+    "login.oauthLogin": "{provider} でログイン",
+    "login.passwordLogin": "ユーザー名とパスワードでログイン",
     "login.forgotPassword": "パスワードをお忘れですか？",
     "passwordReset.title": "パスワードリセット",
     "passwordReset.label": "ユーザー名またはメールアドレス",

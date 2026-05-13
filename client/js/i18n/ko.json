@@ -24,6 +24,8 @@
     "login.password": "비밀번호",
     "login.remember": "로그인 유지",
     "login.submit": "로그인",
+    "login.oauthLogin": "{provider}(으)로 로그인",
+    "login.passwordLogin": "아이디와 비밀번호로 로그인",
     "login.forgotPassword": "비밀번호를 잊으셨나요?",
     "passwordReset.title": "비밀번호 재설정",
     "passwordReset.label": "사용자 이름 또는 이메일 주소",

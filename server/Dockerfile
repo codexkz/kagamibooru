@@ -29,6 +29,7 @@ RUN pip3 install --no-cache-dir --disable-pip-version-check --break-system-packa
         "coloredlogs==5.0" \
         "pyheif==0.6.1" \
         "heif-image-plugin>=0.3.2" \
+        "requests>=2.20.0" \
         yt-dlp \
         "pillow-avif-plugin~=1.1.0"
 RUN apk --no-cache del py3-pip

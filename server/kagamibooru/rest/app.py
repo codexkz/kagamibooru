@@ -74,10 +74,12 @@ def application(
 ) -> Tuple[bytes]:
     try:
         ctx = _create_context(env)
-        if "application/json" not in ctx.get_header("Accept"):
-            raise errors.HttpNotAcceptable(
-                "ValidationError", "This API only supports JSON responses."
-            )
+        # Skip Accept check for OAuth routes (browser redirects)
+        if not ctx.url.startswith("/oauth/"):
+            if "application/json" not in ctx.get_header("Accept"):
+                raise errors.HttpNotAcceptable(
+                    "ValidationError", "This API only supports JSON responses."
+                )
 
         for url, allowed_methods in routes.routes.items():
             match = re.fullmatch(url, ctx.url)
@@ -119,6 +121,13 @@ def application(
                 if isinstance(ex, exception_type):
                     ex_handler(ex)
             raise
+
+    except errors.HttpRedirect as ex:
+        headers = [("Location", ex.location)]
+        for name, value in ex.cookies.items():
+            headers.append(("Set-Cookie", f"{name}={value}; Path=/; Max-Age=31536000"))
+        start_response("302 Found", headers)
+        return (b"",)
 
     except errors.BaseHttpError as ex:
         start_response(

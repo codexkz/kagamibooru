@@ -24,6 +24,8 @@
     "login.password": "密碼",
     "login.remember": "記住我",
     "login.submit": "登入",
+    "login.oauthLogin": "使用 {provider} 登入",
+    "login.passwordLogin": "使用帳號密碼登入",
     "login.forgotPassword": "忘記密碼？",
     "passwordReset.title": "重設密碼",
     "passwordReset.label": "使用者名稱或電子郵件地址",
