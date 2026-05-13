@@ -154,6 +154,26 @@ def _ensure_admin_user() -> None:
         db.session.commit()
 
 
+def _ensure_service_user() -> None:
+    """Create the scheduler service account from env vars if it doesn't exist."""
+    from kagamibooru import model
+    from kagamibooru.func import users
+
+    svc_name = os.environ.get("KAGAMI_SERVICE_USER", "").strip()
+    svc_pass = os.environ.get("KAGAMI_SERVICE_PASSWORD", "").strip()
+    if not svc_name or not svc_pass:
+        return
+
+    log = logging.getLogger("kagamibooru")
+    existing = users.try_get_user_by_name(svc_name)
+    if not existing:
+        log.info("Creating service account '%s'", svc_name)
+        user = users.create_user(svc_name, svc_pass, "")
+        user.rank = model.User.RANK_ADMINISTRATOR
+        db.session.add(user)
+        db.session.commit()
+
+
 def create_app() -> Callable[[Any, Any], Any]:
     """Create a WSGI compatible App object."""
     validate_config()
@@ -164,6 +184,7 @@ def create_app() -> Callable[[Any, Any], Any]:
         logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
     _ensure_admin_user()
+    _ensure_service_user()
 
     threading.Thread(target=purge_old_uploads_daemon, daemon=True).start()
 
