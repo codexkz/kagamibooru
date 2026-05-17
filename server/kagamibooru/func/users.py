@@ -51,9 +51,10 @@ def get_avatar_url(user: model.User) -> str:
         )
     if not user.name:
         return ""
-    return "%s/avatars/%s.png" % (
+    return "%s/avatars/%s.png?%d" % (
         config.config["data_url"].rstrip("/"),
         user.name.lower(),
+        user.version,
     )
 
 
