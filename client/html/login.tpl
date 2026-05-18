@@ -6,7 +6,13 @@
         <a href='/oauth/login' rel='external' style='display:inline-flex; align-items:center; gap:0.5em; padding:0.7em 2em; background:#24aadd; color:#fff; text-decoration:none; border-radius:3px; font-size:1.1em;'><% if (ctx.oauthProviderIcon) { %><img src='<%= ctx.oauthProviderIcon %>' alt='' style='width:1.2em; height:1.2em; border-radius:2px;'><% } %><%= ctx.t('login.oauthLogin').replace('{provider}', ctx.oauthProviderName) %></a>
     </div>
     <details style='margin-top:1.5em;'>
-        <summary style='cursor:pointer; text-align:center; color:#888;'><%= ctx.t('login.passwordLogin') %></summary>
+        <style>
+            #login details summary { cursor:pointer; text-align:center; color:#aaa; list-style:none; }
+            #login details summary::-webkit-details-marker { display:none; }
+            #login details summary::before { content:'\25B7\FE0E '; }
+            #login details[open] summary::before { content:'\25BD\FE0E '; }
+        </style>
+        <summary><%= ctx.t('login.passwordLogin') %></summary>
     <% } %>
 
     <form>
