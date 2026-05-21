@@ -1,32 +1,21 @@
-import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, Optional
+
+import sqlalchemy as sa
 
 from kagamibooru import config, rest
 from kagamibooru.func import auth, oauth, posts, users, util
-
-_cache_time = None  # type: Optional[datetime]
-_cache_result = None  # type: Optional[int]
+from kagamibooru.model.post import Post
 
 
 def _get_disk_usage() -> int:
-    global _cache_time, _cache_result
-    threshold = timedelta(hours=48)
-    now = datetime.utcnow()
-    if _cache_time and _cache_time > now - threshold:
-        assert _cache_result is not None
-        return _cache_result
-    total_size = 0
-    for dir_path, _, file_names in os.walk(config.config["data_dir"]):
-        for file_name in file_names:
-            file_path = os.path.join(dir_path, file_name)
-            try:
-                total_size += os.path.getsize(file_path)
-            except FileNotFoundError:
-                pass
-    _cache_time = now
-    _cache_result = total_size
-    return total_size
+    from kagamibooru import db
+
+    return int(
+        db.session.query(
+            sa.func.coalesce(sa.func.sum(Post.file_size), 0)
+        ).scalar()
+    )
 
 
 @rest.routes.get("/info/?")
@@ -49,6 +38,7 @@ def get_info(ctx: rest.Context, _params: Dict[str, str] = {}) -> rest.Response:
             "privileges": util.snake_case_to_lower_camel_case_keys(
                 config.config["privileges"]
             ),
+            "welcomeMessage": config.config.get("welcome_message", ""),
         },
     }
     if oauth.is_enabled():

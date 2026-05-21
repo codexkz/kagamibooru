@@ -11,6 +11,9 @@
             <a href='<%- ctx.formatClientLink('posts') %>'><%= ctx.t('home.browseAll') %></a>
         </form>
     <% } %>
+    <% if (ctx.welcomeMessage) { %>
+    <div class='welcome-message' style='text-align:center; color:#888; margin:1em 0; line-height:1.6;'><%= ctx.welcomeMessage %></div>
+    <% } %>
     <div class='post-info-container'></div>
     <footer class='footer-container'></footer>
 </div>

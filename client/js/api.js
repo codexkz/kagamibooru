@@ -80,6 +80,10 @@ class Api extends events.EventTarget {
         return remoteConfig.name;
     }
 
+    getWelcomeMessage() {
+        return remoteConfig.welcomeMessage || "";
+    }
+
     getTagNameRegex() {
         return remoteConfig.tagNameRegex;
     }

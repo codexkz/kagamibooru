@@ -169,6 +169,8 @@ privileges:
     'uploads:create':               regular
     'uploads:use_downloader':       power
 
+    'cache:warmup':                 administrator
+
 ## OAuth 2.0 Client (login via external OAuth provider)
 oauth:
     enabled: false
