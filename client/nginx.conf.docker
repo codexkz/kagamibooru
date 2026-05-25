@@ -1,4 +1,4 @@
-worker_processes 1;
+worker_processes auto;
 user nginx;
 
 error_log /dev/stderr warn;
@@ -62,9 +62,10 @@ http {
             rewrite ^/data/(.*) /$1 break;
             root /data;
 
-            sendfile on;
-            tcp_nopush on;
+            sendfile off;
             tcp_nodelay on;
+
+            add_header Cache-Control "public, max-age=31536000, immutable";
 
             error_page 403 @unauthorized;
             error_page 404 @notfound;

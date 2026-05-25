@@ -23,20 +23,20 @@ def warmup_cache(
     auth.verify_privilege(ctx.user, "cache:warmup")
 
     pool_name = ctx.get_param_as_string("pool", default="")
-    if not pool_name:
-        raise errors.HttpBadRequest(
-            "MissingPoolNameError", "Pool name is required."
+
+    if pool_name:
+        pool = pools.get_pool_by_name(pool_name)
+        rows = (
+            db.session.query(Post.post_id, Post.mime_type)
+            .join(PoolPost, PoolPost.post_id == Post.post_id)
+            .filter(PoolPost.pool_id == pool.pool_id)
+            .all()
         )
-
-    pool = pools.get_pool_by_name(pool_name)
-
-    # Lightweight query: only fetch post_id and mime_type
-    rows = (
-        db.session.query(Post.post_id, Post.mime_type)
-        .join(PoolPost, PoolPost.post_id == Post.post_id)
-        .filter(PoolPost.pool_id == pool.pool_id)
-        .all()
-    )
+    else:
+        rows = (
+            db.session.query(Post.post_id, Post.mime_type)
+            .all()
+        )
 
     paths = []
     for post_id, mime_type in rows:
@@ -54,7 +54,8 @@ def warmup_cache(
             full_path = os.path.join(data_dir, rel_path)
             try:
                 with open(full_path, "rb") as f:
-                    f.read(1)
+                    while f.read(65536):
+                        pass
                 warmed += 1
             except OSError:
                 pass
@@ -67,6 +68,6 @@ def warmup_cache(
 
     return {
         "message": "Cache warmup started",
-        "pool": pool_name,
+        "pool": pool_name or "(all)",
         "fileCount": len(paths),
     }

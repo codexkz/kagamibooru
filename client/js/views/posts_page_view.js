@@ -21,8 +21,10 @@ class PostsPageView extends events.EventTarget {
         this._postIdToListItemNode = {};
         for (let listItemNode of this._listItemNodes) {
             const postId = listItemNode.getAttribute("data-post-id");
+            if (!postId) continue;
             const post = this._postIdToPost[postId];
             this._postIdToListItemNode[postId] = listItemNode;
+
 
             const tagFlipperNode = this._getTagFlipperNode(listItemNode);
             if (tagFlipperNode) {
