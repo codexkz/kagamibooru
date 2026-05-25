@@ -203,9 +203,8 @@ class PostMainController extends BasePostController {
         }
         post.save().then(
             () => {
-                this._view.sidebarControl.showSuccess(i18n.t("post.saved"));
-                this._view.sidebarControl.enableForm();
                 misc.disableExitConfirmation();
+                router.show(uri.formatClientLink("post", post.id));
             },
             (error) => {
                 this._view.sidebarControl.showError(error.message);
