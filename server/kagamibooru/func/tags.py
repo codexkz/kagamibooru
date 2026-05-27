@@ -250,49 +250,55 @@ def merge_tags(source_tag: model.Tag, target_tag: model.Tag) -> None:
         raise InvalidTagRelationError("Cannot merge tag with itself.")
 
     def merge_posts(source_tag_id: int, target_tag_id: int) -> None:
-        alias1 = model.PostTag
-        alias2 = sa.orm.util.aliased(model.PostTag)
-        update_stmt = sa.sql.expression.update(alias1).where(
-            alias1.tag_id == source_tag_id
+        tbl = model.PostTag.__table__
+        t2 = tbl.alias("t2")
+        db.session.execute(
+            tbl.update()
+            .where(tbl.c.tag_id == source_tag_id)
+            .where(
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c.post_id == tbl.c.post_id,
+                        t2.c.tag_id == target_tag_id,
+                    )
+                )
+            )
+            .values(tag_id=target_tag_id)
         )
-        update_stmt = update_stmt.where(
-            ~sa.exists()
-            .where(alias1.post_id == alias2.post_id)
-            .where(alias2.tag_id == target_tag_id)
-        )
-        update_stmt = update_stmt.values(tag_id=target_tag_id)
-        db.session.execute(update_stmt)
 
     def merge_relations(
         table: model.Base, source_tag_id: int, target_tag_id: int
     ) -> None:
-        alias1 = table
-        alias2 = sa.orm.util.aliased(table)
-        update_stmt = (
-            sa.sql.expression.update(alias1)
-            .where(alias1.parent_id == source_tag_id)
-            .where(alias1.child_id != target_tag_id)
+        tbl = table.__table__
+        t2 = tbl.alias("t2")
+        db.session.execute(
+            tbl.update()
+            .where(tbl.c.parent_id == source_tag_id)
+            .where(tbl.c.child_id != target_tag_id)
             .where(
-                ~sa.exists()
-                .where(alias2.child_id == alias1.child_id)
-                .where(alias2.parent_id == target_tag_id)
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c.child_id == tbl.c.child_id,
+                        t2.c.parent_id == target_tag_id,
+                    )
+                )
             )
             .values(parent_id=target_tag_id)
         )
-        db.session.execute(update_stmt)
-
-        update_stmt = (
-            sa.sql.expression.update(alias1)
-            .where(alias1.child_id == source_tag_id)
-            .where(alias1.parent_id != target_tag_id)
+        db.session.execute(
+            tbl.update()
+            .where(tbl.c.child_id == source_tag_id)
+            .where(tbl.c.parent_id != target_tag_id)
             .where(
-                ~sa.exists()
-                .where(alias2.parent_id == alias1.parent_id)
-                .where(alias2.child_id == target_tag_id)
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c.parent_id == tbl.c.parent_id,
+                        t2.c.child_id == target_tag_id,
+                    )
+                )
             )
             .values(child_id=target_tag_id)
         )
-        db.session.execute(update_stmt)
 
     def merge_suggestions(source_tag_id: int, target_tag_id: int) -> None:
         merge_relations(model.TagSuggestion, source_tag_id, target_tag_id)

@@ -833,81 +833,70 @@ def merge_posts(
 
     def merge_tables(
         table: model.Base,
-        anti_dup_func: Optional[Callable[[model.Base, model.Base], bool]],
+        dup_column: Optional[str],
         source_post_id: int,
         target_post_id: int,
     ) -> None:
-        alias1 = table
-        alias2 = sa.orm.util.aliased(table)
-        update_stmt = sa.sql.expression.update(alias1).where(
-            alias1.post_id == source_post_id
-        )
-
-        if anti_dup_func is not None:
-            update_stmt = update_stmt.where(
-                ~sa.exists()
-                .where(anti_dup_func(alias1, alias2))
-                .where(alias2.post_id == target_post_id)
+        tbl = table.__table__
+        t2 = tbl.alias("t2")
+        stmt = tbl.update().where(tbl.c.post_id == source_post_id)
+        if dup_column is not None:
+            stmt = stmt.where(
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c[dup_column] == tbl.c[dup_column],
+                        t2.c.post_id == target_post_id,
+                    )
+                )
             )
-
-        update_stmt = update_stmt.values(post_id=target_post_id)
-        db.session.execute(update_stmt)
+        stmt = stmt.values(post_id=target_post_id)
+        db.session.execute(stmt)
 
     def merge_tags(source_post_id: int, target_post_id: int) -> None:
-        merge_tables(
-            model.PostTag,
-            lambda alias1, alias2: alias1.tag_id == alias2.tag_id,
-            source_post_id,
-            target_post_id,
-        )
+        merge_tables(model.PostTag, "tag_id", source_post_id, target_post_id)
 
     def merge_scores(source_post_id: int, target_post_id: int) -> None:
-        merge_tables(
-            model.PostScore,
-            lambda alias1, alias2: alias1.user_id == alias2.user_id,
-            source_post_id,
-            target_post_id,
-        )
+        merge_tables(model.PostScore, "user_id", source_post_id, target_post_id)
 
     def merge_favorites(source_post_id: int, target_post_id: int) -> None:
-        merge_tables(
-            model.PostFavorite,
-            lambda alias1, alias2: alias1.user_id == alias2.user_id,
-            source_post_id,
-            target_post_id,
-        )
+        merge_tables(model.PostFavorite, "user_id", source_post_id, target_post_id)
 
     def merge_comments(source_post_id: int, target_post_id: int) -> None:
         merge_tables(model.Comment, None, source_post_id, target_post_id)
 
     def merge_relations(source_post_id: int, target_post_id: int) -> None:
-        alias1 = model.PostRelation
-        alias2 = sa.orm.util.aliased(model.PostRelation)
-        update_stmt = (
-            sa.sql.expression.update(alias1)
-            .where(alias1.parent_id == source_post_id)
-            .where(alias1.child_id != target_post_id)
+        tbl = model.PostRelation.__table__
+        t2 = tbl.alias("t2")
+        # parent_id = source → target
+        db.session.execute(
+            tbl.update()
+            .where(tbl.c.parent_id == source_post_id)
+            .where(tbl.c.child_id != target_post_id)
             .where(
-                ~sa.exists()
-                .where(alias2.child_id == alias1.child_id)
-                .where(alias2.parent_id == target_post_id)
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c.child_id == tbl.c.child_id,
+                        t2.c.parent_id == target_post_id,
+                    )
+                )
             )
             .values(parent_id=target_post_id)
         )
-        db.session.execute(update_stmt)
-
-        update_stmt = (
-            sa.sql.expression.update(alias1)
-            .where(alias1.child_id == source_post_id)
-            .where(alias1.parent_id != target_post_id)
+        # child_id = source → target
+        db.session.execute(
+            tbl.update()
+            .where(tbl.c.child_id == source_post_id)
+            .where(tbl.c.parent_id != target_post_id)
             .where(
-                ~sa.exists()
-                .where(alias2.parent_id == alias1.parent_id)
-                .where(alias2.child_id == target_post_id)
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c.parent_id == tbl.c.parent_id,
+                        t2.c.child_id == target_post_id,
+                    )
+                )
             )
             .values(child_id=target_post_id)
         )
-        db.session.execute(update_stmt)
 
     merge_tags(source_post.post_id, target_post.post_id)
     merge_comments(source_post.post_id, target_post.post_id)

@@ -252,18 +252,21 @@ def merge_pools(source_pool: model.Pool, target_pool: model.Pool) -> None:
         raise InvalidPoolRelationError("Cannot merge pool with itself.")
 
     def merge_pool_posts(source_pool_id: int, target_pool_id: int) -> None:
-        alias1 = model.PoolPost
-        alias2 = sa.orm.util.aliased(model.PoolPost)
-        update_stmt = sa.sql.expression.update(alias1).where(
-            alias1.pool_id == source_pool_id
+        tbl = model.PoolPost.__table__
+        t2 = tbl.alias("t2")
+        db.session.execute(
+            tbl.update()
+            .where(tbl.c.pool_id == source_pool_id)
+            .where(
+                ~sa.exists(
+                    sa.select(sa.literal(1)).where(
+                        t2.c.post_id == tbl.c.post_id,
+                        t2.c.pool_id == target_pool_id,
+                    )
+                )
+            )
+            .values(pool_id=target_pool_id)
         )
-        update_stmt = update_stmt.where(
-            ~sa.exists()
-            .where(alias1.post_id == alias2.post_id)
-            .where(alias2.pool_id == target_pool_id)
-        )
-        update_stmt = update_stmt.values(pool_id=target_pool_id)
-        db.session.execute(update_stmt)
 
     merge_pool_posts(source_pool.pool_id, target_pool.pool_id)
     delete(source_pool)
