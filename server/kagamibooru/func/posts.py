@@ -929,7 +929,7 @@ def search_by_image_exact(image_content: bytes) -> Optional[model.Post]:
     return (
         db.session.query(model.Post)
         .filter(model.Post.checksum == checksum)
-        .one_or_none()
+        .first()
     )
 
 
