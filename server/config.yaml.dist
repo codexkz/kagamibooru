@@ -113,6 +113,8 @@ privileges:
     'posts:score':                  regular
     'posts:merge':                  moderator
     'posts:favorite':               regular
+    # Add/remove/list favorites on behalf of another user (himari-bot proxy).
+    'posts:favorite:any':           administrator
     'posts:bulk-edit:tags':         power
     'posts:bulk-edit:safety':       power
     'posts:bulk-edit:delete':       power

@@ -6,6 +6,7 @@ from kagamibooru.func import (
     auth,
     favorites,
     mime,
+    oauth,
     posts,
     scores,
     serialization,
@@ -270,6 +271,94 @@ def delete_post_from_favorites(
     favorites.unset_favorite(post, ctx.user)
     ctx.session.commit()
     return _serialize_post(ctx, post)
+
+
+# ---------------------------------------------------------------------------
+# Favorites on behalf of another user (himari-bot proxy).
+#
+# A privileged service account (administrator) manages favorites for a Himari
+# user identified by their OAuth subject. The target is resolved through the
+# same OAuth identity link the login callback uses, so a user who has never
+# logged into kagamibooru directly is created on first favorite.
+# ---------------------------------------------------------------------------
+
+
+def _resolve_oauth_user(
+    ctx: rest.Context, create: bool
+) -> Optional[model.User]:
+    auth.verify_privilege(ctx.user, "posts:favorite:any")
+    sub = ctx.get_param_as_string("sub")
+    if create:
+        username = ctx.get_param_as_string("username", default="")
+        picture = ctx.get_param_as_string("picture", default="")
+        return oauth.find_or_create_user(
+            sub, username or "user_{0}".format(sub[:8]), picture
+        )
+    provider = oauth.get_oauth_config().get("provider_name", "oauth")
+    return oauth.find_user_by_oauth(provider, sub)
+
+
+@rest.routes.post("/post/(?P<post_id>[^/]+)/favorite-for/?")
+def add_post_to_favorites_for_user(
+    ctx: rest.Context, params: Dict[str, str]
+) -> rest.Response:
+    target_user = _resolve_oauth_user(ctx, create=True)
+    post = _get_post(params)
+    favorites.set_favorite(post, target_user)
+    ctx.session.commit()
+    return posts.serialize_post(
+        post, target_user, options=serialization.get_serialization_options(ctx)
+    )
+
+
+@rest.routes.delete("/post/(?P<post_id>[^/]+)/favorite-for/?")
+def delete_post_from_favorites_for_user(
+    ctx: rest.Context, params: Dict[str, str]
+) -> rest.Response:
+    target_user = _resolve_oauth_user(ctx, create=False)
+    post = _get_post(params)
+    if target_user is not None:
+        favorites.unset_favorite(post, target_user)
+        ctx.session.commit()
+    return posts.serialize_post(
+        post,
+        target_user or ctx.user,
+        options=serialization.get_serialization_options(ctx),
+    )
+
+
+@rest.routes.get("/favorites-for/?")
+def get_favorites_for_user(
+    ctx: rest.Context, _params: Dict[str, str] = {}
+) -> rest.Response:
+    target_user = _resolve_oauth_user(ctx, create=False)
+    offset = ctx.get_param_as_int("offset", default=0, min=0)
+    limit = ctx.get_param_as_int("limit", default=100, min=1, max=100)
+    options = serialization.get_serialization_options(ctx)
+
+    if target_user is None:
+        return {"offset": offset, "limit": limit, "total": 0, "results": []}
+
+    query = (
+        db.session.query(model.Post)
+        .join(
+            model.PostFavorite,
+            model.Post.post_id == model.PostFavorite.post_id,
+        )
+        .filter(model.PostFavorite.user_id == target_user.user_id)
+        .order_by(model.PostFavorite.time.desc())
+    )
+    total = query.count()
+    page = query.offset(offset).limit(limit).all()
+    return {
+        "offset": offset,
+        "limit": limit,
+        "total": total,
+        "results": [
+            posts.serialize_post(post, target_user, options=options)
+            for post in page
+        ],
+    }
 
 
 @rest.routes.get("/post/(?P<post_id>[^/]+)/around/?")
