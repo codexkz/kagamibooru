@@ -13,6 +13,11 @@ from kagamibooru.model.post import (
     PostSignature,
     PostTag,
 )
+from kagamibooru.model.similarity import (
+    SimilarityScan,
+    SimilarityGroup,
+    SimilarityGroupPost,
+)
 from kagamibooru.model.snapshot import Snapshot
 from kagamibooru.model.tag import Tag, TagImplication, TagName, TagSuggestion, TagTagCategory
 from kagamibooru.model.tag_category import TagCategory
