@@ -56,11 +56,15 @@ class TopNavigationController {
         if (!api.hasPrivilege("users:create:any")) {
             topNavigation.hide("admin-users");
         }
+        if (!api.hasPrivilege("posts:similarity:list")) {
+            topNavigation.hide("similarity");
+        }
         topNavigation.hide("register");
         if (api.isLoggedIn()) {
             topNavigation.hide("login");
         } else {
             topNavigation.hide("admin-users");
+            topNavigation.hide("similarity");
             topNavigation.hide("account");
             topNavigation.hide("logout");
         }
