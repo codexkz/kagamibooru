@@ -1,4 +1,5 @@
 import logging
+import re
 import threading
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -117,14 +118,24 @@ def get_scans() -> List[model.SimilarityScan]:
 
 
 def get_groups(
-    scan: model.SimilarityScan, status: Optional[str] = None
-) -> List[model.SimilarityGroup]:
+    scan: model.SimilarityScan,
+    status: Optional[str] = None,
+    offset: int = 0,
+    limit: int = 5,
+) -> Tuple[int, List[model.SimilarityGroup]]:
     query = db.session.query(model.SimilarityGroup).filter(
         model.SimilarityGroup.scan_id == scan.scan_id
     )
     if status is not None:
         query = query.filter(model.SimilarityGroup.status == status)
-    return query.order_by(model.SimilarityGroup.group_id.asc()).all()
+    total = query.count()
+    groups = (
+        query.order_by(model.SimilarityGroup.group_id.asc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
+    return total, groups
 
 
 # --------------------------------------------------------------------------- #
@@ -135,6 +146,9 @@ def get_groups(
 def serialize_scan(scan: model.SimilarityScan) -> Dict[str, Any]:
     return {
         "id": scan.scan_id,
+        "kind": scan.kind,
+        "queryPostId": scan.query_post_id,
+        "queryLabel": scan.query_label,
         "creationTime": scan.creation_time,
         "finishTime": scan.finish_time,
         "status": scan.status,
@@ -206,6 +220,179 @@ def create_scan(
     threading.Thread(
         target=_run_scan, args=(scan_id, threshold), daemon=False
     ).start()
+    return scan
+
+
+def _query_candidates(
+    query_signature: Any, exclude_post_id: Optional[int] = None
+) -> List[Tuple[int, float]]:
+    """Find posts whose signature is close to query_signature.
+
+    Mirrors func.posts.search_by_image: use the indexed 'words' array to
+    gather candidates, then rank by normalized distance. Returns a list of
+    (post_id, distance) for ALL candidates (caller applies the threshold).
+    """
+    query_words = image_hash.generate_words(query_signature)
+    dbquery = """
+    SELECT s.post_id, s.signature, count(a.query) AS score
+    FROM post_signature AS s, unnest(s.words, :q) AS a(word, query)
+    WHERE a.word = a.query
+    GROUP BY s.post_id
+    ORDER BY score DESC LIMIT 100;
+    """
+    candidates = db.session.execute(sa.text(dbquery), {"q": query_words})
+    data = tuple(
+        zip(
+            *[
+                (post_id, image_hash.unpack_signature(packedsig))
+                for post_id, packedsig, score in candidates
+            ]
+        )
+    )
+    if not data:
+        return []
+    candidate_post_ids, sigarray = data
+    distances = image_hash.normalized_distance(
+        np.array(sigarray), query_signature
+    )
+    out = []
+    for post_id, distance in zip(candidate_post_ids, distances):
+        if exclude_post_id is not None and post_id == exclude_post_id:
+            continue
+        out.append((post_id, float(distance)))
+    return out
+
+
+# Matches a post's own content/thumbnail URL on this booru, e.g.
+# /data/posts/8c/3_8cec50cd0649d4cd.jpg (optional 2-char shard dir).
+_INTERNAL_URL_RE = re.compile(
+    r"/(?:posts|generated-thumbnails)/(?:[0-9a-f]{2}/)?(\d+)_([0-9a-f]{16})\."
+)
+
+
+def resolve_internal_post_id(url: str) -> Optional[int]:
+    """If `url` points to a post's own file on THIS booru, return its post id.
+
+    Verified via the per-post security hash (md5 of secret+id), which an
+    outsider cannot forge — so a match proves the URL is a local post. This
+    lets us reuse the post's stored signature instead of net-downloading the
+    URL (which Cloudflare blocks for server-originated requests, HTTP 403).
+    Returns None for genuinely external URLs.
+    """
+    if not url:
+        return None
+    match = _INTERNAL_URL_RE.search(url)
+    if not match:
+        return None
+    post_id = int(match.group(1))
+    if posts.get_post_security_hash(post_id) != match.group(2):
+        return None
+    return post_id
+
+
+def _get_post_signature(post_id: int) -> Optional[Any]:
+    row = (
+        db.session.query(model.PostSignature)
+        .filter(model.PostSignature.post_id == post_id)
+        .one_or_none()
+    )
+    if not row:
+        return None
+    return image_hash.unpack_signature(row.signature)
+
+
+def create_single_scan(
+    threshold: float,
+    user: Optional[model.User],
+    query_post_id: Optional[int] = None,
+    content: Optional[bytes] = None,
+    label: Optional[str] = None,
+) -> model.SimilarityScan:
+    """Find posts similar to ONE image (a site post, an upload, or a URL).
+
+    Runs synchronously (only one image is compared against the index) and
+    stores the result as a single-group scan, reusing the same UI as a
+    full-site scan. Uploaded/URL images are NOT added to the booru — they
+    are only hashed to drive the lookup.
+    """
+    if threshold < 0.0 or threshold > 1.0:
+        raise InvalidSimilarityParamError(
+            "Threshold must be between 0.0 and 1.0."
+        )
+
+    if query_post_id is not None:
+        query_signature = _get_post_signature(query_post_id)
+        if query_signature is None:
+            raise InvalidSimilarityParamError(
+                "Post %r has no image signature." % query_post_id
+            )
+        if not label:
+            label = "Post #%d" % query_post_id
+    elif content is not None:
+        try:
+            query_signature = image_hash.generate_signature(content)
+        except errors.ProcessingError:
+            raise InvalidSimilarityParamError(
+                "Could not generate an image signature for this file."
+            )
+    else:
+        raise InvalidSimilarityParamError(
+            "A single scan needs either a post id or image content."
+        )
+
+    matches = [
+        (pid, dist)
+        for pid, dist in _query_candidates(query_signature, query_post_id)
+        if dist <= threshold
+    ]
+    matches.sort(key=lambda x: x[1])
+
+    scan = model.SimilarityScan()
+    scan.kind = model.SimilarityScan.KIND_SINGLE
+    scan.query_post_id = query_post_id
+    scan.query_label = label
+    scan.creation_time = datetime.utcnow()
+    scan.threshold = threshold
+    scan.total_count = 1
+    scan.processed_count = 1
+    scan.user_id = user.user_id if user and user.user_id else None
+
+    # A group needs >= 2 members to be meaningful. For a post-sourced query
+    # the query post itself anchors the group (distance 0). For an
+    # upload/URL query there is no anchor post, so we need >= 1 match.
+    has_group = (query_post_id is not None and len(matches) >= 1) or (
+        query_post_id is None and len(matches) >= 2
+    )
+    scan.group_count = 1 if has_group else 0
+    scan.status = model.SimilarityScan.STATUS_DONE
+    scan.finish_time = datetime.utcnow()
+    db.session.add(scan)
+    db.session.flush()
+
+    if has_group:
+        group = model.SimilarityGroup()
+        group.scan_id = scan.scan_id
+        group.status = model.SimilarityGroup.STATUS_PENDING
+        group.creation_time = datetime.utcnow()
+        db.session.add(group)
+        db.session.flush()
+
+        members = []  # (post_id, distance)
+        if query_post_id is not None:
+            members.append((query_post_id, 0.0))
+        members.extend(matches)
+
+        for member_post_id, distance in members:
+            member = model.SimilarityGroupPost()
+            member.scan_id = scan.scan_id
+            member.group_id = group.group_id
+            member.post_id = member_post_id
+            member.distance = distance
+            member.action = model.SimilarityGroupPost.ACTION_NONE
+            member.dismissed = False
+            db.session.add(member)
+
+    db.session.commit()
     return scan
 
 

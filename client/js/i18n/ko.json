@@ -558,5 +558,22 @@
     "similarity.noGroups": "유사한 그룹을 찾지 못했습니다.",
     "similarity.scanStarted": "검사를 시작했습니다.",
     "similarity.confirmDelete": "이 검사를 삭제하시겠습니까?",
-    "similarity.noPrivilege": "유사 이미지 검사를 볼 권한이 없습니다."
+    "similarity.noPrivilege": "유사 이미지 검사를 볼 권한이 없습니다.",
+    "similarity.prev": "이전",
+    "similarity.next": "다음",
+    "similarity.pageInfo": "{total}개 중 {from}–{to}",
+    "similarity.fullScanTitle": "전체 사이트 검사",
+    "similarity.singleTitle": "한 이미지와 유사한 항목 찾기",
+    "similarity.singleHint": "기존 게시물 ID로 검색(업로드는 사이트에 추가되지 않음).",
+    "similarity.singlePostId": "게시물 ID",
+    "similarity.singleUrl": "이미지 URL",
+    "similarity.singleUpload": "이미지 업로드",
+    "similarity.singleSearch": "검색",
+    "similarity.singleEmpty": "게시물 ID를 입력하거나 이미지를 드롭/붙여넣기 하세요.",
+    "similarity.kindSingle": "단일",
+    "similarity.queryLabel": "검색 대상: {label}",
+    "similarity.singleDropHint": "이미지를 여기에 드롭, 클릭하여 선택, 또는 복사한 이미지를 붙여넣기(우클릭 → 이미지 복사). 이미지는 검색에만 사용되며 사이트에 추가되지 않습니다.",
+    "similarity.singleOr": "— 또는 —",
+    "similarity.singleSearchImage": "이 이미지로 검색",
+    "similarity.singleClear": "지우기"
 }

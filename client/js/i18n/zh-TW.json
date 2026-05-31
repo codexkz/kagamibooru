@@ -558,5 +558,22 @@
     "similarity.noGroups": "找不到相似群組。",
     "similarity.scanStarted": "掃描已開始。",
     "similarity.confirmDelete": "刪除這次掃描？",
-    "similarity.noPrivilege": "您沒有檢視相似圖片掃描的權限。"
+    "similarity.noPrivilege": "您沒有檢視相似圖片掃描的權限。",
+    "similarity.prev": "上一頁",
+    "similarity.next": "下一頁",
+    "similarity.pageInfo": "第 {from}–{to} 項，共 {total} 項",
+    "similarity.fullScanTitle": "全站掃描",
+    "similarity.singleTitle": "查找與單張圖片相似的圖",
+    "similarity.singleHint": "用已有的貼文編號搜尋（上傳不會加入站點）。",
+    "similarity.singlePostId": "貼文編號",
+    "similarity.singleUrl": "圖片網址",
+    "similarity.singleUpload": "上傳圖片",
+    "similarity.singleSearch": "搜尋",
+    "similarity.singleEmpty": "請輸入貼文編號，或拖放／貼上圖片。",
+    "similarity.kindSingle": "單張",
+    "similarity.queryLabel": "查詢源: {label}",
+    "similarity.singleDropHint": "把圖片拖到這裡、點擊選擇、或貼上你複製的圖片（右鍵→複製圖片）。圖片僅用於搜尋，不會加入站點。",
+    "similarity.singleOr": "— 或 —",
+    "similarity.singleSearchImage": "用這張圖搜尋",
+    "similarity.singleClear": "清除"
 }

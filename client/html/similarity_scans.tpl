@@ -2,7 +2,14 @@
     <h1><%= ctx.t('similarity.title') %></h1>
 
     <% if (ctx.canCreate) { %>
-        <form class='similarity-new-scan'>
+        <nav class='buttons similarity-tabs'><!--
+            --><ul><!--
+                --><li data-tab='full'><a href><%= ctx.t('similarity.fullScanTitle') %></a></li><!--
+                --><li data-tab='single'><a href><%= ctx.t('similarity.singleTitle') %></a></li><!--
+            --></ul><!--
+        --></nav>
+
+        <form class='similarity-new-scan tab-pane' data-tab='full'>
             <ul class='input'>
                 <li>
                     <%= ctx.makeNumericInput({
@@ -18,6 +25,46 @@
             </ul>
             <div class='buttons'>
                 <input type='submit' class='start' value='<%= ctx.t("similarity.startScan") %>'>
+            </div>
+        </form>
+
+        <form class='similarity-single-scan tab-pane' data-tab='single'>
+            <ul class='input'>
+                <li>
+                    <%= ctx.makeNumericInput({
+                        text: ctx.t('similarity.threshold'),
+                        name: 'singleThreshold',
+                        value: '0.45',
+                        min: '0',
+                        max: '1',
+                        step: '0.01',
+                    }) %>
+                </li>
+            </ul>
+
+            <div class='single-source'>
+                <div class='by-post-id'>
+                    <%= ctx.makeNumericInput({
+                        text: ctx.t('similarity.singlePostId'),
+                        name: 'queryPostId',
+                        min: '1',
+                        step: '1',
+                    }) %>
+                    <input type='submit' class='start by-id' value='<%= ctx.t("similarity.singleSearch") %>'>
+                </div>
+
+                <p class='or-divider'><%= ctx.t('similarity.singleOr') %></p>
+
+                <p class='dropper-hint'><%= ctx.t('similarity.singleDropHint') %></p>
+                <div class='single-dropper'></div>
+
+                <div class='single-preview' style='display:none'>
+                    <img class='thumbnail' alt='preview'>
+                    <div class='preview-actions'>
+                        <button type='button' class='search-image'><%= ctx.t('similarity.singleSearchImage') %></button>
+                        <button type='button' class='clear-image'><%= ctx.t('similarity.singleClear') %></button>
+                    </div>
+                </div>
             </div>
         </form>
     <% } %>

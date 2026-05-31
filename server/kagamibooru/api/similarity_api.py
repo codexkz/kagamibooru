@@ -23,6 +23,45 @@ def create_similarity_scan(
 ) -> rest.Response:
     auth.verify_privilege(ctx.user, "posts:similarity:create")
     threshold = float(ctx.get_param_as_string("threshold", default="0.45"))
+    kind = ctx.get_param_as_string("kind", default="full")
+
+    if kind == "single":
+        query_post_id = None
+        content = None
+        label = None
+        if ctx.has_param("queryPostId"):
+            query_post_id = ctx.get_param_as_int("queryPostId")
+        elif ctx.has_param("contentUrl"):
+            url = ctx.get_param_as_string("contentUrl")
+            # A URL pointing at one of our own posts must NOT be fetched over
+            # the network (Cloudflare blocks server-originated requests to our
+            # public domain with 403). Resolve it to the post id and reuse the
+            # stored signature; only genuinely external URLs get downloaded.
+            internal_id = similarity.resolve_internal_post_id(url)
+            if internal_id is not None:
+                query_post_id = internal_id
+                label = "Post #%d (from URL)" % internal_id
+            else:
+                content = ctx.get_file("content")
+                label = "URL: " + url
+        elif ctx.has_file("content"):
+            content = ctx.get_file("content")
+            label = "Uploaded image"
+        else:
+            raise similarity.InvalidSimilarityParamError(
+                "A single scan needs queryPostId, an uploaded file, or "
+                "contentUrl."
+            )
+        scan = similarity.create_single_scan(
+            threshold,
+            ctx.user,
+            query_post_id=query_post_id,
+            content=content,
+            label=label,
+        )
+        ctx.session.commit()
+        return similarity.serialize_scan(scan)
+
     scan = similarity.create_scan(threshold, ctx.user)
     return similarity.serialize_scan(scan)
 
@@ -54,11 +93,17 @@ def get_similarity_groups(
     auth.verify_privilege(ctx.user, "posts:similarity:list")
     scan = similarity.get_scan_by_id(int(params["scan_id"]))
     status = ctx.get_param_as_string("status", default="") or None
+    offset = ctx.get_param_as_int("offset", default=0, min=0)
+    limit = ctx.get_param_as_int("limit", default=5, min=1, max=100)
+    total, groups = similarity.get_groups(scan, status, offset, limit)
     return {
+        "query": "",
+        "offset": offset,
+        "limit": limit,
+        "total": total,
         "results": [
-            similarity.serialize_group(group, ctx.user)
-            for group in similarity.get_groups(scan, status)
-        ]
+            similarity.serialize_group(group, ctx.user) for group in groups
+        ],
     }
 
 

@@ -2,6 +2,7 @@
 
 const events = require("../events.js");
 const views = require("../util/views.js");
+const FileDropperControl = require("../controls/file_dropper_control.js");
 
 const template = views.getTemplate("similarity-scans");
 const rowTemplate = views.getTemplate("similarity-scan-row");
@@ -15,11 +16,68 @@ class SimilarityScansView extends events.EventTarget {
         views.replaceContent(this._hostNode, template(ctx));
         views.syncScrollPosition();
 
+        this._initTabs();
+
         if (this._formNode) {
             views.decorateValidator(this._formNode);
             this._formNode.addEventListener("submit", (e) =>
                 this._evtCreate(e)
             );
+        }
+
+        if (this._singleFormNode) {
+            this._pendingFile = null;
+
+            // "Search" next to the post-id field submits the form.
+            this._singleFormNode.addEventListener("submit", (e) =>
+                this._evtCreateByPostId(e)
+            );
+
+            const dropperNode = this._hostNode.querySelector(
+                ".single-dropper"
+            );
+            if (dropperNode) {
+                // allowUrls: false → no URL text box; drag/click/paste only.
+                this._dropper = new FileDropperControl(dropperNode, {
+                    allowUrls: false,
+                    allowMultiple: false,
+                });
+                this._dropper.addEventListener("fileadd", (e) => {
+                    const file = e.detail.files[0];
+                    if (file) {
+                        this._setPendingFile(file);
+                    }
+                });
+
+                // Right-click "copy image" → paste (Discord-style). The
+                // browser already holds the decoded bytes, so this works for
+                // external images that CORS / bot-protection would block.
+                this._pasteHandler = (e) => {
+                    if (!document.body.contains(dropperNode)) {
+                        return; // stale event after navigating away
+                    }
+                    const files = (e.clipboardData || {}).files || [];
+                    if (files.length && files[0].type.startsWith("image/")) {
+                        e.preventDefault();
+                        this._setPendingFile(files[0]);
+                    }
+                };
+                document.addEventListener("paste", this._pasteHandler);
+
+                this._previewNode = this._hostNode.querySelector(
+                    ".single-preview"
+                );
+                this._previewNode
+                    .querySelector(".search-image")
+                    .addEventListener("click", () => {
+                        if (this._pendingFile) {
+                            this._dispatchSingle({ file: this._pendingFile });
+                        }
+                    });
+                this._previewNode
+                    .querySelector(".clear-image")
+                    .addEventListener("click", () => this._clearPendingFile());
+            }
         }
 
         this._scanIdToRowNode = {};
@@ -28,8 +86,87 @@ class SimilarityScansView extends events.EventTarget {
         }
     }
 
+    _initTabs() {
+        const nav = this._hostNode.querySelector("nav.similarity-tabs");
+        if (!nav) {
+            return; // no create privilege → no tabs
+        }
+        this._tabLinks = nav.querySelectorAll("li[data-tab]");
+        this._tabPanes = this._hostNode.querySelectorAll(".tab-pane");
+        for (let li of this._tabLinks) {
+            li.querySelector("a").addEventListener("click", (e) => {
+                e.preventDefault();
+                this._activateTab(li.getAttribute("data-tab"));
+            });
+        }
+        this._activateTab("full");
+    }
+
+    _activateTab(tab) {
+        for (let li of this._tabLinks) {
+            li.classList.toggle(
+                "active",
+                li.getAttribute("data-tab") === tab
+            );
+        }
+        for (let pane of this._tabPanes) {
+            pane.style.display =
+                pane.getAttribute("data-tab") === tab ? "" : "none";
+        }
+    }
+
     get _formNode() {
         return this._hostNode.querySelector("form.similarity-new-scan");
+    }
+
+    get _singleFormNode() {
+        return this._hostNode.querySelector("form.similarity-single-scan");
+    }
+
+    get _singleThreshold() {
+        return parseFloat(
+            this._singleFormNode.querySelector("[name=singleThreshold]").value
+        );
+    }
+
+    _setPendingFile(file) {
+        this._clearPendingFile();
+        this._pendingFile = file;
+        this._previewObjectUrl = URL.createObjectURL(file);
+        const img = this._previewNode.querySelector("img.thumbnail");
+        img.style.backgroundImage = `url('${this._previewObjectUrl}')`;
+        img.src = this._previewObjectUrl;
+        this._previewNode.style.display = "";
+    }
+
+    _clearPendingFile() {
+        this._pendingFile = null;
+        if (this._previewObjectUrl) {
+            URL.revokeObjectURL(this._previewObjectUrl);
+            this._previewObjectUrl = null;
+        }
+        if (this._previewNode) {
+            this._previewNode.style.display = "none";
+        }
+    }
+
+    _dispatchSingle(detail) {
+        detail.threshold = this._singleThreshold;
+        this.dispatchEvent(
+            new CustomEvent("createSingle", { detail: detail })
+        );
+    }
+
+    _evtCreateByPostId(e) {
+        e.preventDefault();
+        const postIdRaw = this._singleFormNode
+            .querySelector("[name=queryPostId]")
+            .value.trim();
+        if (!postIdRaw) {
+            this.showError(this._ctx.singleEmptyMsg);
+            return;
+        }
+        this._dispatchSingle({ postId: parseInt(postIdRaw) });
     }
 
     get _tableBodyNode() {

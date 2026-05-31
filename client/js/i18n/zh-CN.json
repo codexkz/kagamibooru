@@ -558,5 +558,22 @@
     "similarity.noGroups": "未找到相似分组。",
     "similarity.scanStarted": "扫描已开始。",
     "similarity.confirmDelete": "删除此次扫描？",
-    "similarity.noPrivilege": "您没有查看相似图片扫描的权限。"
+    "similarity.noPrivilege": "您没有查看相似图片扫描的权限。",
+    "similarity.prev": "上一页",
+    "similarity.next": "下一页",
+    "similarity.pageInfo": "第 {from}–{to} 项，共 {total} 项",
+    "similarity.fullScanTitle": "全站扫描",
+    "similarity.singleTitle": "查找与单张图片相似的图",
+    "similarity.singleHint": "用已有的帖子编号搜索（上传不会加入站点）。",
+    "similarity.singlePostId": "帖子编号",
+    "similarity.singleUrl": "图片网址",
+    "similarity.singleUpload": "上传图片",
+    "similarity.singleSearch": "搜索",
+    "similarity.singleEmpty": "请输入帖子编号，或拖放／粘贴图片。",
+    "similarity.kindSingle": "单张",
+    "similarity.queryLabel": "查询源: {label}",
+    "similarity.singleDropHint": "把图片拖到这里、点击选择、或粘贴你复制的图片（右键→复制图片）。图片仅用于搜索，不会加入站点。",
+    "similarity.singleOr": "— 或 —",
+    "similarity.singleSearchImage": "用这张图搜索",
+    "similarity.singleClear": "清除"
 }

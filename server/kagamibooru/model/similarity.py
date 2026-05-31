@@ -10,7 +10,20 @@ class SimilarityScan(Base):
     STATUS_DONE = "done"
     STATUS_FAILED = "failed"
 
+    KIND_FULL = "full"
+    KIND_SINGLE = "single"
+
     scan_id = sa.Column("id", sa.Integer, primary_key=True)
+    kind = sa.Column(
+        "kind", sa.Unicode(16), nullable=False, default=KIND_FULL
+    )
+    query_post_id = sa.Column(
+        "query_post_id",
+        sa.Integer,
+        sa.ForeignKey("post.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    query_label = sa.Column("query_label", sa.Unicode(512), nullable=True)
     creation_time = sa.Column("creation_time", sa.DateTime, nullable=False)
     finish_time = sa.Column("finish_time", sa.DateTime, nullable=True)
     status = sa.Column(
@@ -39,6 +52,7 @@ class SimilarityScan(Base):
     error = sa.Column("error", sa.Unicode(2048), nullable=True)
 
     user = sa.orm.relationship("User")
+    query_post = sa.orm.relationship("Post")
     groups = sa.orm.relationship(
         "SimilarityGroup",
         back_populates="scan",

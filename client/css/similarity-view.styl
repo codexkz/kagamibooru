@@ -1,0 +1,184 @@
+@import colors
+
+.similarity-scans
+    nav.similarity-tabs
+        margin-bottom 1em
+    .tab-pane
+        margin-bottom 1.5em
+    .similarity-new-scan,
+    .similarity-single-scan
+        .buttons
+            margin-top 0.5em
+        .hint
+            font-size 90%
+            color $inactive-link-color
+            margin 0.2em 0 0 0
+    .similarity-single-scan
+        ul.input
+            list-style-type none
+            padding 0
+            margin 0
+            li
+                margin-bottom 0.6em
+        .single-source
+            max-width 32em
+        .by-post-id
+            display flex
+            align-items flex-end
+            gap 0.6em
+            input.by-id
+                white-space nowrap
+        .or-divider
+            text-align center
+            color $inactive-link-color
+            margin 1em 0
+        .dropper-hint
+            font-size 90%
+            color $inactive-link-color
+            margin 0 0 0.5em 0
+        .single-preview
+            margin-top 1em
+            img.thumbnail
+                display block
+                width 12em
+                height 12em
+                background-size cover
+                background-position center
+                background-repeat no-repeat
+                border 1px solid rgba(128,128,128,0.3)
+            .preview-actions
+                margin-top 0.6em
+                display flex
+                gap 0.6em
+    .kind-badge
+        display inline-block
+        margin-left 0.4em
+        padding 0 0.4em
+        font-size 80%
+        background rgba(36,170,221,0.15)
+        border 1px solid rgba(36,170,221,0.4)
+        border-radius 0.3em
+        color $main-color
+    table.scans
+        width 100%
+        border-collapse collapse
+        th, td
+            padding 0.4em 0.6em
+            text-align left
+            border-bottom 1px solid rgba(128,128,128,0.2)
+        th
+            font-weight bold
+        td.id
+            white-space nowrap
+            color $inactive-link-color
+        td.groups
+            text-align right
+        td.actions
+            text-align right
+            white-space nowrap
+            a
+                margin-left 0.6em
+            a.delete
+                color #c33
+        tr.status-running td.status
+            color $main-color
+        tr.status-failed td.status
+            color #c33
+        .progress
+            .counts
+                margin-right 0.5em
+                color $inactive-link-color
+            .bar
+                display inline-block
+                width 8em
+                height 0.7em
+                vertical-align middle
+                background rgba(128,128,128,0.2)
+                border-radius 0.35em
+                overflow hidden
+                .fill
+                    display block
+                    height 100%
+                    background $main-color
+            .pct
+                margin-left 0.5em
+                font-size 90%
+                color $inactive-link-color
+
+.similarity-scan-result
+    .back
+        margin-bottom 0.5em
+    .summary
+        color $inactive-link-color
+        margin-top -0.5em
+        margin-bottom 0.5em
+    .query-label
+        color $inactive-link-color
+        margin-bottom 1.5em
+        word-break break-all
+    .no-results
+        color $inactive-link-color
+    .group
+        margin-bottom 1.5em
+        padding-bottom 1em
+        border-bottom 1px solid rgba(128,128,128,0.2)
+        h2
+            font-size 1.1em
+            margin 0 0 0.5em 0
+            .count
+                color $inactive-link-color
+                font-weight normal
+                font-size 90%
+        ul.thumbs
+            list-style-type none
+            padding 0
+            margin 0
+            display flex
+            flex-wrap wrap
+            gap 0.6em
+            li
+                margin 0
+            .thumbnail-wrapper
+                display block
+                position relative
+                text-decoration none
+            .thumbnail
+                display block
+                width 9em
+                height 9em
+                background rgba(128,128,128,0.15)
+                background-size cover
+                background-position center
+                background-repeat no-repeat
+                overflow hidden
+                object-fit cover
+                img
+                    width 100%
+                    height 100%
+                    object-fit cover
+                &.empty
+                    background rgba(128,128,128,0.15)
+            .id
+                display block
+                font-size 85%
+                color $inactive-link-color
+                margin-top 0.2em
+            .distance
+                display block
+                font-size 80%
+                color $inactive-link-color
+            @media (max-width: 800px)
+                .thumbnail
+                    width 6em
+                    height 6em
+    .similarity-pager
+        display flex
+        align-items center
+        justify-content center
+        gap 1.5em
+        margin 1em 0 2em 0
+        .page-info
+            color $inactive-link-color
+        .disabled
+            color $inactive-link-color
+            opacity 0.5

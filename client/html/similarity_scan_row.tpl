@@ -1,5 +1,10 @@
-<tr data-scan-id='<%= ctx.scan.id %>' class='scan-row status-<%- ctx.scan.status %>'>
-    <td class='id'>#<%- ctx.scan.id %></td>
+<tr data-scan-id='<%= ctx.scan.id %>' class='scan-row status-<%- ctx.scan.status %> kind-<%- ctx.scan.kind || "full" %>'>
+    <td class='id'>
+        #<%- ctx.scan.id %>
+        <% if (ctx.scan.kind === 'single') { %>
+            <span class='kind-badge' title='<%- ctx.scan.queryLabel || "" %>'><%= ctx.t('similarity.kindSingle') %></span>
+        <% } %>
+    </td>
     <td class='created'><%= ctx.makeRelativeTime(ctx.scan.creationTime) %></td>
     <td class='status'><%- ctx.t('similarity.status.' + ctx.scan.status) %></td>
     <td class='progress'>

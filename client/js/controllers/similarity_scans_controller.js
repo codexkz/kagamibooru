@@ -1,6 +1,8 @@
 "use strict";
 
 const api = require("../api.js");
+const router = require("../router.js");
+const uri = require("../util/uri.js");
 const i18n = require("../i18n.js");
 const topNavigation = require("../models/top_navigation.js");
 const SimilarityScanList = require("../models/similarity_scan_list.js");
@@ -30,12 +32,16 @@ class SimilarityScansController {
                     scans: this._scans,
                     canCreate: api.hasPrivilege("posts:similarity:create"),
                     canDelete: api.hasPrivilege("posts:similarity:delete"),
+                    singleEmptyMsg: i18n.t("similarity.singleEmpty"),
                 });
                 this._view.addEventListener("create", (e) =>
                     this._evtCreate(e)
                 );
                 this._view.addEventListener("delete", (e) =>
                     this._evtDelete(e)
+                );
+                this._view.addEventListener("createSingle", (e) =>
+                    this._evtCreateSingle(e)
                 );
                 this._startPollingIfNeeded();
             },
@@ -56,6 +62,39 @@ class SimilarityScansController {
                 this._scans.add(scan);
                 this._view.addScan(scan);
                 this._startPollingIfNeeded();
+            },
+            (error) => {
+                this._view.enableForm();
+                this._view.showError(error.message);
+            }
+        );
+    }
+
+    _evtCreateSingle(e) {
+        this._view.clearMessages();
+        this._view.disableForm();
+        const d = e.detail;
+        let promise;
+        if (d.postId) {
+            promise = SimilarityScan.createSingleFromPost(
+                d.threshold,
+                d.postId
+            );
+        } else if (d.file) {
+            promise = SimilarityScan.createSingleFromUpload(
+                d.threshold,
+                d.file
+            );
+        } else {
+            promise = SimilarityScan.createSingleFromUrl(d.threshold, d.url);
+        }
+        promise.then(
+            (scan) => {
+                // Single scans complete synchronously; jump straight to the
+                // result page.
+                router.show(
+                    uri.formatClientLink("similarity-scan", scan.id)
+                );
             },
             (error) => {
                 this._view.enableForm();

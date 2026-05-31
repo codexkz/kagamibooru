@@ -8,6 +8,8 @@ const SimilarityGroupList = require("../models/similarity_group_list.js");
 const SimilarityScanView = require("../views/similarity_scan_view.js");
 const EmptyView = require("../views/empty_view.js");
 
+const PER_PAGE = 5;
+
 class SimilarityScanController {
     constructor(ctx) {
         if (!api.hasPrivilege("posts:similarity:list")) {
@@ -20,15 +22,19 @@ class SimilarityScanController {
         topNavigation.setTitle(i18n.t("similarity.title"));
 
         const scanId = ctx.parameters.id;
+        const offset = parseInt(ctx.parameters.offset) || 0;
 
         Promise.all([
             SimilarityScan.get(scanId),
-            SimilarityGroupList.getForScan(scanId),
+            SimilarityGroupList.getForScan(scanId, offset, PER_PAGE),
         ]).then(
-            ([scan, groups]) => {
+            ([scan, groupResponse]) => {
                 this._view = new SimilarityScanView({
                     scan: scan,
-                    groups: groups,
+                    groups: groupResponse.results,
+                    offset: groupResponse.offset,
+                    limit: groupResponse.limit,
+                    total: groupResponse.total,
                 });
             },
             (error) => {

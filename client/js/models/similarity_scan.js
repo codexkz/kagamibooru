@@ -100,6 +100,42 @@ class SimilarityScan extends events.EventTarget {
             });
     }
 
+    static createSingleFromPost(threshold, postId) {
+        return api
+            .post(uri.formatApiLink("similarity-scans"), {
+                kind: "single",
+                threshold: threshold,
+                queryPostId: postId,
+            })
+            .then((response) =>
+                Promise.resolve(SimilarityScan.fromResponse(response))
+            );
+    }
+
+    static createSingleFromUrl(threshold, url) {
+        return api
+            .post(uri.formatApiLink("similarity-scans"), {
+                kind: "single",
+                threshold: threshold,
+                contentUrl: url,
+            })
+            .then((response) =>
+                Promise.resolve(SimilarityScan.fromResponse(response))
+            );
+    }
+
+    static createSingleFromUpload(threshold, file) {
+        return api
+            .post(
+                uri.formatApiLink("similarity-scans"),
+                { kind: "single", threshold: threshold },
+                { content: file }
+            )
+            .then((response) =>
+                Promise.resolve(SimilarityScan.fromResponse(response))
+            );
+    }
+
     refresh() {
         return SimilarityScan.get(this._id).then((scan) => {
             this._updateFromResponse({
@@ -131,8 +167,18 @@ class SimilarityScan extends events.EventTarget {
             });
     }
 
+    get kind() {
+        return this._kind;
+    }
+
+    get queryLabel() {
+        return this._queryLabel;
+    }
+
     _updateFromResponse(response) {
         this._id = response.id;
+        this._kind = response.kind;
+        this._queryLabel = response.queryLabel;
         this._creationTime = response.creationTime;
         this._finishTime = response.finishTime;
         this._status = response.status;

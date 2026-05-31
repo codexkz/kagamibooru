@@ -558,5 +558,22 @@
     "similarity.noGroups": "類似グループは見つかりませんでした。",
     "similarity.scanStarted": "スキャンを開始しました。",
     "similarity.confirmDelete": "このスキャンを削除しますか？",
-    "similarity.noPrivilege": "類似画像スキャンを表示する権限がありません。"
+    "similarity.noPrivilege": "類似画像スキャンを表示する権限がありません。",
+    "similarity.prev": "前へ",
+    "similarity.next": "次へ",
+    "similarity.pageInfo": "{total} 件中 {from}–{to}",
+    "similarity.fullScanTitle": "サイト全体スキャン",
+    "similarity.singleTitle": "1枚の画像から類似を検索",
+    "similarity.singleHint": "既存の投稿IDで検索（アップロードはサイトに追加されません）。",
+    "similarity.singlePostId": "投稿ID",
+    "similarity.singleUrl": "画像URL",
+    "similarity.singleUpload": "画像アップロード",
+    "similarity.singleSearch": "検索",
+    "similarity.singleEmpty": "投稿IDを入力するか、画像をドロップ／貼り付けしてください。",
+    "similarity.kindSingle": "単体",
+    "similarity.queryLabel": "検索元: {label}",
+    "similarity.singleDropHint": "画像をここにドロップ・クリックで選択・コピーした画像を貼り付け（右クリック→画像をコピー）。画像は検索に使うだけでサイトには追加されません。",
+    "similarity.singleOr": "— または —",
+    "similarity.singleSearchImage": "この画像で検索",
+    "similarity.singleClear": "クリア"
 }

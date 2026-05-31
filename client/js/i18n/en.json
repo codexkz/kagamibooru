@@ -558,5 +558,22 @@
     "similarity.noGroups": "No similar groups found.",
     "similarity.scanStarted": "Scan started.",
     "similarity.confirmDelete": "Delete this scan?",
-    "similarity.noPrivilege": "You don't have privileges to view similarity scans."
+    "similarity.noPrivilege": "You don't have privileges to view similarity scans.",
+    "similarity.prev": "Previous",
+    "similarity.next": "Next",
+    "similarity.pageInfo": "{from}–{to} of {total}",
+    "similarity.fullScanTitle": "Full site scan",
+    "similarity.singleTitle": "Find similar to one image",
+    "similarity.singleHint": "Search by an existing post ID (uploads are not added to the site).",
+    "similarity.singlePostId": "Post ID",
+    "similarity.singleUrl": "Image URL",
+    "similarity.singleUpload": "Upload image",
+    "similarity.singleSearch": "Search",
+    "similarity.singleEmpty": "Enter a post ID, or drop / paste an image.",
+    "similarity.kindSingle": "single",
+    "similarity.queryLabel": "Query: {label}",
+    "similarity.singleDropHint": "Drop an image here, click to choose, or paste an image you copied (right-click → Copy image). The image is only used for the search and is not added to the site.",
+    "similarity.singleOr": "— or —",
+    "similarity.singleSearchImage": "Search by this image",
+    "similarity.singleClear": "Clear"
 }
