@@ -242,6 +242,45 @@ class PostSearchConfig(BaseSearchConfig):
             lambda subquery: subquery.join(model.Tag).join(model.TagName),
         )
 
+    def _create_favgroup_filter(self) -> Filter:
+        # Matches posts in one of the CURRENT user's favorite groups by name.
+        # Scoped to self.user so users only search their own groups.
+        user = self.user
+
+        def wrapper(
+            query: SaQuery,
+            criterion: Optional[criteria.BaseCriterion],
+            negated: bool,
+        ) -> SaQuery:
+            if not criterion:
+                raise errors.SearchError(
+                    "favgroup filter requires a group name."
+                )
+            if not user or user.rank == "anonymous":
+                raise errors.SearchError(
+                    "Must be logged in to search favorite groups."
+                )
+            name = getattr(criterion, "value", None)
+            if not isinstance(name, str):
+                raise errors.SearchError(
+                    "favgroup filter cannot be used with ranges."
+                )
+            subquery = (
+                db.session.query(model.FavoriteGroupPost.post_id)
+                .join(
+                    model.FavoriteGroup,
+                    model.FavoriteGroup.favorite_group_id
+                    == model.FavoriteGroupPost.favorite_group_id,
+                )
+                .filter(model.FavoriteGroup.user_id == user.user_id)
+                .filter(model.FavoriteGroup.name == name)
+            )
+            if negated:
+                return query.filter(model.Post.post_id.notin_(subquery))
+            return query.filter(model.Post.post_id.in_(subquery))
+
+        return wrapper
+
     @property
     def named_filters(self) -> Dict[str, Filter]:
         return util.unalias_dict(
@@ -275,12 +314,27 @@ class PostSearchConfig(BaseSearchConfig):
                     ["fav"],
                     search_util.create_subquery_filter(
                         model.Post.post_id,
-                        model.PostFavorite.post_id,
+                        model.FavoriteGroupPost.post_id,
                         model.User.name,
                         search_util.create_str_filter,
-                        lambda subquery: subquery.join(model.User),
+                        # "fav:user" = posts in that user's DEFAULT group
+                        # (the star). Join group -> user, filter is_default.
+                        lambda subquery: subquery.join(
+                            model.FavoriteGroup,
+                            model.FavoriteGroup.favorite_group_id
+                            == model.FavoriteGroupPost.favorite_group_id,
+                        )
+                        .join(
+                            model.User,
+                            model.User.user_id
+                            == model.FavoriteGroup.user_id,
+                        )
+                        .filter(
+                            model.FavoriteGroup.is_default == True  # noqa: E712
+                        ),
                     ),
                 ),
+                (["favgroup"], self._create_favgroup_filter()),
                 (["liked"], _create_score_filter(1)),
                 (["disliked"], _create_score_filter(-1)),
                 (

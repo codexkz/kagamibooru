@@ -5,6 +5,7 @@ import kagamibooru.api.pool_api
 import kagamibooru.api.pool_category_api
 import kagamibooru.api.post_api
 import kagamibooru.api.similarity_api
+import kagamibooru.api.favorite_group_api
 import kagamibooru.api.snapshot_api
 import kagamibooru.api.tag_api
 import kagamibooru.api.tag_category_api

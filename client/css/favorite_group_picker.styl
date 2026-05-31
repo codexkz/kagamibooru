@@ -1,0 +1,136 @@
+// Shared row list used by both the favorite-group modal picker and the
+// account "favorite groups" tab, so the two stay visually consistent.
+.fav-group-list
+    list-style none
+    margin 0
+    padding 0
+
+    li
+        display flex
+        align-items flex-start
+        gap 0.5em
+        padding 0.4em 0
+        border-bottom 1px solid rgba(128, 128, 128, 0.2)
+
+        &:last-child
+            border-bottom 0
+
+        > label
+            display flex
+            align-items flex-start
+            gap 0.5em
+            flex 1
+            min-width 0
+            margin 0
+            cursor pointer
+
+        input[type=checkbox]
+            margin 0.2em 0 0 0
+            flex-shrink 0
+
+        .info
+            flex 1
+            min-width 0
+            display flex
+            flex-direction column
+
+        .line
+            display flex
+            align-items baseline
+            flex-wrap wrap
+            gap 0.4em
+
+            .name
+                font-weight bold
+
+            .count
+                color #888
+                font-size 0.9em
+
+        .desc
+            color #888
+            font-size 0.85em
+            margin-top 0.15em
+            word-break break-word
+
+        .default-badge
+            font-size 0.7em
+            text-transform uppercase
+            color #fff
+            background #aaa
+            border-radius 2px
+            padding 0 0.35em
+            line-height 1.5
+
+        .row-actions
+            display flex
+            gap 0.6em
+            white-space nowrap
+            flex-shrink 0
+
+            a
+                color #888
+
+                &:hover
+                    color inherit
+
+.fav-group-picker-overlay
+    position fixed
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background rgba(0, 0, 0, 0.5)
+    display flex
+    align-items center
+    justify-content center
+    z-index 1000
+
+    .fav-group-picker
+        background white
+        padding 1em 1.5em
+        border-radius 4px
+        max-width 90%
+        width 26em
+        max-height 80%
+        overflow-y auto
+
+        h2
+            margin-top 0
+
+        .create-row
+            display flex
+            gap 0.5em
+            margin-bottom 1em
+
+            input
+                flex 1 1 auto
+                min-width 0
+
+            button
+                flex 0 0 auto
+
+        .messages
+            margin-top 0.5em
+            color #c00
+
+        .buttons
+            margin-top 1em
+            text-align right
+
+.user-favorite-groups
+    .new-favorite-group
+        display flex
+        gap 0.5em
+        margin-bottom 1em
+        max-width 40em
+
+        input
+            flex 1 1 auto
+            min-width 0
+
+        button
+            flex 0 0 auto
+
+    .fav-group-list
+        max-width 40em

@@ -40,19 +40,17 @@
                         step: '0.01',
                     }) %>
                 </li>
-            </ul>
-
-            <div class='single-source'>
-                <div class='by-post-id'>
+                <li>
                     <%= ctx.makeNumericInput({
                         text: ctx.t('similarity.singlePostId'),
                         name: 'queryPostId',
                         min: '1',
                         step: '1',
                     }) %>
-                    <input type='submit' class='start by-id' value='<%= ctx.t("similarity.singleSearch") %>'>
-                </div>
+                </li>
+            </ul>
 
+            <div class='single-source'>
                 <p class='or-divider'><%= ctx.t('similarity.singleOr') %></p>
 
                 <p class='dropper-hint'><%= ctx.t('similarity.singleDropHint') %></p>
@@ -61,10 +59,13 @@
                 <div class='single-preview' style='display:none'>
                     <img class='thumbnail' alt='preview'>
                     <div class='preview-actions'>
-                        <button type='button' class='search-image'><%= ctx.t('similarity.singleSearchImage') %></button>
                         <button type='button' class='clear-image'><%= ctx.t('similarity.singleClear') %></button>
                     </div>
                 </div>
+            </div>
+
+            <div class='buttons'>
+                <input type='submit' class='start by-id' value='<%= ctx.t("similarity.singleSearch") %>'>
             </div>
         </form>
     <% } %>

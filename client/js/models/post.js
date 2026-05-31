@@ -495,6 +495,7 @@ class Post extends events.EventTarget {
             _favoriteCount: response.favoriteCount,
             _ownScore: response.ownScore,
             _ownFavorite: response.ownFavorite,
+            _favoriteGroupIds: response.favoriteGroupIds || [],
             _hasCustomThumbnail: response.hasCustomThumbnail,
             _redirectedFrom: response.redirectedFrom || null,
         });

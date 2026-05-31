@@ -64,6 +64,10 @@ class PostReadonlySidebarControl extends events.EventTarget {
         return this._hostNode.querySelector(".remove-favorite");
     }
 
+    get _manageFavGroupsButtonNode() {
+        return this._hostNode.querySelector(".manage-fav-groups");
+    }
+
     get _fitBothButtonNode() {
         return this._hostNode.querySelector(".fit-both");
     }
@@ -106,6 +110,9 @@ class PostReadonlySidebarControl extends events.EventTarget {
                 favoriteCount: this._post.favoriteCount,
                 ownFavorite: this._post.ownFavorite,
                 canFavorite: api.hasPrivilege("posts:favorite"),
+                canManageGroups: api.hasPrivilege(
+                    "favoriteGroups:manage"
+                ),
             })
         );
 
@@ -117,6 +124,11 @@ class PostReadonlySidebarControl extends events.EventTarget {
         if (this._remFavButtonNode) {
             this._remFavButtonNode.addEventListener("click", (e) =>
                 this._evtRemoveFromFavoritesClick(e)
+            );
+        }
+        if (this._manageFavGroupsButtonNode) {
+            this._manageFavGroupsButtonNode.addEventListener("click", (e) =>
+                this._evtManageFavGroupsClick(e)
             );
         }
     }
@@ -197,6 +209,18 @@ class PostReadonlySidebarControl extends events.EventTarget {
                 },
             })
         );
+    }
+
+    _evtManageFavGroupsClick(e) {
+        e.preventDefault();
+        const FavoriteGroupPickerControl = require("./favorite_group_picker_control.js");
+        const picker = new FavoriteGroupPickerControl(this._post);
+        // Refresh the post (favorite_group_ids / counts) after edits so the
+        // star icon and counts stay accurate.
+        picker.addEventListener("change", () => {
+            this._post.mutateFavoriteState && this._post.mutateFavoriteState();
+        });
+        picker.open();
     }
 
     _evtScoreClick(e, score) {

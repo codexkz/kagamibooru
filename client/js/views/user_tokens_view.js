@@ -5,26 +5,59 @@ const views = require("../util/views.js");
 
 const template = views.getTemplate("user-tokens");
 
+// Remember the last selected token type across view re-creations (the token
+// mutation handlers redirect through the router, which builds a fresh view).
+let lastTokenType = "web";
+
 class UserTokenView extends events.EventTarget {
     constructor(ctx) {
         super();
 
+        this._ctx = ctx;
         this._user = ctx.user;
-        this._tokenFilter = ctx.tokenFilter || null;
-        // Filter tokens by type if specified
-        if (this._tokenFilter) {
-            ctx.tokens = ctx.tokens.filter(t => t.type === this._tokenFilter);
-        }
-        this._tokens = ctx.tokens;
+        this._allTokens = ctx.tokens || [];
+        this._tokenType = ctx.tokenType || lastTokenType;
+        this._tokens = [];
         this._hostNode = ctx.hostNode;
         this._tokenFormNodes = [];
-        views.replaceContent(this._hostNode, template(ctx));
+
+        this._render();
+    }
+
+    _render() {
+        lastTokenType = this._tokenType;
+        this._tokens = this._allTokens.filter(
+            (t) => t.type === this._tokenType
+        );
+
+        this._ctx.tokenFilter = this._tokenType;
+        this._ctx.tokenType = this._tokenType;
+        this._ctx.tokens = this._tokens;
+        views.replaceContent(this._hostNode, template(this._ctx));
+
+        this._decorateTypeSwitch();
         views.decorateValidator(this._formNode);
-
         this._formNode.addEventListener("submit", (e) => this._evtSubmit(e));
-
         this._decorateTokenForms();
         this._decorateTokenNoteChangeLinks();
+    }
+
+    _decorateTypeSwitch() {
+        for (let node of this._hostNode.querySelectorAll(
+            ".token-type-switch [data-type]"
+        )) {
+            node.addEventListener("click", (e) => this._evtSwitchType(e));
+        }
+    }
+
+    _evtSwitchType(e) {
+        e.preventDefault();
+        const type = e.currentTarget.getAttribute("data-type");
+        if (type === this._tokenType) {
+            return;
+        }
+        this._tokenType = type;
+        this._render();
     }
 
     _decorateTokenForms() {

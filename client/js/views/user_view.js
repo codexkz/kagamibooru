@@ -6,6 +6,7 @@ const UserDeleteView = require("./user_delete_view.js");
 const UserTokensView = require("./user_tokens_view.js");
 const UserSummaryView = require("./user_summary_view.js");
 const UserEditView = require("./user_edit_view.js");
+const UserFavoriteGroupsView = require("./user_favorite_groups_view.js");
 const EmptyView = require("../views/empty_view.js");
 
 const template = views.getTemplate("user");
@@ -49,14 +50,13 @@ class UserView extends events.EventTarget {
                 this._view = new UserEditView(ctx);
                 events.proxyEvent(this._view, this, "submit");
             }
-        } else if (ctx.section === "list-tokens" || ctx.section === "api-tokens") {
+        } else if (ctx.section === "tokens") {
             if (!this._ctx.canListTokens) {
                 this._view = new EmptyView();
                 this._view.showError(
                     "You don't have privileges to view user tokens."
                 );
             } else {
-                ctx.tokenFilter = ctx.section === "api-tokens" ? "api" : "web";
                 this._view = new UserTokensView(ctx);
                 events.proxyEvent(this._view, this, "delete", "delete-token");
                 events.proxyEvent(this._view, this, "submit", "create-token");
@@ -71,6 +71,15 @@ class UserView extends events.EventTarget {
             } else {
                 this._view = new UserDeleteView(ctx);
                 events.proxyEvent(this._view, this, "submit", "delete");
+            }
+        } else if (ctx.section === "favorite-groups") {
+            if (!this._ctx.canManageFavoriteGroups) {
+                this._view = new EmptyView();
+                this._view.showError(
+                    "You don't have privileges to manage favorite groups."
+                );
+            } else {
+                this._view = new UserFavoriteGroupsView(ctx);
             }
         } else {
             this._view = new UserSummaryView(ctx);

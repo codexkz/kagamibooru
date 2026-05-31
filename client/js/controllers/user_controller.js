@@ -28,7 +28,7 @@ class UserController {
         this._errorMessages = [];
 
         let userTokenPromise = Promise.resolve([]);
-        if (section === "list-tokens" || section === "api-tokens") {
+        if (section === "tokens") {
             userTokenPromise = UserToken.get(userName).then(
                 (userTokens) => {
                     return userTokens.map((token) => {
@@ -102,6 +102,8 @@ class UserController {
                         `userTokens:delete:${infix}`
                     ),
                     canDelete: api.hasPrivilege(`users:delete:${infix}`),
+                    canManageFavoriteGroups:
+                        isLoggedIn && api.hasPrivilege("favoriteGroups:manage"),
                     ranks: ranks,
                     tokens: userTokens,
                 });
@@ -262,7 +264,7 @@ class UserController {
                     uri.formatClientLink(
                         "user",
                         e.detail.user.name,
-                        "api-tokens"
+                        "tokens"
                     )
                 );
                 ctx.controller.showSuccess(
@@ -288,7 +290,7 @@ class UserController {
                         uri.formatClientLink(
                             "user",
                             e.detail.user.name,
-                            "list-tokens"
+                            "tokens"
                         )
                     );
                     ctx.controller.showSuccess(
@@ -317,7 +319,7 @@ class UserController {
                     uri.formatClientLink(
                         "user",
                         e.detail.user.name,
-                        "list-tokens"
+                        "tokens"
                     )
                 );
                 ctx.controller.showSuccess(
@@ -339,13 +341,13 @@ module.exports = (router) => {
     router.enter(["user", ":name", "edit"], (ctx, next) => {
         ctx.controller = new UserController(ctx, "edit");
     });
-    router.enter(["user", ":name", "list-tokens"], (ctx, next) => {
-        ctx.controller = new UserController(ctx, "list-tokens");
-    });
-    router.enter(["user", ":name", "api-tokens"], (ctx, next) => {
-        ctx.controller = new UserController(ctx, "api-tokens");
+    router.enter(["user", ":name", "tokens"], (ctx, next) => {
+        ctx.controller = new UserController(ctx, "tokens");
     });
     router.enter(["user", ":name", "delete"], (ctx, next) => {
         ctx.controller = new UserController(ctx, "delete");
+    });
+    router.enter(["user", ":name", "favorite-groups"], (ctx, next) => {
+        ctx.controller = new UserController(ctx, "favorite-groups");
     });
 };

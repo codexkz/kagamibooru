@@ -350,14 +350,21 @@ def get_favorites_for_user(
     if target_user is None:
         return {"offset": offset, "limit": limit, "total": 0, "results": []}
 
+    # "Favorites" = posts in the user's default favorite group (star).
     query = (
         db.session.query(model.Post)
         .join(
-            model.PostFavorite,
-            model.Post.post_id == model.PostFavorite.post_id,
+            model.FavoriteGroupPost,
+            model.Post.post_id == model.FavoriteGroupPost.post_id,
         )
-        .filter(model.PostFavorite.user_id == target_user.user_id)
-        .order_by(model.PostFavorite.time.desc())
+        .join(
+            model.FavoriteGroup,
+            model.FavoriteGroup.favorite_group_id
+            == model.FavoriteGroupPost.favorite_group_id,
+        )
+        .filter(model.FavoriteGroup.user_id == target_user.user_id)
+        .filter(model.FavoriteGroup.is_default == True)  # noqa: E712
+        .order_by(model.FavoriteGroupPost.time.desc())
     )
     total = query.count()
     page = query.offset(offset).limit(limit).all()

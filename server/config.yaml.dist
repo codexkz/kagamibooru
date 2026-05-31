@@ -115,6 +115,9 @@ privileges:
     'posts:favorite':               regular
     # Add/remove/list favorites on behalf of another user (himari-bot proxy).
     'posts:favorite:any':           administrator
+    # User-owned private favorite groups (collections). Each user manages
+    # only their own; this just gates access to the feature.
+    'favorite_groups:manage':       regular
     'posts:bulk-edit:tags':         power
     'posts:bulk-edit:safety':       power
     'posts:bulk-edit:delete':       power

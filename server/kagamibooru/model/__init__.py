@@ -5,7 +5,6 @@ from kagamibooru.model.pool import Pool, PoolName, PoolPost
 from kagamibooru.model.pool_category import PoolCategory
 from kagamibooru.model.post import (
     Post,
-    PostFavorite,
     PostFeature,
     PostNote,
     PostRelation,
@@ -19,6 +18,10 @@ from kagamibooru.model.similarity import (
     SimilarityGroupPost,
 )
 from kagamibooru.model.post_redirect import PostRedirect
+from kagamibooru.model.favorite_group import (
+    FavoriteGroup,
+    FavoriteGroupPost,
+)
 from kagamibooru.model.snapshot import Snapshot
 from kagamibooru.model.tag import Tag, TagImplication, TagName, TagSuggestion, TagTagCategory
 from kagamibooru.model.tag_category import TagCategory

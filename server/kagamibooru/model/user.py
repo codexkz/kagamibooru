@@ -2,7 +2,8 @@ import sqlalchemy as sa
 
 from kagamibooru.model.base import Base
 from kagamibooru.model.comment import Comment
-from kagamibooru.model.post import Post, PostFavorite, PostScore
+from kagamibooru.model.post import Post, PostScore
+from kagamibooru.model.favorite_group import FavoriteGroup, FavoriteGroupPost
 
 
 class User(Base):
@@ -41,7 +42,7 @@ class User(Base):
     comments = sa.orm.relationship("Comment", back_populates="user")
     post_features = sa.orm.relationship("PostFeature", back_populates="user", cascade="all, delete-orphan")
     post_scores = sa.orm.relationship("PostScore", back_populates="user", cascade="all, delete-orphan")
-    post_favorites = sa.orm.relationship("PostFavorite", back_populates="user", cascade="all, delete-orphan")
+    favorite_groups = sa.orm.relationship("FavoriteGroup", back_populates="user", cascade="all, delete-orphan")
     comment_scores = sa.orm.relationship("CommentScore", back_populates="user", cascade="all, delete-orphan")
 
     @property
@@ -68,11 +69,23 @@ class User(Base):
 
     @property
     def favorite_post_count(self) -> int:
+        # Distinct posts across all of this user's favorite groups.
         from kagamibooru.db import session
 
         return (
-            session.query(sa.sql.expression.func.sum(1))
-            .filter(PostFavorite.user_id == self.user_id)
+            session.query(
+                sa.sql.expression.func.count(
+                    sa.sql.expression.distinct(
+                        FavoriteGroupPost.post_id
+                    )
+                )
+            )
+            .join(
+                FavoriteGroup,
+                FavoriteGroup.favorite_group_id
+                == FavoriteGroupPost.favorite_group_id,
+            )
+            .filter(FavoriteGroup.user_id == self.user_id)
             .one()[0]
             or 0
         )

@@ -1,4 +1,8 @@
 <div id='user-tokens'>
+    <div class='token-type-switch' style='display:flex; margin-bottom:1em;'>
+        <a href data-type='web' style='padding:0.35em 1.2em; border:1px solid #24AADD; text-decoration:none; <%= ctx.tokenFilter !== "api" ? "background:#24AADD; color:#fff;" : "color:#24AADD;" %>'><%= ctx.t('userTokens.typeWeb') %></a><!--
+        --><a href data-type='api' style='padding:0.35em 1.2em; border:1px solid #24AADD; border-left:0; text-decoration:none; <%= ctx.tokenFilter === "api" ? "background:#24AADD; color:#fff;" : "color:#24AADD;" %>'><%= ctx.t('userTokens.typeApi') %></a>
+    </div>
     <div class='messages'></div>
     <% if (ctx.tokens.length > 0) { %>
     <% _.each(ctx.tokens, function(token, index) { %>

@@ -7,6 +7,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 
 from kagamibooru.model.base import Base
 from kagamibooru.model.comment import Comment
+from kagamibooru.model.favorite_group import FavoriteGroup, FavoriteGroupPost
 from kagamibooru.model.pool import PoolPost
 
 
@@ -58,31 +59,6 @@ class PostScore(Base):
 
     post = sa.orm.relationship("Post", back_populates="scores")
     user = sa.orm.relationship("User", back_populates="post_scores")
-
-
-class PostFavorite(Base):
-    __tablename__ = "post_favorite"
-
-    post_id = sa.Column(
-        "post_id",
-        sa.Integer,
-        sa.ForeignKey("post.id"),
-        primary_key=True,
-        nullable=False,
-        index=True,
-    )
-    user_id = sa.Column(
-        "user_id",
-        sa.Integer,
-        sa.ForeignKey("user.id"),
-        primary_key=True,
-        nullable=False,
-        index=True,
-    )
-    time = sa.Column("time", sa.DateTime, nullable=False)
-
-    post = sa.orm.relationship("Post", back_populates="favorited_by")
-    user = sa.orm.relationship("User", back_populates="post_favorites")
 
 
 class PostNote(Base):
@@ -238,10 +214,6 @@ class Post(Base):
         "PostScore", cascade="all, delete-orphan", lazy="joined",
         back_populates="post",
     )
-    favorited_by = sa.orm.relationship(
-        "PostFavorite", cascade="all, delete-orphan", lazy="joined",
-        back_populates="post",
-    )
     notes = sa.orm.relationship(
         "PostNote", cascade="all, delete-orphan", lazy="joined",
         back_populates="post",
@@ -303,21 +275,29 @@ class Post(Base):
         .scalar_subquery()
     )
 
+    # Favorite count = number of distinct users who put this post in ANY of
+    # their favorite groups (the heart/star adds to the default group).
     favorite_count = sa.orm.column_property(
         sa.sql.expression.select(
-            sa.sql.expression.func.count(PostFavorite.post_id)
+            sa.sql.expression.func.count(
+                sa.sql.expression.distinct(FavoriteGroup.user_id)
+            )
         )
-        .where(PostFavorite.post_id == post_id)
-        .correlate_except(PostFavorite)
+        .where(
+            FavoriteGroupPost.favorite_group_id
+            == FavoriteGroup.favorite_group_id
+        )
+        .where(FavoriteGroupPost.post_id == post_id)
+        .correlate_except(FavoriteGroupPost, FavoriteGroup)
         .scalar_subquery()
     )
 
     last_favorite_time = sa.orm.column_property(
         sa.sql.expression.select(
-            sa.sql.expression.func.max(PostFavorite.time)
+            sa.sql.expression.func.max(FavoriteGroupPost.time)
         )
-        .where(PostFavorite.post_id == post_id)
-        .correlate_except(PostFavorite)
+        .where(FavoriteGroupPost.post_id == post_id)
+        .correlate_except(FavoriteGroupPost)
         .scalar_subquery()
     )
 

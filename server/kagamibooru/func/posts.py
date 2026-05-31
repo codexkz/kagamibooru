@@ -201,6 +201,7 @@ class PostSerializer(serialization.BaseSerializer):
             "score": self.serialize_score,
             "ownScore": self.serialize_own_score,
             "ownFavorite": self.serialize_own_favorite,
+            "favoriteGroupIds": self.serialize_favorite_group_ids,
             "tagCount": self.serialize_tag_count,
             "favoriteCount": self.serialize_favorite_count,
             "commentCount": self.serialize_comment_count,
@@ -296,15 +297,23 @@ class PostSerializer(serialization.BaseSerializer):
         return scores.get_score(self.post, self.auth_user)
 
     def serialize_own_favorite(self) -> Any:
-        return (
-            len(
-                [
-                    user
-                    for user in self.post.favorited_by
-                    if user.user_id == self.auth_user.user_id
-                ]
-            )
-            > 0
+        from kagamibooru.func import favorite_groups
+
+        if not self.auth_user or not self.auth_user.user_id:
+            return False
+        # "Own favorite" = post is in the viewer's default group (the star).
+        return favorite_groups.is_favorited(
+            self.post.post_id, self.auth_user
+        )
+
+    def serialize_favorite_group_ids(self) -> Any:
+        from kagamibooru.func import favorite_groups
+
+        if not self.auth_user or not self.auth_user.user_id:
+            return []
+        # Which of the viewer's own groups contain this post (for the picker).
+        return favorite_groups.get_group_ids_for_post(
+            self.post.post_id, self.auth_user
         )
 
     def serialize_tag_count(self) -> Any:
@@ -329,9 +338,13 @@ class PostSerializer(serialization.BaseSerializer):
         return self.post.last_feature_time
 
     def serialize_favorited_by(self) -> Any:
+        from kagamibooru.func import favorite_groups
+
         return [
-            users.serialize_micro_user(rel.user, self.auth_user)
-            for rel in self.post.favorited_by
+            users.serialize_micro_user(user, self.auth_user)
+            for user in favorite_groups.get_favoriting_users(
+                self.post.post_id
+            )
         ]
 
     def serialize_has_custom_thumbnail(self) -> Any:
@@ -895,7 +908,15 @@ def merge_posts(
         merge_tables(model.PostScore, "user_id", source_post_id, target_post_id)
 
     def merge_favorites(source_post_id: int, target_post_id: int) -> None:
-        merge_tables(model.PostFavorite, "user_id", source_post_id, target_post_id)
+        # Favorites now live in favorite_group_post; move the source post's
+        # group memberships to the target, skipping groups that already
+        # contain the target (dedup on favorite_group_id).
+        merge_tables(
+            model.FavoriteGroupPost,
+            "favorite_group_id",
+            source_post_id,
+            target_post_id,
+        )
 
     def merge_comments(source_post_id: int, target_post_id: int) -> None:
         merge_tables(model.Comment, None, source_post_id, target_post_id)

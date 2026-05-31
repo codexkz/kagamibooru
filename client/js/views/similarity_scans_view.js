@@ -28,9 +28,10 @@ class SimilarityScansView extends events.EventTarget {
         if (this._singleFormNode) {
             this._pendingFile = null;
 
-            // "Search" next to the post-id field submits the form.
+            // Single "search" button at the bottom: prefer the dropped/pasted
+            // file, otherwise fall back to the post-id field.
             this._singleFormNode.addEventListener("submit", (e) =>
-                this._evtCreateByPostId(e)
+                this._evtSingleSubmit(e)
             );
 
             const dropperNode = this._hostNode.querySelector(
@@ -67,13 +68,6 @@ class SimilarityScansView extends events.EventTarget {
                 this._previewNode = this._hostNode.querySelector(
                     ".single-preview"
                 );
-                this._previewNode
-                    .querySelector(".search-image")
-                    .addEventListener("click", () => {
-                        if (this._pendingFile) {
-                            this._dispatchSingle({ file: this._pendingFile });
-                        }
-                    });
                 this._previewNode
                     .querySelector(".clear-image")
                     .addEventListener("click", () => this._clearPendingFile());
@@ -157,8 +151,12 @@ class SimilarityScansView extends events.EventTarget {
         );
     }
 
-    _evtCreateByPostId(e) {
+    _evtSingleSubmit(e) {
         e.preventDefault();
+        if (this._pendingFile) {
+            this._dispatchSingle({ file: this._pendingFile });
+            return;
+        }
         const postIdRaw = this._singleFormNode
             .querySelector("[name=queryPostId]")
             .value.trim();
