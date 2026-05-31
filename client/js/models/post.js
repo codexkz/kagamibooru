@@ -30,6 +30,10 @@ class Post extends events.EventTarget {
         return this._id;
     }
 
+    get redirectedFrom() {
+        return this._redirectedFrom;
+    }
+
     get type() {
         return this._type;
     }
@@ -492,6 +496,7 @@ class Post extends events.EventTarget {
             _ownScore: response.ownScore,
             _ownFavorite: response.ownFavorite,
             _hasCustomThumbnail: response.hasCustomThumbnail,
+            _redirectedFrom: response.redirectedFrom || null,
         });
 
         for (let obj of [this, this._orig]) {

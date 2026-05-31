@@ -395,6 +395,42 @@ def get_post_by_id(post_id: int) -> model.Post:
     return post
 
 
+def get_redirect_target(old_post_id: int) -> Optional[int]:
+    """If `old_post_id` was merged away, return the surviving post id."""
+    row = (
+        db.session.query(model.PostRedirect)
+        .filter(model.PostRedirect.old_post_id == old_post_id)
+        .one_or_none()
+    )
+    return row.new_post_id if row else None
+
+
+def _record_merge_redirect(
+    source_post_id: int, target_post_id: int
+) -> None:
+    """Record source -> target, and flatten any chains pointing at source.
+
+    Keeps lookups single-hop: if X previously redirected to source, repoint
+    X straight to target.
+    """
+    now = datetime.utcnow()
+    # Repoint existing redirects that targeted the source post.
+    db.session.query(model.PostRedirect).filter(
+        model.PostRedirect.new_post_id == source_post_id
+    ).update({"new_post_id": target_post_id}, synchronize_session=False)
+    # Add the source -> target mapping itself (guard against self / dup).
+    if source_post_id != target_post_id and not get_redirect_target(
+        source_post_id
+    ):
+        db.session.add(
+            model.PostRedirect(
+                old_post_id=source_post_id,
+                new_post_id=target_post_id,
+                creation_time=now,
+            )
+        )
+
+
 def get_posts_by_ids(ids: List[int]) -> List[model.Post]:
     if len(ids) == 0:
         return []
@@ -914,6 +950,10 @@ def merge_posts(
     if replace_content:
         content = files.get(get_post_content_path(source_post))
         transfer_flags(source_post.post_id, target_post.post_id)
+
+    # Record the redirect before the source post is deleted, so old links
+    # to /post/{source} can be redirected to the surviving post.
+    _record_merge_redirect(source_post.post_id, target_post.post_id)
 
     # fixes unknown issue with SA's cascade deletions
     purge_post_signature(source_post)

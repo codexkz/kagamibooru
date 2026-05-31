@@ -114,8 +114,19 @@ def create_snapshots_for_post(
 @rest.routes.get("/post/(?P<post_id>[^/]+)/?")
 def get_post(ctx: rest.Context, params: Dict[str, str]) -> rest.Response:
     auth.verify_privilege(ctx.user, "posts:view")
-    post = _get_post(params)
-    return _serialize_post(ctx, post)
+    post_id = _get_post_id(params)
+    post = posts.try_get_post_by_id(post_id)
+    if post:
+        return _serialize_post(ctx, post)
+    # Post is gone — if it was merged away, redirect to the surviving post.
+    target_id = posts.get_redirect_target(post_id)
+    if target_id is not None:
+        target = posts.try_get_post_by_id(target_id)
+        if target:
+            response = _serialize_post(ctx, target)
+            response["redirectedFrom"] = post_id
+            return response
+    raise posts.PostNotFoundError("Post %r not found." % post_id)
 
 
 @rest.routes.put("/post/(?P<post_id>[^/]+)/?")

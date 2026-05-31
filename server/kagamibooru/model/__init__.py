@@ -18,6 +18,7 @@ from kagamibooru.model.similarity import (
     SimilarityGroup,
     SimilarityGroupPost,
 )
+from kagamibooru.model.post_redirect import PostRedirect
 from kagamibooru.model.snapshot import Snapshot
 from kagamibooru.model.tag import Tag, TagImplication, TagName, TagSuggestion, TagTagCategory
 from kagamibooru.model.tag_category import TagCategory

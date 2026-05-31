@@ -28,6 +28,17 @@ class PostMainController extends BasePostController {
             (responses) => {
                 const [post, aroundResponse] = responses;
 
+                // The requested id was merged away; the server returned the
+                // surviving post. Rewrite the URL to its canonical id so
+                // links/bookmarks to the old post land on the new one.
+                if (post.redirectedFrom && post.id != ctx.parameters.id) {
+                    ctx.parameters.id = post.id;
+                    const url = editMode
+                        ? uri.formatClientLink("post", post.id, "edit")
+                        : uri.formatClientLink("post", post.id);
+                    router.replace(url, ctx.state, false);
+                }
+
                 // remove junk from query, but save it into history so that it can
                 // be still accessed after history navigation / page refresh
                 if (parameters.query) {
