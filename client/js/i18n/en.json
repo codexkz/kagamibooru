@@ -540,7 +540,7 @@
     "nav.similarity": "Similarity",
     "similarity.title": "Similarity Scans",
     "similarity.threshold": "Threshold (0–1)",
-    "similarity.thresholdHint": "Lower = stricter (more identical). 0.45 matches reverse-search.",
+    "similarity.thresholdHint": "Lower = stricter (more identical).",
     "similarity.startScan": "Start scan",
     "similarity.colId": "#",
     "similarity.colCreated": "Created",

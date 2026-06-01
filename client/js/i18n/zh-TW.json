@@ -540,7 +540,7 @@
     "nav.similarity": "相似圖片",
     "similarity.title": "相似圖片掃描",
     "similarity.threshold": "閾值 (0–1)",
-    "similarity.thresholdHint": "越小越嚴格（越相同）。0.45 與反向搜尋一致。",
+    "similarity.thresholdHint": "越小越嚴格（越相同）。",
     "similarity.startScan": "開始掃描",
     "similarity.colId": "#",
     "similarity.colCreated": "建立時間",

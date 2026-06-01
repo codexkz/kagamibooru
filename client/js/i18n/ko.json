@@ -540,7 +540,7 @@
     "nav.similarity": "유사 이미지",
     "similarity.title": "유사 이미지 검사",
     "similarity.threshold": "임계값 (0~1)",
-    "similarity.thresholdHint": "낮을수록 엄격함(더 동일). 0.45는 역검색과 동일.",
+    "similarity.thresholdHint": "낮을수록 엄격함(더 동일).",
     "similarity.startScan": "검사 시작",
     "similarity.colId": "#",
     "similarity.colCreated": "생성 시각",
