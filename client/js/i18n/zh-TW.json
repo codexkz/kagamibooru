@@ -572,7 +572,7 @@
     "similarity.singleEmpty": "請輸入貼文編號，或拖放／貼上圖片。",
     "similarity.kindSingle": "單張",
     "similarity.queryLabel": "查詢源: {label}",
-    "similarity.singleDropHint": "把圖片拖到這裡、點擊選擇、或貼上你複製的圖片（右鍵→複製圖片）。圖片僅用於搜尋，不會加入站點。",
+    "similarity.singleDropHint": "拖入、點擊或貼上圖片。",
     "similarity.singleOr": "— 或 —",
     "similarity.singleSearchImage": "用這張圖搜尋",
     "similarity.singleClear": "清除",

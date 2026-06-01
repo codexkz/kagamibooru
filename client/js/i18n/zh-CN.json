@@ -572,7 +572,7 @@
     "similarity.singleEmpty": "请输入帖子编号，或拖放／粘贴图片。",
     "similarity.kindSingle": "单张",
     "similarity.queryLabel": "查询源: {label}",
-    "similarity.singleDropHint": "把图片拖到这里、点击选择、或粘贴你复制的图片（右键→复制图片）。图片仅用于搜索，不会加入站点。",
+    "similarity.singleDropHint": "拖入、点击或粘贴图片。",
     "similarity.singleOr": "— 或 —",
     "similarity.singleSearchImage": "用这张图搜索",
     "similarity.singleClear": "清除",

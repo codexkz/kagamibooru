@@ -572,7 +572,7 @@
     "similarity.singleEmpty": "게시물 ID를 입력하거나 이미지를 드롭/붙여넣기 하세요.",
     "similarity.kindSingle": "단일",
     "similarity.queryLabel": "검색 대상: {label}",
-    "similarity.singleDropHint": "이미지를 여기에 드롭, 클릭하여 선택, 또는 복사한 이미지를 붙여넣기(우클릭 → 이미지 복사). 이미지는 검색에만 사용되며 사이트에 추가되지 않습니다.",
+    "similarity.singleDropHint": "이미지를 드롭・클릭・붙여넣기.",
     "similarity.singleOr": "— 또는 —",
     "similarity.singleSearchImage": "이 이미지로 검색",
     "similarity.singleClear": "지우기",

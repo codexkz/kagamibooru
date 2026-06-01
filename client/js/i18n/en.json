@@ -572,7 +572,7 @@
     "similarity.singleEmpty": "Enter a post ID, or drop / paste an image.",
     "similarity.kindSingle": "single",
     "similarity.queryLabel": "Query: {label}",
-    "similarity.singleDropHint": "Drop an image here, click to choose, or paste an image you copied (right-click → Copy image). The image is only used for the search and is not added to the site.",
+    "similarity.singleDropHint": "Drop, click, or paste an image.",
     "similarity.singleOr": "— or —",
     "similarity.singleSearchImage": "Search by this image",
     "similarity.singleClear": "Clear",

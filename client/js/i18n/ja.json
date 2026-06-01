@@ -572,7 +572,7 @@
     "similarity.singleEmpty": "投稿IDを入力するか、画像をドロップ／貼り付けしてください。",
     "similarity.kindSingle": "単体",
     "similarity.queryLabel": "検索元: {label}",
-    "similarity.singleDropHint": "画像をここにドロップ・クリックで選択・コピーした画像を貼り付け（右クリック→画像をコピー）。画像は検索に使うだけでサイトには追加されません。",
+    "similarity.singleDropHint": "画像をドロップ・クリック・貼り付け。",
     "similarity.singleOr": "— または —",
     "similarity.singleSearchImage": "この画像で検索",
     "similarity.singleClear": "クリア",
