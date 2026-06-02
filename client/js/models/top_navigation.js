@@ -81,6 +81,7 @@ function _makeTopNavigation() {
     const ret = new TopNavigation();
     ret.add("home", new TopNavigationItem("H", i18n.t("nav.home"), ""));
     ret.add("posts", new TopNavigationItem("P", i18n.t("nav.posts"), "posts"));
+    ret.add("similarity", new TopNavigationItem("Y", i18n.t("nav.similarity"), "similarity-scans"));
     ret.add("upload", new TopNavigationItem("U", i18n.t("nav.upload"), "upload"));
     ret.add("comments", new TopNavigationItem("C", i18n.t("nav.comments"), "comments"));
     ret.add("tags", new TopNavigationItem("T", i18n.t("nav.tags"), "tags"));
@@ -88,7 +89,6 @@ function _makeTopNavigation() {
     ret.add("users", new TopNavigationItem("S", i18n.t("nav.users"), "users"));
     ret.add("account", new TopNavigationItem("A", i18n.t("nav.account"), "user/{me}"));
     ret.add("admin-users", new TopNavigationItem("R", i18n.t("nav.adminUsers"), "admin/users"));
-    ret.add("similarity", new TopNavigationItem("Y", i18n.t("nav.similarity"), "similarity-scans"));
     ret.add("register", new TopNavigationItem("R", i18n.t("nav.register"), "register"));
     ret.add("login", new TopNavigationItem("L", i18n.t("nav.login"), "login"));
     ret.add("logout", new TopNavigationItem("O", i18n.t("nav.logout"), "logout"));
